@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="42" fill="#08130d"/>
+  <rect x="18" y="18" width="156" height="156" rx="34" fill="#0f2a1a" stroke="#d6a94f" stroke-width="6"/>
+  <path d="M96 36l44 18v34c0 32-18 53-44 68-26-15-44-36-44-68V54l44-18z" fill="#173f28" stroke="#d6a94f" stroke-width="6"/>
+  <text x="96" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff">PM</text>
+  <text x="96" y="124" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#d6a94f">26</text>
+</svg>

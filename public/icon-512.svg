@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#08130d"/>
+  <rect x="48" y="48" width="416" height="416" rx="92" fill="#0f2a1a" stroke="#d6a94f" stroke-width="16"/>
+  <path d="M256 96l118 48v88c0 86-48 142-118 184-70-42-118-98-118-184v-88l118-48z" fill="#173f28" stroke="#d6a94f" stroke-width="16"/>
+  <text x="256" y="246" text-anchor="middle" font-family="Arial, sans-serif" font-size="92" font-weight="800" fill="#ffffff">PM</text>
+  <text x="256" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="66" font-weight="800" fill="#d6a94f">2026</text>
+</svg>
