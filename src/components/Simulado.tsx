@@ -6,6 +6,16 @@ import { ChevronLeft, Target, Clock, ArrowRight, CheckCircle2 } from 'lucide-rea
 
 type SimType = 'mini' | 'semanal' | 'completo';
 
+function getSimulationBonus(type: SimType | null): number {
+  if (type === 'completo') return 100;
+  if (type === 'semanal') return 50;
+  return 20;
+}
+
+function calculateSimulationXp(correctAnswers: number, type: SimType | null): number {
+  return correctAnswers * 20 + getSimulationBonus(type);
+}
+
 export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => void }) {
   const { profile, addSimulation, addXP, answerQuestion, updateStreak } = useApp();
   const [simType, setSimType] = useState<SimType | null>(null);
@@ -64,7 +74,7 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
 
   const finishSim = () => {
     const totalCorrect = Object.values(results).reduce((acc, r) => acc + r.correct, 0);
-    const xpEarned = totalCorrect * 20 + (simType === 'completo' ? 100 : simType === 'semanal' ? 50 : 20);
+    const xpEarned = calculateSimulationXp(totalCorrect, simType);
     addSimulation({
       id: `sim-${Date.now()}`,
       date: new Date().toISOString(),
@@ -152,6 +162,7 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
     const totalCorrect = Object.values(results).reduce((a, r) => a + r.correct, 0);
     const totalQ = simQuestions.length;
     const pct = Math.round((totalCorrect / totalQ) * 100);
+    const xpEarned = calculateSimulationXp(totalCorrect, simType);
 
     return (
       <div className="space-y-4 text-center animate-slide-up">
@@ -162,7 +173,7 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
         <div className="card">
           <p className="text-4xl font-bold text-gold-400">{totalCorrect}/{totalQ}</p>
           <p className="text-sm text-gray-400">acertos ({pct}%)</p>
-          <p className="text-xs text-pm-300 mt-2">Tempo: {minutesSpent} min • +{totalCorrect * 20 + (simType === 'completo' ? 100 : 0)} XP</p>
+          <p className="text-xs text-pm-300 mt-2">Tempo: {minutesSpent} min • +{xpEarned} XP</p>
         </div>
 
         {/* Per subject breakdown */}

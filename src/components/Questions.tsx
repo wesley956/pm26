@@ -17,6 +17,7 @@ export default function Questions({ subjectId, onNavigate }: Props) {
   const [showResult, setShowResult] = useState(false);
   const [sessionCorrect, setSessionCorrect] = useState(0);
   const [sessionTotal, setSessionTotal] = useState(0);
+  const [sessionXp, setSessionXp] = useState(0);
 
   const filteredQuestions = useMemo(() => {
     if (selectedSubject) return questions.filter(q => q.subjectId === selectedSubject);
@@ -38,11 +39,20 @@ export default function Questions({ subjectId, onNavigate }: Props) {
   const handleConfirm = () => {
     if (selected === null || !currentQ) return;
     const correct = selected === currentQ.correct;
+    const previousAnswer = profile.completedQuestions[currentQ.id];
+    const shouldAwardXp = correct && !previousAnswer?.correct;
+
     answerQuestion(currentQ.id, selected, correct);
+
     if (correct) {
-      addXP(15);
       setSessionCorrect(prev => prev + 1);
     }
+
+    if (shouldAwardXp) {
+      addXP(15);
+      setSessionXp(prev => prev + 15);
+    }
+
     setSessionTotal(prev => prev + 1);
     setShowResult(true);
   };
@@ -59,6 +69,7 @@ export default function Questions({ subjectId, onNavigate }: Props) {
     setShowResult(false);
     setSessionCorrect(0);
     setSessionTotal(0);
+    setSessionXp(0);
     // Force re-shuffle by changing selectedSubject briefly
     setSelectedSubject('');
     setTimeout(() => setSelectedSubject(subjectId || ''), 0);
@@ -101,7 +112,7 @@ export default function Questions({ subjectId, onNavigate }: Props) {
         <div className="card">
           <p className="text-3xl font-bold text-gold-400">{sessionCorrect}/{sessionTotal}</p>
           <p className="text-sm text-gray-400">acertos ({pct}%)</p>
-          <p className="text-xs text-pm-300 mt-2">+{sessionCorrect * 15} XP ganhos</p>
+          <p className="text-xs text-pm-300 mt-2">+{sessionXp} XP ganhos nesta sessão</p>
         </div>
         <div className="space-y-2">
           <button onClick={handleRestart} className="btn-gold w-full">Tentar Novamente</button>
@@ -118,7 +129,7 @@ export default function Questions({ subjectId, onNavigate }: Props) {
   return (
     <div className="space-y-4 animate-fade-in">
       <div className="flex items-center justify-between">
-        <button onClick={() => { setSelectedSubject(''); setCurrentIndex(0); setSessionCorrect(0); setSessionTotal(0); }} className="text-sm text-pm-300 flex items-center gap-1">
+        <button onClick={() => { setSelectedSubject(''); setCurrentIndex(0); setSessionCorrect(0); setSessionTotal(0); setSessionXp(0); }} className="text-sm text-pm-300 flex items-center gap-1">
           <ChevronLeft size={16} /> Voltar
         </button>
         <div className="text-xs text-gray-500">
@@ -185,7 +196,7 @@ export default function Questions({ subjectId, onNavigate }: Props) {
           <div className="flex items-center gap-2 mb-2">
             {selected === currentQ.correct ? <CheckCircle2 size={18} className="text-success" /> : <XCircle size={18} className="text-danger" />}
             <span className={`text-sm font-bold ${selected === currentQ.correct ? 'text-success' : 'text-danger'}`}>
-              {selected === currentQ.correct ? 'Correto! +15 XP' : 'Incorreto'}
+              {selected === currentQ.correct ? (profile.completedQuestions[currentQ.id]?.correct ? 'Correto! Já pontuada antes' : 'Correto! +15 XP') : 'Incorreto'}
             </span>
           </div>
           <p className="text-sm text-gray-400">{currentQ.explanation}</p>

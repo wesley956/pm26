@@ -5,7 +5,7 @@ import { chooseSmartStudyAction } from '../utils/smartStudy';
 import { Play, Flame, Calendar, Target, Zap, ChevronRight, Timer, AlertTriangle } from 'lucide-react';
 
 export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
-  const { profile, addXP, updateStreak, setBadDayMode } = useApp();
+  const { profile, updateStreak, setBadDayMode } = useApp();
   const deadline = getPrimaryDeadlineInfo();
   const smartAction = chooseSmartStudyAction(profile);
 
@@ -31,13 +31,11 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
     }
 
     if (action.kind === 'mission' && action.missionId && action.subjectId) {
-      addXP(useBadDayMode ? 5 : 10);
       onNavigate('mission', { missionId: action.missionId, subjectId: action.subjectId });
       return;
     }
 
     if (action.kind === 'review') {
-      addXP(useBadDayMode ? 5 : 10);
       onNavigate('review');
       return;
     }
