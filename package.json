@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "verify": "npm run build"
+    "verify": "npm run audit:content && npm run build",
+    "audit:content": "node scripts/audit-content.mjs"
   },
   "dependencies": {
     "clsx": "2.1.1",
