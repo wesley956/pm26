@@ -1,16 +1,13 @@
 import { useApp } from '../store';
 import { subjects } from '../data/subjects';
 import { getPrimaryDeadlineInfo, getSubjectProgress } from '../utils';
+import { chooseSmartStudyAction } from '../utils/smartStudy';
 import { Play, Flame, Calendar, Target, Zap, ChevronRight, Timer, AlertTriangle } from 'lucide-react';
 
 export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
-  const { profile, addXP, updateStreak } = useApp();
+  const { profile, addXP, updateStreak, setBadDayMode } = useApp();
   const deadline = getPrimaryDeadlineInfo();
-
-  // Find next mission
-  const allMissions = subjects.flatMap(s => s.missions);
-  const nextMission = allMissions.find(m => !profile.completedMissions.includes(m.id));
-  const nextSubject = nextMission ? subjects.find(s => s.id === nextMission.subjectId) : null;
+  const smartAction = chooseSmartStudyAction(profile);
 
   // Stats
   const completedCount = profile.completedMissions.length;
@@ -22,17 +19,38 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
   const today = new Date().toISOString().slice(0, 10);
   const studiedToday = profile.lastStudyDate === today;
 
-  const handleStartMission = () => {
-    if (nextMission) {
-      updateStreak();
-      addXP(10); // bonus for starting
-      onNavigate('mission', { missionId: nextMission.id, subjectId: nextMission.subjectId });
+  const navigateToAction = (useBadDayMode = false) => {
+    const action = useBadDayMode
+      ? chooseSmartStudyAction({ ...profile, studyDayMode: 'bad_day' })
+      : smartAction;
+
+    updateStreak();
+
+    if (useBadDayMode) {
+      setBadDayMode(true);
     }
+
+    if (action.kind === 'mission' && action.missionId && action.subjectId) {
+      addXP(useBadDayMode ? 5 : 10);
+      onNavigate('mission', { missionId: action.missionId, subjectId: action.subjectId });
+      return;
+    }
+
+    if (action.kind === 'review') {
+      addXP(useBadDayMode ? 5 : 10);
+      onNavigate('review');
+      return;
+    }
+
+    onNavigate('simulados');
+  };
+
+  const handleStartMission = () => {
+    navigateToAction(false);
   };
 
   const handleBadDay = () => {
-    // Quick 10-min mode: just review one flashcard
-    onNavigate('review');
+    navigateToAction(true);
   };
 
   return (
@@ -58,38 +76,37 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
         </div>
       </div>
 
-      {/* Main Mission Card */}
-      {nextMission && (
-        <div className="card animate-pulse-gold relative overflow-hidden">
-          <div className="absolute top-0 right-0 bg-gold-500 text-pm-900 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
-            MISSÃO DO DIA
-          </div>
-          <div className="mt-2">
-            <p className="text-xs text-pm-300 mb-1">{nextSubject?.icon} {nextSubject?.name}</p>
-            <h2 className="text-lg font-bold text-white">{nextMission.title}</h2>
-            <p className="text-sm text-gray-400 mt-1">{nextMission.summary}</p>
-            <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
-              <span className="flex items-center gap-1"><Timer size={12} /> {nextMission.duration} min</span>
-              <span className="flex items-center gap-1"><Zap size={12} /> +{nextMission.xpReward} XP</span>
-            </div>
-            <button onClick={handleStartMission} className="btn-gold w-full mt-4 flex items-center justify-center gap-2 text-base">
-              <Play size={20} />
-              COMEÇAR AGORA
-            </button>
-          </div>
+      {/* Smart Mission Card */}
+      <div className="card animate-pulse-gold relative overflow-hidden">
+        <div className="absolute top-0 right-0 bg-gold-500 text-pm-900 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
+          MISSÃO INTELIGENTE
         </div>
-      )}
+        <div className="mt-2">
+          <p className="text-xs text-pm-300 mb-1">
+            {smartAction.subjectIcon ? `${smartAction.subjectIcon} ` : '🧭 '}
+            {smartAction.subjectLabel ?? 'Plano automático'}
+          </p>
+          <h2 className="text-lg font-bold text-white">{smartAction.title}</h2>
+          <p className="text-sm text-gray-400 mt-1">{smartAction.summary}</p>
 
-      {!nextMission && (
-        <div className="card text-center py-8">
-          <p className="text-4xl mb-2">🏆</p>
-          <h2 className="text-xl font-bold text-gold-400">Todas as missões concluídas!</h2>
-          <p className="text-sm text-gray-400 mt-2">Você está pronto para a prova. Faça simulados para manter o ritmo!</p>
-          <button onClick={() => onNavigate('simulados')} className="btn-primary mt-4">
-            Fazer Simulado
+          <div className="mt-3 rounded-xl bg-pm-900/60 border border-pm-700 p-3">
+            <p className="text-[11px] uppercase tracking-wide text-gold-400 font-bold mb-1">
+              Por que essa missão?
+            </p>
+            <p className="text-xs text-gray-400">{smartAction.reason}</p>
+          </div>
+
+          <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
+            <span className="flex items-center gap-1"><Timer size={12} /> {smartAction.minutes} min</span>
+            <span className="flex items-center gap-1"><Zap size={12} /> +{smartAction.xpReward} XP</span>
+          </div>
+
+          <button onClick={handleStartMission} className="btn-gold w-full mt-4 flex items-center justify-center gap-2 text-base">
+            <Play size={20} />
+            {smartAction.buttonLabel}
           </button>
         </div>
-      )}
+      </div>
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 gap-3">
@@ -113,7 +130,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
       {!studiedToday && (
         <button onClick={handleBadDay} className="w-full text-center py-2 text-xs text-gray-500 hover:text-gray-300 transition-colors flex items-center justify-center gap-1">
           <AlertTriangle size={12} />
-          Dia ruim? Estude só 10 minutos — não quebre a sequência
+          Não sei por onde começar / dia ruim: me dá só 10 minutos
         </button>
       )}
 
