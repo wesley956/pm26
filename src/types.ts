@@ -70,6 +70,7 @@ export interface UserProfile {
   lastStudyDate: string;
   medals: Medal[];
   completedMissions: string[];
+  completedMissionDates: Record<string, string>;
   completedQuestions: Record<string, QuestionAnswer>;
   wrongQuestions: string[];
   tafRecords: TAFRecord[];
@@ -77,6 +78,7 @@ export interface UserProfile {
   simulationResults: SimulationResult[];
   spacedRepetition: Record<string, SpacedRepItem>;
   weeklyChallengeDone: string[];
+  dailyMinimumDoneDates: string[];
   studyDayMode: 'normal' | 'bad_day';
   customPlan: boolean;
 }
@@ -168,6 +170,7 @@ export const getDefaultProfile = (): UserProfile => ({
   lastStudyDate: '',
   medals: [],
   completedMissions: [],
+  completedMissionDates: {},
   completedQuestions: {},
   wrongQuestions: [],
   tafRecords: [],
@@ -175,6 +178,7 @@ export const getDefaultProfile = (): UserProfile => ({
   simulationResults: [],
   spacedRepetition: {},
   weeklyChallengeDone: [],
+  dailyMinimumDoneDates: [],
   studyDayMode: 'normal',
   customPlan: false,
 });

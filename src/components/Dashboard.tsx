@@ -2,12 +2,14 @@ import { useApp } from '../store';
 import { subjects } from '../data/subjects';
 import { getPrimaryDeadlineInfo, getSubjectProgress } from '../utils';
 import { chooseSmartStudyAction } from '../utils/smartStudy';
-import { Play, Flame, Calendar, Target, Zap, ChevronRight, Timer, AlertTriangle } from 'lucide-react';
+import { buildDailyChecklist } from '../utils/dailyChecklist';
+import { Play, Flame, Calendar, Target, Zap, ChevronRight, Timer, AlertTriangle, CheckCircle2, Circle } from 'lucide-react';
 
 export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
-  const { profile, updateStreak, setBadDayMode } = useApp();
+  const { profile, setBadDayMode, markDailyMinimumDone } = useApp();
   const deadline = getPrimaryDeadlineInfo();
   const smartAction = chooseSmartStudyAction(profile);
+  const dailyChecklist = buildDailyChecklist(profile);
 
   // Stats
   const completedCount = profile.completedMissions.length;
@@ -23,8 +25,6 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
     const action = useBadDayMode
       ? chooseSmartStudyAction({ ...profile, studyDayMode: 'bad_day' })
       : smartAction;
-
-    updateStreak();
 
     if (useBadDayMode) {
       setBadDayMode(true);
@@ -104,6 +104,51 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
             {smartAction.buttonLabel}
           </button>
         </div>
+      </div>
+
+      {/* Daily ADHD Checklist */}
+      <div className="card border-l-4 border-pm-500">
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <div>
+            <h3 className="text-sm font-bold text-white">{dailyChecklist.title}</h3>
+            <p className="text-xs text-gray-500 mt-0.5">{dailyChecklist.subtitle}</p>
+          </div>
+          <div className={`text-xs font-bold px-2 py-1 rounded-full ${
+            dailyChecklist.isComplete ? 'bg-success/15 text-success' : 'bg-pm-700 text-gray-300'
+          }`}>
+            {dailyChecklist.completedCount}/{dailyChecklist.totalCount}
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          {dailyChecklist.items.map(item => (
+            <div key={item.id} className="flex items-start gap-2">
+              {item.done ? (
+                <CheckCircle2 size={18} className="text-success shrink-0 mt-0.5" />
+              ) : (
+                <Circle size={18} className="text-gray-600 shrink-0 mt-0.5" />
+              )}
+              <div>
+                <p className={`text-sm font-medium ${item.done ? 'text-gray-400 line-through' : 'text-gray-200'}`}>
+                  {item.label}
+                </p>
+                <p className="text-[11px] text-gray-500">{item.hint}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {!dailyChecklist.isComplete && (
+          <button onClick={markDailyMinimumDone} className="w-full mt-3 text-xs text-gray-400 hover:text-gold-400 transition-colors">
+            Estudei fora do app — marcar mínimo de hoje
+          </button>
+        )}
+
+        {dailyChecklist.isComplete && (
+          <p className="mt-3 text-xs text-success font-semibold">
+            Mínimo de hoje concluído. Agora o resto é bônus.
+          </p>
+        )}
       </div>
 
       {/* Quick Actions */}
