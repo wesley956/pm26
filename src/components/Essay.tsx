@@ -12,17 +12,27 @@ export default function Essay({ onNavigate }: { onNavigate: (tab: string) => voi
   const [selfGrade, setSelfGrade] = useState(0);
 
   const theme = essayThemes.find(t => t.id === selectedTheme);
+  const today = new Date().toISOString().slice(0, 10);
+  const trimmedEssay = essayText.trim();
+  const estimatedLines = Math.max(0, Math.floor(trimmedEssay.length / 50));
+  const hasEssayToday = profile.essays.some(essay => essay.date.slice(0, 10) === today);
+  const minimumLengthReached = trimmedEssay.length >= 600;
 
   const handleSubmit = () => {
-    if (!selectedTheme || !essayText.trim()) return;
+    if (!selectedTheme || !trimmedEssay || !minimumLengthReached) return;
+
     addEssay({
       id: `essay-${Date.now()}`,
       themeId: selectedTheme,
-      content: essayText,
+      content: trimmedEssay,
       date: new Date().toISOString(),
       selfGrade,
     });
-    addXP(50);
+
+    if (!hasEssayToday) {
+      addXP(50);
+    }
+
     setEssayText('');
     setSelfGrade(0);
     setSelectedTheme(null);
@@ -95,7 +105,21 @@ export default function Essay({ onNavigate }: { onNavigate: (tab: string) => voi
         placeholder="Escreva sua redação aqui... (mínimo 20 linhas para uma boa nota)"
         className="w-full h-64 text-sm resize-none"
       />
-      <p className="text-xs text-gray-500">{essayText.length} caracteres • ~{Math.max(0, Math.floor(essayText.length / 50))} linhas estimadas</p>
+      <p className="text-xs text-gray-500">
+        {trimmedEssay.length} caracteres • ~{estimatedLines} linhas estimadas • mínimo para salvar: 600 caracteres
+      </p>
+
+      {!minimumLengthReached && (
+        <p className="text-[11px] text-orange-300">
+          Escreva um pouco mais antes de salvar. Isso evita ganhar XP com rascunho muito curto.
+        </p>
+      )}
+
+      {hasEssayToday && (
+        <p className="text-[11px] text-gray-500">
+          Você já ganhou XP de redação hoje. Novas redações serão salvas, mas sem XP extra.
+        </p>
+      )}
 
       {/* Checklist */}
       <button onClick={() => setShowChecklist(!showChecklist)} className="text-sm text-pm-300 flex items-center gap-1">
@@ -124,10 +148,10 @@ export default function Essay({ onNavigate }: { onNavigate: (tab: string) => voi
         </div>
       </div>
 
-      <button onClick={handleSubmit} disabled={!essayText.trim()} className={`w-full py-3 rounded-xl font-bold ${
-        essayText.trim() ? 'btn-gold' : 'bg-pm-800 text-gray-600 cursor-not-allowed'
+      <button onClick={handleSubmit} disabled={!trimmedEssay || !minimumLengthReached} className={`w-full py-3 rounded-xl font-bold ${
+        trimmedEssay && minimumLengthReached ? 'btn-gold' : 'bg-pm-800 text-gray-600 cursor-not-allowed'
       }`}>
-        Salvar Redação +50 XP
+        {hasEssayToday ? 'Salvar Redação' : 'Salvar Redação +50 XP'}
       </button>
     </div>
   );

@@ -74,12 +74,12 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
               <div className="flex justify-between items-center mb-1">
                 <span className="text-sm">{s.icon} {s.name}</span>
                 <div className="flex items-center gap-3 text-xs">
-                  <span className="text-gray-500">{s.missionProgress}/10 missões</span>
+                  <span className="text-gray-500">{s.missionProgress}/{s.missions.length} missões</span>
                   {s.total > 0 && <span className={s.pct >= 70 ? 'text-success' : s.pct >= 50 ? 'text-gold-400' : 'text-danger'}>{s.pct}% acerto</span>}
                 </div>
               </div>
               <div className="progress-bar">
-                <div className="progress-bar-fill" style={{ width: `${(s.missionProgress / 10) * 100}%`, background: s.color }} />
+                <div className="progress-bar-fill" style={{ width: `${Math.round((s.missionProgress / s.missions.length) * 100)}%`, background: s.color }} />
               </div>
             </div>
           ))}
@@ -117,7 +117,7 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
           <div className="space-y-1">
             {behind.map(s => (
               <button key={s.id} onClick={() => onNavigate('subject', { subjectId: s.id })} className="text-sm text-gray-400 hover:text-white w-full text-left">
-                {s.icon} {s.name} — {s.missionProgress}/10 missões
+                {s.icon} {s.name} — {s.missionProgress}/{s.missions.length} missões
               </button>
             ))}
           </div>

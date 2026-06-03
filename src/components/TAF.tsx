@@ -12,16 +12,31 @@ export default function TAF({ onNavigate }: { onNavigate: (tab: string) => void 
   const [showSafety, setShowSafety] = useState(false);
 
   const plan = gender === 'M' ? tafPlanMale : tafPlanFemale;
+  const today = new Date().toISOString().slice(0, 10);
+  const selectedExerciseAlreadyLoggedToday = Boolean(
+    selectedExercise &&
+    profile.tafRecords.some(record =>
+      record.exerciseId === selectedExercise &&
+      record.date.slice(0, 10) === today
+    )
+  );
 
   const handleSave = () => {
     if (!selectedExercise || !value) return;
+
+    const shouldAwardXp = !selectedExerciseAlreadyLoggedToday;
+
     addTAFRecord({
-      date: new Date().toISOString().slice(0, 10),
+      date: today,
       exerciseId: selectedExercise,
       value: parseFloat(value),
       unit: tafExercises.find(e => e.id === selectedExercise)?.unit || '',
     });
-    addXP(20);
+
+    if (shouldAwardXp) {
+      addXP(20);
+    }
+
     setValue('');
     setSelectedExercise(null);
   };
@@ -66,10 +81,15 @@ export default function TAF({ onNavigate }: { onNavigate: (tab: string) => void 
           {tafExercises.map(ex => <option key={ex.id} value={ex.id}>{ex.name}</option>)}
         </select>
         <input type="number" value={value} onChange={e => setValue(e.target.value)} placeholder="Seu resultado" className="w-full text-sm mb-2" />
+        {selectedExerciseAlreadyLoggedToday && (
+          <p className="text-[11px] text-gray-500 mb-2">
+            Você já ganhou XP neste exercício hoje. O novo resultado será salvo no histórico, mas sem XP extra.
+          </p>
+        )}
         <button onClick={handleSave} disabled={!selectedExercise || !value} className={`w-full py-2 rounded-lg text-sm font-bold ${
           selectedExercise && value ? 'btn-gold' : 'bg-pm-700 text-gray-600 cursor-not-allowed'
         }`}>
-          <Save size={14} className="inline mr-1" /> Salvar +20 XP
+          <Save size={14} className="inline mr-1" /> {selectedExerciseAlreadyLoggedToday ? 'Salvar registro' : 'Salvar +20 XP'}
         </button>
       </div>
 
