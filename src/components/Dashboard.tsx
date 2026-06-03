@@ -1,11 +1,11 @@
 import { useApp } from '../store';
 import { subjects } from '../data/subjects';
-import { getDaysUntilExam, getSubjectProgress } from '../utils';
+import { getPrimaryDeadlineInfo, getSubjectProgress } from '../utils';
 import { Play, Flame, Calendar, Target, Zap, ChevronRight, Timer, AlertTriangle } from 'lucide-react';
 
 export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
   const { profile, addXP, updateStreak } = useApp();
-  const daysLeft = getDaysUntilExam();
+  const deadline = getPrimaryDeadlineInfo();
 
   // Find next mission
   const allMissions = subjects.flatMap(s => s.missions);
@@ -51,8 +51,10 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
       <div className="card flex items-center gap-3 border-l-4 border-gold-500">
         <Calendar size={28} className="text-gold-500 shrink-0" />
         <div>
-          <p className="text-2xl font-bold text-gold-400 font-[Rajdhani,sans-serif]">{daysLeft} dias</p>
-          <p className="text-xs text-gray-400">até a prova PM-SP 2026</p>
+          <p className="text-2xl font-bold text-gold-400 font-[Rajdhani,sans-serif]">{deadline.daysLeft} dias</p>
+          <p className="text-xs text-gray-400">{deadline.title}</p>
+          <p className="text-[10px] text-gray-500 mt-0.5">{deadline.subtitle}</p>
+          <p className="text-[10px] text-gray-600 mt-0.5">{deadline.helper}</p>
         </div>
       </div>
 

@@ -1,4 +1,5 @@
 import { subjects } from '../data/subjects';
+import { EXAM_SUBJECTS } from '../config/examConfig';
 import { useApp } from '../store';
 import { getSubjectProgress } from '../utils';
 import { ChevronLeft, Calendar } from 'lucide-react';
@@ -6,14 +7,8 @@ import { ChevronLeft, Calendar } from 'lucide-react';
 export default function StudyPlan({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
   const { profile } = useApp();
 
-  // Priority subjects
-  const priorities = [
-    { id: 'portugues' as const, hours: 3, label: 'Português (20 questões)' },
-    { id: 'matematica' as const, hours: 2, label: 'Matemática (15 questões)' },
-    { id: 'gerais' as const, hours: 2, label: 'Conhecimentos Gerais (15 questões)' },
-    { id: 'informatica' as const, hours: 1, label: 'Informática (5 questões)' },
-    { id: 'administracao' as const, hours: 1, label: 'Administração Pública (5 questões)' },
-  ];
+  // Priority subjects based on the official objective exam weights.
+  const priorities = EXAM_SUBJECTS;
 
   const totalMissions = subjects.flatMap(s => s.missions).length;
   const completedMissions = profile.completedMissions.length;
@@ -42,8 +37,8 @@ export default function StudyPlan({ onNavigate }: { onNavigate: (tab: string, da
             const prog = getSubjectProgress(p.id, profile.completedMissions);
             return (
               <div key={p.id} className="flex justify-between items-center">
-                <span className="text-sm text-gray-300">{sub.icon} {p.label}</span>
-                <span className="text-xs text-gray-500">{prog}/10</span>
+                <span className="text-sm text-gray-300">{sub.icon} {p.label} ({p.officialQuestions} questões)</span>
+                <span className="text-xs text-gray-500">{prog}/{sub.missions.length}</span>
               </div>
             );
           })}

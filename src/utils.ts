@@ -1,4 +1,5 @@
 import { LEVELS, UserProfile } from './types';
+import { EXAM_CONFIG, formatPtBrDate } from './config/examConfig';
 
 export function getLevelInfo(profile: UserProfile) {
   let current = LEVELS[0];
@@ -48,12 +49,39 @@ export function formatDate(dateStr: string): string {
   return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' });
 }
 
-export function getDaysUntilExam(): number {
-  // Estimate: exam around mid 2026
-  const examDate = new Date('2026-08-15');
+function getDaysUntil(dateIso: string): number {
+  const target = new Date(`${dateIso}T23:59:59`);
   const today = new Date();
-  const diff = examDate.getTime() - today.getTime();
+  const diff = target.getTime() - today.getTime();
   return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
+export function getPrimaryDeadlineInfo() {
+  const knowledgeExam = EXAM_CONFIG.importantDates.knowledgeExam;
+
+  if (knowledgeExam) {
+    return {
+      daysLeft: getDaysUntil(knowledgeExam),
+      title: 'até a prova objetiva',
+      subtitle: `Prova prevista para ${formatPtBrDate(knowledgeExam)}`,
+      helper: `${EXAM_CONFIG.shortTitle} • ${EXAM_CONFIG.board}`,
+    };
+  }
+
+  return {
+    daysLeft: getDaysUntil(EXAM_CONFIG.importantDates.applicationEnd),
+    title: 'até o fim das inscrições',
+    subtitle: `Inscrições: ${formatPtBrDate(EXAM_CONFIG.importantDates.applicationStart)} a ${formatPtBrDate(EXAM_CONFIG.importantDates.applicationEnd)}`,
+    helper: `${EXAM_CONFIG.shortTitle} • ${EXAM_CONFIG.contestCode}`,
+  };
+}
+
+export function getDaysUntilExam(): number {
+  const date =
+    EXAM_CONFIG.importantDates.knowledgeExam ??
+    EXAM_CONFIG.importantDates.applicationEnd;
+
+  return getDaysUntil(date);
 }
 
 export function getSubjectProgress(subjectId: string, completedMissions: string[]): number {
