@@ -397,6 +397,104 @@ export const theoryLessons: TheoryLesson[] = [
     finalReminder: 'Se cair função da PM, marque polícia ostensiva e preservação da ordem pública.',
     miniMission: 'Repita: PM = ostensiva + ordem pública.',
     notUnderstood: 'Modo simples: a PM é a força visível na rua para prevenir problemas e agir quando a ordem pública é ameaçada.'
+  },
+{
+    missionId: 'inf-01',
+    subjectId: 'informatica',
+    title: 'Hardware e Software — Corpo e Alma da Máquina',
+    missionBrief: 'Separar parte física, programas e funções básicas do computador.',
+    dumbMode: 'Hardware é tudo que você consegue tocar: teclado, mouse, monitor, memória, placa-mãe, processador. Software é o programa: Windows, navegador, Word, Excel, antivírus.',
+    analogy: 'Pense em um personagem de RPG. O hardware é o corpo, armadura e armas. O software é a habilidade, magia e comando que fazem o personagem agir.',
+    vunespMode: 'A Vunesp cobra diferença entre hardware, software, memória RAM, armazenamento, periféricos e sistema operacional.',
+    traps: [
+      'RAM é memória temporária e volátil.',
+      'HD e SSD são armazenamento permanente.',
+      'Sistema operacional é software.',
+      'Teclado, mouse e monitor são hardware.'
+    ],
+    memoryHook: 'Hardware toca. Software executa.',
+    finalReminder: 'Se cair na prova, pergunte: eu consigo tocar? Se sim, é hardware.',
+    miniMission: 'Classifique: Windows, teclado, RAM, Chrome, SSD.',
+    notUnderstood: 'Modo simples: peça física é hardware. Programa é software.'
+  },
+  {
+    missionId: 'inf-02',
+    subjectId: 'informatica',
+    title: 'Windows — O Quartel-General do Computador',
+    missionBrief: 'Revisar funções básicas do Windows e atalhos que mais caem.',
+    dumbMode: 'Windows é um sistema operacional. Ele gerencia arquivos, programas, janelas, pastas, dispositivos e configurações do computador.',
+    analogy: 'Pense no Windows como o quartel-general. Ele organiza onde ficam os documentos, quem está aberto, quais recursos estão funcionando e como o usuário comanda a máquina.',
+    vunespMode: 'A banca costuma cobrar Explorador de Arquivos, área de trabalho, lixeira, painel de controle/configurações, barra de tarefas e atalhos.',
+    traps: [
+      'Ctrl+C copia.',
+      'Ctrl+V cola.',
+      'Ctrl+X recorta.',
+      'Ctrl+Z desfaz.',
+      'Alt+Tab alterna entre janelas.'
+    ],
+    memoryHook: 'Windows organiza arquivos, programas e comandos.',
+    finalReminder: 'Se cair atalho, pense primeiro nos comandos básicos: copiar, colar, recortar, desfazer e alternar janela.',
+    miniMission: 'Repita: Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+Z, Alt+Tab.',
+    notUnderstood: 'Modo simples: Windows é o sistema que deixa você usar o computador de forma visual.'
+  },
+  {
+    missionId: 'inf-04',
+    subjectId: 'informatica',
+    title: 'Excel e Planilhas — O Grimório das Fórmulas',
+    missionBrief: 'Entender células, fórmulas e funções básicas de planilha.',
+    dumbMode: 'Planilha é uma tabela. As colunas são letras, as linhas são números, e cada quadradinho é uma célula. B3 significa coluna B, linha 3. Fórmulas normalmente começam com =.',
+    analogy: 'Pense no Excel como um grimório de cálculo. Você escreve uma fórmula e ele executa a magia matemática automaticamente.',
+    vunespMode: 'A Vunesp cobra células, intervalos, fórmulas e funções básicas como SOMA, MÉDIA, MÁXIMO, MÍNIMO e SE.',
+    traps: [
+      'Toda fórmula começa com =.',
+      'A1:A5 indica intervalo de A1 até A5.',
+      '=SOMA(A1:A5) soma os valores do intervalo.',
+      '=MÉDIA(A1:A5) calcula a média.',
+      '=SE(teste;valor se verdadeiro;valor se falso) faz decisão lógica.'
+    ],
+    memoryHook: 'Coluna é letra, linha é número, fórmula começa com igual.',
+    finalReminder: 'Se cair planilha, identifique célula, intervalo e função.',
+    miniMission: 'Explique o que significa B3 e o que faz =SOMA(A1:A5).',
+    notUnderstood: 'Modo simples: Excel é uma tabela inteligente que faz conta sozinha quando você dá a fórmula.'
+  },
+  {
+    missionId: 'inf-05',
+    subjectId: 'informatica',
+    title: 'Internet e Navegadores — Patrulha na Web',
+    missionBrief: 'Entender navegador, site, URL, HTTP/HTTPS, cookies e cache.',
+    dumbMode: 'Navegador é o programa usado para acessar sites. Chrome, Edge e Firefox são navegadores. HTTPS indica conexão mais segura que HTTP porque usa criptografia.',
+    analogy: 'Imagine a internet como uma cidade enorme. O navegador é sua viatura. A URL é o endereço. O HTTPS é uma rota mais protegida.',
+    vunespMode: 'A banca cobra navegador, favoritos, histórico, cache, cookies, URL, HTTP, HTTPS e segurança online.',
+    traps: [
+      'HTTPS é mais seguro porque usa criptografia.',
+      'Cookie guarda informações da navegação.',
+      'Cache armazena dados temporários para carregar mais rápido.',
+      'Favoritos salvam sites para acesso posterior.'
+    ],
+    memoryHook: 'Navegador é a viatura; URL é o endereço; HTTPS é rota protegida.',
+    finalReminder: 'Se cair segurança na web, HTTPS e phishing são candidatos fortes.',
+    miniMission: 'Abra mentalmente um site e identifique: navegador, endereço, HTTPS e favoritos.',
+    notUnderstood: 'Modo simples: navegador é o aplicativo para entrar em sites.'
+  },
+  {
+    missionId: 'inf-06',
+    subjectId: 'informatica',
+    title: 'Segurança da Informação — Defesa Contra Armadilhas Digitais',
+    missionBrief: 'Revisar golpes, malware, senha forte, backup e proteção de dados.',
+    dumbMode: 'Segurança da informação é proteger dados contra perda, roubo, alteração ou acesso indevido. Isso envolve senha forte, backup, antivírus, cuidado com links falsos e proteção de dados pessoais.',
+    analogy: 'Pense como uma base militar. Senha forte é portão reforçado. Backup é rota de fuga. Antivírus é sentinela. Phishing é inimigo disfarçado tentando entrar.',
+    vunespMode: 'A banca cobra muito phishing, malware, vírus, backup, senha forte, autenticação em dois fatores e LGPD.',
+    traps: [
+      'Phishing tenta enganar o usuário para roubar dados.',
+      'Malware é software malicioso.',
+      'Backup é cópia de segurança.',
+      'Senha forte mistura letras, números e símbolos.',
+      'LGPD protege dados pessoais.'
+    ],
+    memoryHook: 'Phishing engana. Malware infecta. Backup salva.',
+    finalReminder: 'Se cair golpe digital, procure engenharia social, link falso ou roubo de dados.',
+    miniMission: 'Diga a diferença entre phishing, malware e backup.',
+    notUnderstood: 'Modo simples: segurança digital é não deixar seus dados caírem na mão errada.'
   }
 ];
 
