@@ -496,7 +496,7 @@ export const theoryLessons: TheoryLesson[] = [
     miniMission: 'Diga a diferença entre phishing, malware e backup.',
     notUnderstood: 'Modo simples: segurança digital é não deixar seus dados caírem na mão errada.'
   },
-{
+  {
     missionId: 'pt-02',
     subjectId: 'portugues',
     title: 'Tipos Textuais — Identificando o Monstro pelo Rastro',
