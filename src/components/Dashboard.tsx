@@ -91,7 +91,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
             Dashboard <span className="neon-blue">Central</span>
           </h1>
           <p className="mt-1 text-sm text-slate-400">
-            Bom trabalho, Recruta. Sua missão começa agora. 🚀
+            Bom trabalho, recruta. Execute o próximo passo com clareza.
           </p>
         </div>
 
@@ -112,7 +112,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           </div>
 
           <div className="card px-4 py-3 text-center">
-            <div className="section-label mb-1">🔥 Sequência</div>
+            <div className="section-label mb-1">S Sequência</div>
             <div className="font-orbitron text-2xl font-black neon-gold">{profile.streak}</div>
             <div className="text-xs text-slate-500">dias seguidos</div>
           </div>
@@ -128,7 +128,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
         <div className="card stat-card-blue p-5">
           <div className="mb-3 flex items-start justify-between">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/25 bg-cyan-400/10 text-xl">
-              ⚡
+              XP
             </div>
             <span className="badge border border-cyan-400/25 bg-cyan-400/10 text-pm-400">XP</span>
           </div>
@@ -143,7 +143,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
         <div className="card stat-card-green p-5">
           <div className="mb-3 flex items-start justify-between">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-success/25 bg-success/10 text-xl">
-              📝
+              Q
             </div>
             <span className="badge border border-success/25 bg-success/10 text-success">{accuracy}%</span>
           </div>
@@ -158,7 +158,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
         <div className="card stat-card-gold p-5">
           <div className="mb-3 flex items-start justify-between">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gold-500/25 bg-gold-500/10 text-xl">
-              🔥
+              S
             </div>
             <span className="badge border border-gold-500/25 bg-gold-500/10 text-gold-500">Streak</span>
           </div>
@@ -174,7 +174,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
                     : 'bg-white/5 text-slate-600'
                 }`}
               >
-                {i < Math.min(7, profile.streak) ? '🔥' : i + 1}
+                {i < Math.min(7, profile.streak) ? 'S' : i + 1}
               </div>
             ))}
           </div>
@@ -183,7 +183,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
         <div className="card stat-card-purple p-5">
           <div className="mb-3 flex items-start justify-between">
             <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-purple-400/25 bg-purple-400/10 text-xl">
-              🏆
+              M
             </div>
             <span className="badge border border-purple-400/25 bg-purple-400/10 text-purple-400">Missões</span>
           </div>
@@ -199,12 +199,12 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
       <section className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
         <div className="card p-6 lg:col-span-2">
           <div className="mission-priority bg-gradient-to-r from-danger to-orange-500 text-white">
-            🎯 Missão
+            Missão
           </div>
 
           <div className="mb-5 mt-2 flex items-center gap-3">
             <div className="pulse-glow flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-400/30 bg-cyan-400/10 text-2xl">
-              ⚔️
+              ▶
             </div>
 
             <div>
@@ -268,17 +268,17 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
 
             <div className="flex gap-2">
               <button className="btn-glow !border-danger/40 !bg-danger/10 !text-danger" onClick={() => navigateToAction(true)}>
-                😓 Dia Ruim?
+                Dia ruim
               </button>
               <button className="btn-gold" onClick={() => navigateToAction(false)}>
-                Executar ⚡
+                Executar XP
               </button>
             </div>
           </div>
         </div>
 
         <div className="card p-5">
-          <div className="section-label mb-4">🎖️ Patente & Progresso</div>
+          <div className="section-label mb-4">Patente & Progresso</div>
 
           <div className="mb-4 flex justify-center">
             <div className="relative h-36 w-36">
@@ -324,9 +324,9 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           </div>
 
           <div className="space-y-2">
-            <div className="section-label mb-2">🏅 Medalhas</div>
+            <div className="section-label mb-2">Medalhas</div>
             <div className="grid grid-cols-4 gap-2">
-              {['🏆','🔥','⚡','📚','💪','🎯','🌟','🃏'].map((m, i) => {
+              {['M','S','XP','📚','💪','🎯','🌟','🃏'].map((m, i) => {
                 const earned = i < Math.max(1, Math.min(8, profile.medals.length || 2));
                 return (
                   <div
@@ -348,7 +348,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
       <section className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
         <div className="card p-6 lg:col-span-2">
           <div className="mb-5 flex items-center justify-between">
-            <div className="section-label">📊 Desempenho por Matéria</div>
+            <div className="section-label">Desempenho por Matéria</div>
             <button className="tab-btn active text-xs" onClick={() => onNavigate('subjects')}>Ver aulas</button>
           </div>
 
@@ -391,7 +391,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
 
         <div className="space-y-4">
           <div className="card p-5">
-            <div className="section-label mb-3">✅ Checklist TDAH — Hoje</div>
+            <div className="section-label mb-3">Checklist TDAH — Hoje</div>
             <div className="space-y-1">
               {dailyChecklist.items.map(item => (
                 <div key={item.id} className={`check-item ${item.done ? 'done' : ''}`}>
@@ -413,7 +413,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           </div>
 
           <div className="card p-5">
-            <div className="section-label mb-3">⚡ Atalhos</div>
+            <div className="section-label mb-3">XP Atalhos</div>
             <div className="grid grid-cols-2 gap-2">
               <button className="btn-glow text-sm" onClick={() => onNavigate('simulados')}>
                 <Trophy size={15} /> Simulado

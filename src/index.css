@@ -449,3 +449,133 @@ input:focus, textarea:focus, select:focus {
   .card { border-radius: 14px; }
   .main-content { padding-left: 12px; padding-right: 12px; }
 }
+
+/* UI 4.1 — Premium Tactical Calm
+   Reduz o exagero gamer e mantém identidade futurista madura. */
+
+body {
+  background:
+    radial-gradient(ellipse 70% 45% at 20% 0%, rgba(0, 212, 255, 0.045) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 38% at 85% 100%, rgba(168, 85, 247, 0.035) 0%, transparent 60%),
+    linear-gradient(180deg, #020818 0%, #030a1c 52%, #020818 100%);
+}
+
+body::after {
+  opacity: 0.45;
+}
+
+.star,
+.particle {
+  display: none !important;
+}
+
+.neon-blue,
+.neon-green,
+.neon-gold,
+.neon-red,
+.neon-purple {
+  text-shadow: none;
+}
+
+.sidebar-logo {
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  color: #e2e8f0;
+  letter-spacing: 1.4px;
+}
+
+.section-label {
+  color: #7dd3fc;
+  opacity: 0.82;
+  letter-spacing: 2.2px;
+}
+
+.card {
+  background: rgba(6, 18, 46, 0.74);
+  border-color: rgba(125, 211, 252, 0.18);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+}
+
+.card::before {
+  opacity: 0.45;
+}
+
+.card:hover {
+  transform: none;
+  border-color: rgba(125, 211, 252, 0.30);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.26);
+}
+
+.btn-glow,
+.btn-primary {
+  background: rgba(0, 212, 255, 0.10);
+  border-color: rgba(0, 212, 255, 0.34);
+  color: #7dd3fc;
+  box-shadow: none;
+}
+
+.btn-glow:hover,
+.btn-primary:hover {
+  background: rgba(0, 212, 255, 0.16);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+.btn-gold {
+  background: rgba(255, 215, 0, 0.10);
+  border-color: rgba(255, 215, 0, 0.34);
+  color: #f4c76b;
+  box-shadow: none;
+}
+
+.btn-gold:hover {
+  background: rgba(255, 215, 0, 0.16);
+  box-shadow: none;
+  transform: translateY(-1px);
+}
+
+.xp-bar-fill,
+.progress-bar-fill {
+  box-shadow: none;
+}
+
+.xp-bar-fill::after,
+.progress-bar-fill::after {
+  display: none;
+}
+
+.pulse-glow {
+  animation: none;
+  box-shadow: none !important;
+}
+
+.badge {
+  letter-spacing: 0.5px;
+  text-transform: none;
+}
+
+.nav-item {
+  font-weight: 700;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  border-left-color: rgba(0, 212, 255, 0.8);
+}
+
+.mission-priority {
+  letter-spacing: 1px;
+  opacity: 0.92;
+}
+
+.stat-card-blue:hover,
+.stat-card-green:hover,
+.stat-card-gold:hover,
+.stat-card-purple:hover {
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+}
+
+.rank-badge {
+  background: rgba(255, 215, 0, 0.07);
+}
