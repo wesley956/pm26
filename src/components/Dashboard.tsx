@@ -18,9 +18,12 @@ import {
   BookOpen,
   TrendingUp,
   Crosshair,
-  ShieldCheck,
-  Activity,
-  Brain,
+  Radio,
+  Map,
+  RotateCcw,
+  Pencil,
+  Dumbbell,
+  HelpCircle,
 } from 'lucide-react';
 
 export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
@@ -56,10 +59,10 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
     const priorityScore = lowPracticePenalty + lowAccuracyPenalty + missionPenalty + strategicWeight;
 
     const reason =
-      total < 5 ? 'faltam dados de treino' :
-      pct < 60 ? 'acerto baixo para top 100' :
-      missionProgress < sub.missions.length ? 'teoria premium pendente' :
-      'manter revisão';
+      total < 5 ? 'Poucos dados de questões. Prioridade automática por peso estratégico.' :
+      pct < 60 ? 'Acerto baixo para top 100. Reforce teoria e questões.' :
+      missionProgress < sub.missions.length ? 'Teoria premium ainda precisa ser concluída.' :
+      'Manter revisão curta para não perder desempenho.';
 
     const action =
       missionProgress < sub.missions.length ? 'Abrir teoria' :
@@ -73,8 +76,6 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
 
   const today = new Date().toISOString().slice(0, 10);
   const studiedToday = profile.lastStudyDate === today;
-  const totalMissions = subjects.reduce((sum, sub) => sum + sub.missions.length, 0);
-  const campaignPct = Math.round((completedCount / totalMissions) * 100);
 
   const navigateToAction = (useBadDayMode = false) => {
     const action = useBadDayMode
@@ -97,266 +98,216 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
   };
 
   return (
-    <div className="space-y-5">
-      <section className="grid gap-5 xl:grid-cols-[minmax(0,1.6fr)_minmax(360px,0.8fr)]">
-        <div className="bento-card min-h-[360px] p-5 md:p-7">
-          <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-pm-400/18 blur-3xl" />
-          <div className="absolute -bottom-28 left-20 h-72 w-72 rounded-full bg-gold-500/10 blur-3xl" />
+    <div className="mx-auto max-w-[1180px] space-y-3">
+      <section className="cyber-card p-5">
+        <div className="absolute right-4 top-4 hidden text-[10px] text-pm-400/50 counter md:block">SYS-ARENA-01</div>
 
-          <div className="relative flex h-full flex-col justify-between gap-8">
-            <div>
-              <div className="mb-5 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-2 rounded-full border border-gold-500/24 bg-gold-500/10 px-3 py-1 kicker text-gold-300">
-                  <ShieldCheck size={13} />
-                  Operação Top 100
-                </span>
-
-                <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 kicker ${
-                  studiedToday ? 'border-success/30 bg-success/10 text-success' : 'border-pm-400/25 bg-pm-400/10 text-pm-300'
-                }`}>
-                  <Activity size={13} />
-                  {studiedToday ? 'mínimo iniciado' : 'aguardando missão'}
-                </span>
-              </div>
-
-              <h1 className="max-w-4xl font-[Rajdhani,sans-serif] text-5xl font-black leading-[0.9] tracking-tight text-white md:text-7xl">
-                {studiedToday ? 'Mantenha o avanço.' : 'A próxima missão certa.'}
-              </h1>
-
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-400">
-                Uma ação por vez, sem bagunça: missão principal, prioridade crítica e mínimo diário.
-              </p>
-            </div>
-
-            <div className="grid gap-3 md:grid-cols-3">
-              <div className="soft-panel p-4">
-                <p className="flex items-center gap-2 kicker text-gray-500">
-                  <Calendar size={13} /> Dias
-                </p>
-                <p className="mt-2 font-[Rajdhani,sans-serif] text-4xl font-black text-gold-300">{deadline.daysLeft}</p>
-              </div>
-
-              <div className="soft-panel p-4">
-                <p className="flex items-center gap-2 kicker text-gray-500">
-                  <TrendingUp size={13} /> Acerto
-                </p>
-                <p className="mt-2 font-[Rajdhani,sans-serif] text-4xl font-black text-white">{accuracy}%</p>
-              </div>
-
-              <div className="soft-panel p-4">
-                <p className="flex items-center gap-2 kicker text-gray-500">
-                  <Zap size={13} /> Campanha
-                </p>
-                <p className="mt-2 font-[Rajdhani,sans-serif] text-4xl font-black text-white">{campaignPct}%</p>
-              </div>
-            </div>
-          </div>
+        <div className="mb-2 flex items-center gap-1.5 kicker text-pm-400">
+          <Radio size={13} />
+          Central Top 100
         </div>
 
-        <div className="bento-card p-5">
-          <p className="kicker text-gold-300">Missão principal</p>
+        <h1 className="max-w-2xl text-[28px] font-black leading-tight text-white md:text-[34px]">
+          {studiedToday ? 'Missão em andamento.' : 'Comece pelo que importa.'}
+        </h1>
 
-          <h2 className="mt-4 font-[Rajdhani,sans-serif] text-4xl font-black leading-[0.95] text-white">
-            {smartAction.title}
-          </h2>
+        <p className="mt-2 max-w-3xl text-[13px] leading-relaxed text-[#7a99b8] md:text-sm">
+          Execute a missão principal, ataque a prioridade e feche o mínimo diário. Você não precisa decidir tudo agora.
+        </p>
 
-          <p className="mt-3 text-sm leading-relaxed text-gray-400">{smartAction.summary}</p>
-
-          <div className="soft-panel mt-5 p-4">
-            <p className="text-xs font-black text-pm-300">
-              {smartAction.subjectIcon ? `${smartAction.subjectIcon} ` : '🧭 '}
-              {smartAction.subjectLabel ?? 'Plano automático'}
-            </p>
-            <p className="mt-2 text-xs leading-relaxed text-gray-500">{smartAction.reason}</p>
-          </div>
-
-          <div className="mt-5 flex flex-wrap items-center gap-2 text-xs text-gray-500">
-            <span className="inline-flex items-center gap-1 rounded-full bg-white/[0.05] px-3 py-1">
-              <Timer size={12} /> {smartAction.minutes} min
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-full bg-gold-500/10 px-3 py-1 text-gold-300">
-              <Zap size={12} /> +{smartAction.xpReward} XP
-            </span>
-          </div>
-
-          <button onClick={() => navigateToAction(false)} className="btn-gold mt-6 w-full">
-            <span className="inline-flex items-center justify-center gap-2">
-              <Play size={18} />
-              Iniciar agora
-            </span>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <button className="btn-primary" onClick={() => navigateToAction(false)}>
+            <Play size={16} />
+            Começar missão
           </button>
+          <button className="btn-ghost" onClick={() => onNavigate('profile')}>
+            <Crosshair size={16} />
+            Diagnóstico
+          </button>
+          {!studiedToday && (
+            <button className="btn-ghost hover:!border-danger hover:!text-danger" onClick={() => navigateToAction(true)}>
+              <AlertTriangle size={16} />
+              Dia ruim
+            </button>
+          )}
         </div>
       </section>
 
-      <section className="grid gap-5 xl:grid-cols-[0.95fr_0.95fr_1.1fr]">
-        {topPriority && (
-          <div className="bento-card p-5">
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <p className="kicker text-danger">Prioridade crítica</p>
-                <h2 className="mt-3 font-[Rajdhani,sans-serif] text-4xl font-black text-white">
-                  {topPriority.icon} {topPriority.name}
-                </h2>
-              </div>
+      <section className="grid gap-2 md:grid-cols-4">
+        <div className="cyber-card p-3">
+          <Calendar size={18} className="mb-2 text-pm-400" />
+          <p className="counter text-2xl font-black text-white">{deadline.daysLeft}</p>
+          <p className="text-[11px] text-[#7a99b8]">Dias até a prova</p>
+        </div>
+        <div className="cyber-card p-3">
+          <TrendingUp size={18} className="mb-2 text-gold-500" />
+          <p className="counter text-2xl font-black text-white">{accuracy}%</p>
+          <p className="text-[11px] text-[#7a99b8]">Taxa de acerto</p>
+        </div>
+        <div className="cyber-card p-3">
+          <CheckCircle2 size={18} className="mb-2 text-success" />
+          <p className="counter text-2xl font-black text-white">{completedCount}</p>
+          <p className="text-[11px] text-[#7a99b8]">Missões completas</p>
+        </div>
+        <div className="cyber-card p-3">
+          <Flame size={18} className="mb-2 text-danger" />
+          <p className="counter text-2xl font-black text-white">{profile.streak}</p>
+          <p className="text-[11px] text-[#7a99b8]">Dias de sequência</p>
+        </div>
+      </section>
 
-              <span className={`rounded-full px-3 py-1 text-xs font-black ${
-                topPriority.total === 0 ? 'bg-gray-700 text-gray-300' :
-                topPriority.pct >= 75 ? 'bg-success/15 text-success' :
-                topPriority.pct >= 60 ? 'bg-gold-500/15 text-gold-400' :
-                'bg-danger/15 text-danger'
-              }`}>
-                {topPriority.total > 0 ? `${topPriority.pct}%` : 'sem dados'}
-              </span>
+      <section className="grid gap-3 lg:grid-cols-2">
+        <div className="panel">
+          <div className="mb-3 flex items-center justify-between">
+            <div className="flex items-center gap-2 kicker text-[#7a99b8]">
+              <Zap size={14} />
+              Missão de agora
             </div>
-
-            <p className="mt-3 text-sm leading-relaxed text-gray-400">
-              {topPriority.reason}. Ataque isso antes de gastar energia no resto.
-            </p>
-
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              <div className="soft-panel p-4">
-                <p className="kicker text-gray-500">Questões</p>
-                <p className="mt-1 text-2xl font-black text-white">{topPriority.total}/{topPriority.questionCount}</p>
-              </div>
-
-              <div className="soft-panel p-4">
-                <p className="kicker text-gray-500">Teoria</p>
-                <p className="mt-1 text-2xl font-black text-white">{topPriority.missionProgress}/{topPriority.missions.length}</p>
-              </div>
-            </div>
-
-            <button onClick={() => onNavigate('subject', { subjectId: topPriority.id })} className="btn-primary mt-5 w-full">
-              <span className="inline-flex items-center justify-center gap-2">
-                <Crosshair size={17} />
-                {topPriority.action}
-              </span>
-            </button>
-          </div>
-        )}
-
-        <div className="bento-card p-5">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="kicker text-pm-300">Checklist diário</p>
-              <h2 className="mt-3 font-[Rajdhani,sans-serif] text-4xl font-black text-white">
-                {dailyChecklist.completedCount}/{dailyChecklist.totalCount}
-              </h2>
-            </div>
-
-            <span className={`rounded-full px-3 py-1 text-xs font-black ${
-              dailyChecklist.isComplete ? 'bg-success/15 text-success' : 'bg-white/5 text-gray-300'
-            }`}>
-              {dailyChecklist.isComplete ? 'feito' : 'pendente'}
+            <span className="rounded-full bg-[#2a1f05] px-2 py-1 text-[10px] font-black text-gold-500 counter">
+              +{smartAction.xpReward} XP
             </span>
           </div>
 
-          <p className="mt-2 text-sm text-gray-500">{dailyChecklist.title}</p>
+          <div className="mb-3 rounded-lg border border-[#0c1e32] bg-[#060e1a] p-3">
+            <p className="mb-1 text-xs font-bold text-pm-400">{smartAction.subjectIcon} {smartAction.subjectLabel}</p>
+            <p className="text-sm font-black text-white">{smartAction.title}</p>
+            <p className="mt-1 text-xs leading-relaxed text-[#7a99b8]">{smartAction.summary}</p>
 
-          <div className="mt-5 space-y-2">
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              <span className="rounded bg-[#0f2540] px-2 py-1 text-[10px] text-[#7a99b8] counter">
+                <Timer size={10} className="mr-1 inline" /> {smartAction.minutes} min
+              </span>
+              <span className="rounded bg-[#0f2540] px-2 py-1 text-[10px] text-[#7a99b8] counter">
+                Prioridade auto
+              </span>
+            </div>
+          </div>
+
+          {topPriority && (
+            <>
+              <div className="mb-1 inline-flex items-center gap-1 rounded-full bg-[#2a0510] px-2 py-1 text-[10px] font-black text-danger counter">
+                <AlertTriangle size={11} />
+                Prioridade #1 — {topPriority.name}
+              </div>
+              <p className="mb-3 text-[11px] leading-relaxed text-[#7a99b8]">{topPriority.reason}</p>
+            </>
+          )}
+
+          <button className="btn-primary w-full" onClick={() => navigateToAction(false)}>
+            <Zap size={16} />
+            Executar missão
+          </button>
+        </div>
+
+        <div className="panel">
+          <div className="mb-3 flex items-center justify-between">
+            <div className="flex items-center gap-2 kicker text-[#7a99b8]">
+              <CheckCircle2 size={14} />
+              Mínimo diário
+            </div>
+            <span className="rounded-full bg-[#0d2d45] px-2 py-1 text-[10px] font-black text-pm-400 counter">
+              {dailyChecklist.completedCount}/{dailyChecklist.totalCount}
+            </span>
+          </div>
+
+          <div>
             {dailyChecklist.items.map(item => (
-              <div key={item.id} className="flex items-start gap-3 rounded-[1.25rem] bg-white/[0.035] p-3">
-                {item.done ? (
-                  <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-success" />
-                ) : (
-                  <Circle size={18} className="mt-0.5 shrink-0 text-gray-600" />
-                )}
+              <div key={item.id} className="flex items-start gap-2 border-b border-[#0a1828] py-2 last:border-b-0">
+                <div className={`mt-0.5 flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded border ${
+                  item.done ? 'border-success bg-success' : 'border-[#1a3050]'
+                }`}>
+                  {item.done && <CheckCircle2 size={12} className="text-[#04080f]" />}
+                </div>
 
                 <div>
-                  <p className={`text-sm font-bold ${item.done ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
+                  <p className={`text-xs font-bold ${item.done ? 'text-[#4a6080] line-through' : 'text-[#c8dff0]'}`}>
                     {item.label}
                   </p>
-                  <p className="text-[11px] text-gray-500">{item.hint}</p>
+                  <p className="mt-0.5 text-[10px] text-[#4a6080] counter">{item.hint}</p>
                 </div>
               </div>
             ))}
           </div>
 
           {!dailyChecklist.isComplete && (
-            <button onClick={markDailyMinimumDone} className="mt-5 w-full rounded-[1.25rem] border border-white/10 bg-white/[0.035] py-3 text-xs font-bold text-gray-400 hover:text-gold-400">
-              Marcar mínimo feito fora do app
+            <button className="btn-ghost mt-3 w-full" onClick={markDailyMinimumDone}>
+              Marcar feito fora do app
             </button>
           )}
         </div>
+      </section>
 
-        <div className="bento-card p-5">
-          <div className="mb-4 flex items-center justify-between gap-3">
-            <div>
-              <p className="kicker text-pm-300">Mapa de progresso</p>
-              <h2 className="mt-1 font-[Rajdhani,sans-serif] text-3xl font-black text-white">Matérias</h2>
-            </div>
-
-            <button onClick={() => onNavigate('subjects')} className="inline-flex items-center gap-1 text-sm font-black text-gold-400 hover:text-gold-300">
-              Ver aulas
-              <ChevronRight size={15} />
-            </button>
+      <section className="panel">
+        <div className="mb-3 flex items-center justify-between">
+          <div className="flex items-center gap-2 kicker text-[#7a99b8]">
+            <Map size={14} />
+            Mapa de matérias
           </div>
+          <button className="flex items-center gap-1 text-[11px] font-bold text-pm-400 counter" onClick={() => onNavigate('subjects')}>
+            ver todas
+            <ChevronRight size={13} />
+          </button>
+        </div>
 
-          <div className="space-y-3">
-            {subjects.map(sub => {
-              const prog = getSubjectProgress(sub.id, profile.completedMissions);
-              const pct = Math.round((prog / sub.missions.length) * 100);
-              const stat = subjectStats.find(s => s.id === sub.id);
+        <div>
+          {subjects.map(sub => {
+            const prog = getSubjectProgress(sub.id, profile.completedMissions);
+            const pct = Math.round((prog / sub.missions.length) * 100);
+            const stat = subjectStats.find(s => s.id === sub.id);
 
-              return (
-                <button
-                  key={sub.id}
-                  onClick={() => onNavigate('subject', { subjectId: sub.id })}
-                  className="w-full rounded-[1.2rem] bg-white/[0.035] p-3 text-left transition hover:bg-white/[0.055]"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-sm font-black text-white">{sub.icon} {sub.name}</p>
-                    <span className="text-[10px] font-bold text-gray-500">{prog}/{sub.missions.length}</span>
-                  </div>
+            return (
+              <button
+                key={sub.id}
+                onClick={() => onNavigate('subject', { subjectId: sub.id })}
+                className="flex w-full items-center gap-3 border-b border-[#0a1828] py-2.5 text-left transition hover:pl-1 last:border-b-0"
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-[#0f2540] bg-[#0a1828] text-sm">
+                  {sub.icon}
+                </div>
 
-                  <div className="progress-bar mt-2 h-[6px]">
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-black text-[#c8dff0]">{sub.name}</p>
+                  <div className="progress-bar mt-1">
                     <div className="progress-bar-fill" style={{ width: `${pct}%`, background: sub.color }} />
                   </div>
-
-                  <div className="mt-1 flex justify-between text-[10px] text-gray-500">
-                    <span>{pct}% teoria</span>
-                    <span>{stat?.total ? `${stat.pct}% questões` : 'sem dados'}</span>
+                  <div className="mt-1 flex justify-between text-[10px] text-[#4a6080] counter">
+                    <span>{prog}/{sub.missions.length} missões</span>
+                    <span>{stat?.total ? `${stat.pct}% acerto` : 'sem dados'}</span>
                   </div>
-                </button>
-              );
-            })}
-          </div>
+                </div>
+
+                <ChevronRight size={14} className="text-[#4a6080]" />
+              </button>
+            );
+          })}
         </div>
       </section>
 
-      <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <button onClick={() => onNavigate('simulados')} className="bento-card p-5 text-left">
-          <Target size={24} className="mb-4 text-pm-300" />
-          <p className="text-lg font-black text-white">Simulados</p>
-          <p className="mt-1 text-xs text-gray-500">Treino de prova</p>
+      <section className="grid gap-2 md:grid-cols-4">
+        <button className="cyber-card p-3 text-left hover:!border-[#1a3a60]" onClick={() => onNavigate('simulados')}>
+          <Target size={21} className="mb-2 text-pm-400" />
+          <p className="text-xs font-black text-[#c8dff0]">Simulados</p>
+          <p className="text-[10px] text-[#4a6080]">Treino de prova</p>
         </button>
 
-        <button onClick={() => onNavigate('review')} className="bento-card p-5 text-left">
-          <Flame size={24} className="mb-4 text-orange-400" />
-          <p className="text-lg font-black text-white">Revisão</p>
-          <p className="mt-1 text-xs text-gray-500">{profile.wrongQuestions.length} erros para rever</p>
+        <button className="cyber-card p-3 text-left hover:!border-[#1a3a60]" onClick={() => onNavigate('review')}>
+          <RotateCcw size={21} className="mb-2 text-danger" />
+          <p className="text-xs font-black text-[#c8dff0]">Revisão</p>
+          <p className="text-[10px] text-[#4a6080]">{profile.wrongQuestions.length} erros pendentes</p>
         </button>
 
-        <button onClick={() => onNavigate('essay')} className="bento-card p-5 text-left">
-          <Brain size={24} className="mb-4 text-gold-400" />
-          <p className="text-lg font-black text-white">Redação</p>
-          <p className="mt-1 text-xs text-gray-500">Estrutura e treino</p>
+        <button className="cyber-card p-3 text-left hover:!border-[#1a3a60]" onClick={() => onNavigate('essay')}>
+          <Pencil size={21} className="mb-2 text-gold-500" />
+          <p className="text-xs font-black text-[#c8dff0]">Redação</p>
+          <p className="text-[10px] text-[#4a6080]">Estrutura e temas</p>
         </button>
 
-        <button onClick={() => onNavigate('taf')} className="bento-card p-5 text-left">
-          <TrendingUp size={24} className="mb-4 text-success" />
-          <p className="text-lg font-black text-white">TAF</p>
-          <p className="mt-1 text-xs text-gray-500">Condicionamento</p>
+        <button className="cyber-card p-3 text-left hover:!border-[#1a3a60]" onClick={() => onNavigate('taf')}>
+          <Dumbbell size={21} className="mb-2 text-success" />
+          <p className="text-xs font-black text-[#c8dff0]">TAF</p>
+          <p className="text-[10px] text-[#4a6080]">Condicionamento</p>
         </button>
       </section>
-
-      {!studiedToday && (
-        <button onClick={() => navigateToAction(true)} className="w-full rounded-[1.35rem] border border-white/10 bg-white/[0.035] py-3 text-center text-xs font-bold text-gray-400 hover:text-gold-400">
-          <span className="inline-flex items-center justify-center gap-2">
-            <AlertTriangle size={13} />
-            Dia ruim: me dá só 10 minutos
-          </span>
-        </button>
-      )}
     </div>
   );
 }
