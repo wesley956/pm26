@@ -885,6 +885,106 @@ export const theoryLessons: TheoryLesson[] = [
     finalReminder: 'Se cair meio ambiente, procure equilíbrio entre desenvolvimento, preservação e responsabilidade social.',
     miniMission: 'Dê um exemplo de atitude individual e uma política pública que ajudam o meio ambiente.',
     notUnderstood: 'Modo simples: meio ambiente é o cenário onde a vida acontece. Se destruir o cenário, a missão falha.'
+  },
+  {
+    missionId: 'inf-03',
+    subjectId: 'informatica',
+    title: 'Word e Editores de Texto — O Escrivão Digital',
+    missionBrief: 'Revisar edição de textos, formatação e recursos básicos.',
+    dumbMode: 'Editor de texto serve para criar e formatar documentos. Você usa para escrever, alterar fonte, alinhar parágrafo, inserir imagem, tabela, cabeçalho, rodapé e revisar ortografia.',
+    analogy: 'Pense no Word como o escriba de uma guilda. Ele organiza relatórios, registros de ocorrência, cartas e documentos oficiais.',
+    vunespMode: 'A Vunesp cobra recursos de formatação, atalhos, alinhamento, salvar, imprimir, localizar, substituir, cabeçalho, rodapé e revisão ortográfica.',
+    traps: [
+      'Ctrl+B pode ser negrito em programas em inglês; em muitos ambientes PT-BR, Ctrl+N é negrito.',
+      'Ctrl+S pode salvar em programas em inglês; no Word PT-BR, Ctrl+B costuma salvar.',
+      'Cabeçalho fica no topo da página.',
+      'Rodapé fica na parte inferior da página.',
+      'Localizar e substituir são recursos diferentes.'
+    ],
+    memoryHook: 'Editor de texto cria, formata, revisa e imprime documentos.',
+    finalReminder: 'Se cair Word/Writer, pense em formatação, página, revisão e atalhos.',
+    miniMission: 'Explique a diferença entre cabeçalho e rodapé.',
+    notUnderstood: 'Modo simples: Word é o programa para escrever documento bonito e organizado.'
+  },
+  {
+    missionId: 'inf-07',
+    subjectId: 'informatica',
+    title: 'E-mail — Comunicação Oficial sem Vacilo',
+    missionBrief: 'Entender campos, anexos, cópia, cópia oculta e segurança no e-mail.',
+    dumbMode: 'E-mail é mensagem eletrônica. O campo Para recebe o destinatário principal. CC manda cópia visível. CCO manda cópia oculta. Anexo é arquivo enviado junto.',
+    analogy: 'Imagine enviar um relatório de ocorrência. Para é quem precisa receber. CC são pessoas que precisam acompanhar. CCO é quem recebe sem os outros verem. Anexo é o documento preso ao relatório.',
+    vunespMode: 'A banca cobra Para, CC, CCO, anexos, spam, phishing, resposta, responder a todos e cuidados com links suspeitos.',
+    traps: [
+      'CC é cópia visível.',
+      'CCO é cópia oculta.',
+      'Anexo não fica dentro do texto; vai junto com a mensagem.',
+      'Responder a todos envia para todos os envolvidos.',
+      'E-mail falso pode ser phishing.'
+    ],
+    memoryHook: 'Para recebe. CC aparece. CCO esconde. Anexo acompanha.',
+    finalReminder: 'Se cair e-mail, procure diferença entre CC e CCO.',
+    miniMission: 'Diga quando você usaria CC e quando usaria CCO.',
+    notUnderstood: 'Modo simples: e-mail é carta digital com destinatário, cópia e arquivo anexado.'
+  },
+  {
+    missionId: 'inf-08',
+    subjectId: 'informatica',
+    title: 'Sistemas Móveis — Android, iOS e Permissões',
+    missionBrief: 'Revisar conceitos básicos de celular, aplicativos e segurança móvel.',
+    dumbMode: 'Sistema operacional móvel é o sistema que faz o celular funcionar. Android e iOS são os principais. Aplicativos podem pedir permissões como câmera, localização, microfone e arquivos.',
+    analogy: 'Pense no celular como uma base portátil. O sistema operacional é o comandante da base. Cada app é um visitante pedindo acesso a salas específicas.',
+    vunespMode: 'A Vunesp pode cobrar Android, iOS, loja de aplicativos, permissões, atualizações, segurança, backup e armazenamento em nuvem.',
+    traps: [
+      'Android é associado ao Google.',
+      'iOS é associado à Apple.',
+      'Permissão de localização permite acessar posição do aparelho.',
+      'Atualizações corrigem falhas e melhoram segurança.',
+      'Instalar app fora de loja confiável aumenta risco.'
+    ],
+    memoryHook: 'App pede permissão; usuário decide se abre a porta.',
+    finalReminder: 'Se cair sistema móvel, pense em app, permissão, atualização e segurança.',
+    miniMission: 'Liste três permissões comuns que um aplicativo pode pedir.',
+    notUnderstood: 'Modo simples: Android e iOS são o Windows do celular.'
+  },
+  {
+    missionId: 'inf-09',
+    subjectId: 'informatica',
+    title: 'Redes de Computadores — As Rotas da Informação',
+    missionBrief: 'Entender rede, internet, Wi-Fi, IP, DNS, modem e roteador.',
+    dumbMode: 'Rede é a conexão entre dispositivos para trocar dados. Internet é uma rede mundial. IP é endereço do dispositivo. DNS traduz nomes de sites para endereços. Roteador distribui conexão.',
+    analogy: 'Imagine uma cidade. O IP é o endereço da casa. O DNS é o guia que transforma o nome do lugar em endereço. O roteador é o centro que manda cada mensagem para o caminho certo.',
+    vunespMode: 'A banca cobra LAN, WAN, Wi-Fi, IP, DNS, modem, roteador, navegador, internet e segurança em redes sem fio.',
+    traps: [
+      'LAN é rede local.',
+      'WAN é rede de longa distância.',
+      'Wi-Fi é rede sem fio.',
+      'DNS traduz domínio em IP.',
+      'Roteador distribui a conexão entre dispositivos.'
+    ],
+    memoryHook: 'IP é endereço. DNS é tradutor. Roteador distribui.',
+    finalReminder: 'Se cair rede, identifique se a questão fala de endereço, tradução ou distribuição de conexão.',
+    miniMission: 'Explique em uma frase o que faz o DNS.',
+    notUnderstood: 'Modo simples: rede é um caminho para dispositivos conversarem.'
+  },
+  {
+    missionId: 'inf-10',
+    subjectId: 'informatica',
+    title: 'Ferramentas Office e Nuvem — Kit de Produtividade',
+    missionBrief: 'Revisar apresentações, armazenamento em nuvem e colaboração.',
+    dumbMode: 'Ferramentas Office ajudam a criar documentos, planilhas e apresentações. Nuvem permite guardar arquivos na internet e acessar de outros dispositivos.',
+    analogy: 'Pense em uma mochila mágica. Em vez de carregar todos os papéis fisicamente, você guarda na nuvem e acessa quando precisa, de outro computador ou celular.',
+    vunespMode: 'A banca cobra PowerPoint/Impress, slides, apresentações, transições, animações, Google Drive, OneDrive, armazenamento em nuvem e colaboração online.',
+    traps: [
+      'PowerPoint e Impress criam apresentações.',
+      'Slides são páginas da apresentação.',
+      'Transição ocorre entre slides.',
+      'Animação ocorre em elementos dentro do slide.',
+      'Nuvem permite acesso remoto e sincronização.'
+    ],
+    memoryHook: 'Documento escreve, planilha calcula, apresentação mostra, nuvem guarda.',
+    finalReminder: 'Se cair apresentação, diferencie transição de animação.',
+    miniMission: 'Diga a diferença entre armazenamento local e armazenamento em nuvem.',
+    notUnderstood: 'Modo simples: Office é kit de trabalho; nuvem é guardar arquivo na internet.'
   }
 ];
 
