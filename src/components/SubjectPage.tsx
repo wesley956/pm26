@@ -1,6 +1,7 @@
 import { subjects } from '../data/subjects';
+import { getTheoryLesson } from '../data/theory';
 import { useApp } from '../store';
-import { CheckCircle2, Circle, Play, ChevronLeft, Clock, Zap } from 'lucide-react';
+import { CheckCircle2, Circle, Play, ChevronLeft, Clock, Zap, Brain, ShieldAlert, HelpCircle } from 'lucide-react';
 
 interface Props {
   subjectId?: string;
@@ -60,6 +61,7 @@ export function SubjectDetail({ subjectId, onNavigate }: Props) {
       <div className="space-y-2">
         {subject.missions.map((mission, idx) => {
           const done = profile.completedMissions.includes(mission.id);
+  const theory = getTheoryLesson(mission.id);
           return (
             <button
               key={mission.id}
@@ -103,6 +105,7 @@ export function MissionView({ missionId, subjectId, onNavigate }: Props) {
   if (!mission || !subject) return <p>Missão não encontrada.</p>;
 
   const done = profile.completedMissions.includes(mission.id);
+  const theory = getTheoryLesson(mission.id);
 
   const handleComplete = () => {
     if (!done) {
@@ -135,25 +138,89 @@ export function MissionView({ missionId, subjectId, onNavigate }: Props) {
         <p className="text-sm text-gray-300">{mission.summary}</p>
       </div>
 
-      {/* Content */}
-      <div className="card">
-        <h3 className="text-xs font-bold text-pm-300 mb-2">CONTEÚDO</h3>
-        <p className="text-sm text-gray-300 leading-relaxed">{mission.content}</p>
-      </div>
+      {theory ? (
+        <div className="space-y-3">
+          <div className="card border-l-4 border-pm-500">
+            <h3 className="text-xs font-bold text-pm-300 mb-2 flex items-center gap-1">
+              <Brain size={14} /> MISSÃO DA AULA
+            </h3>
+            <p className="text-sm text-gray-300 leading-relaxed">{theory.missionBrief}</p>
+          </div>
 
-      {/* Examples */}
-      {mission.examples.length > 0 && (
-        <div className="card">
-          <h3 className="text-xs font-bold text-pm-300 mb-2">EXEMPLOS</h3>
-          <ul className="space-y-2">
-            {mission.examples.map((ex, i) => (
-              <li key={i} className="text-sm text-gray-400 flex items-start gap-2">
-                <span className="text-pm-400 mt-0.5">▸</span>
-                <span>{ex}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="card">
+            <h3 className="text-xs font-bold text-gold-400 mb-2">🧠 MODO BURRO</h3>
+            <p className="text-sm text-gray-300 leading-relaxed">{theory.dumbMode}</p>
+          </div>
+
+          <div className="card">
+            <h3 className="text-xs font-bold text-pm-300 mb-2">🕵️ EXEMPLO DO SEU MUNDO</h3>
+            <p className="text-sm text-gray-300 leading-relaxed">{theory.analogy}</p>
+          </div>
+
+          <div className="card">
+            <h3 className="text-xs font-bold text-danger mb-2 flex items-center gap-1">
+              <ShieldAlert size={14} /> MODO PROVA / VUNESP
+            </h3>
+            <p className="text-sm text-gray-300 leading-relaxed">{theory.vunespMode}</p>
+          </div>
+
+          <div className="card">
+            <h3 className="text-xs font-bold text-orange-300 mb-2">🪤 PEGADINHAS</h3>
+            <ul className="space-y-2">
+              {theory.traps.map((trap, i) => (
+                <li key={i} className="text-sm text-gray-400 flex items-start gap-2">
+                  <span className="text-orange-300 mt-0.5">▸</span>
+                  <span>{trap}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="card border-l-4 border-gold-500">
+            <h3 className="text-xs font-bold text-gold-400 mb-1">🧩 MACETE</h3>
+            <p className="text-sm text-white font-semibold">{theory.memoryHook}</p>
+          </div>
+
+          <div className="card">
+            <h3 className="text-xs font-bold text-pm-300 mb-1">✅ MINI MISSÃO</h3>
+            <p className="text-sm text-gray-300">{theory.miniMission}</p>
+          </div>
+
+          <div className="card bg-pm-900/60">
+            <h3 className="text-xs font-bold text-success mb-1">📌 SE CAIR NA PROVA</h3>
+            <p className="text-sm text-gray-200">{theory.finalReminder}</p>
+          </div>
+
+          <details className="card">
+            <summary className="cursor-pointer text-xs font-bold text-pm-300 flex items-center gap-1">
+              <HelpCircle size={14} /> NÃO ENTENDI — EXPLICA MAIS SIMPLES
+            </summary>
+            <p className="text-sm text-gray-300 leading-relaxed mt-3">{theory.notUnderstood}</p>
+          </details>
         </div>
+      ) : (
+        <>
+          {/* Content */}
+          <div className="card">
+            <h3 className="text-xs font-bold text-pm-300 mb-2">CONTEÚDO</h3>
+            <p className="text-sm text-gray-300 leading-relaxed">{mission.content}</p>
+          </div>
+
+          {/* Examples */}
+          {mission.examples.length > 0 && (
+            <div className="card">
+              <h3 className="text-xs font-bold text-pm-300 mb-2">EXEMPLOS</h3>
+              <ul className="space-y-2">
+                {mission.examples.map((ex, i) => (
+                  <li key={i} className="text-sm text-gray-400 flex items-start gap-2">
+                    <span className="text-pm-400 mt-0.5">▸</span>
+                    <span>{ex}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </>
       )}
 
       {/* Complete button */}
