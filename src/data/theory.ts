@@ -692,7 +692,7 @@ export const theoryLessons: TheoryLesson[] = [
     miniMission: 'Crie um exemplo para cada tipo: enriquecimento, prejuízo e princípio.',
     notUnderstood: 'Modo simples: improbidade é quando alguém usa a função pública de forma desonesta ou gravemente errada.'
   },
-{
+  {
     missionId: 'mt-01',
     subjectId: 'matematica',
     title: 'Operações Fundamentais — A Forja dos Números',
