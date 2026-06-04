@@ -6,13 +6,16 @@ import {
   RotateCcw,
   User,
   Flame,
-  Star,
   ShieldCheck,
   Menu,
   X,
-  PanelLeftOpen,
-  PanelLeftClose,
-  Sparkles,
+  Pencil,
+  Dumbbell,
+  CalendarDays,
+  Trophy,
+  CheckSquare,
+  Layers3,
+  BarChart3,
 } from 'lucide-react';
 import { useApp } from '../store';
 import { getLevelInfo } from '../utils';
@@ -23,209 +26,197 @@ interface LayoutProps {
   onNavigate: (tab: string) => void;
 }
 
-const navItems = [
-  { id: 'dashboard', icon: Home, label: 'Início' },
-  { id: 'subjects', icon: BookOpen, label: 'Matérias' },
-  { id: 'simulados', icon: Target, label: 'Simulados' },
-  { id: 'review', icon: RotateCcw, label: 'Revisão' },
-  { id: 'profile', icon: User, label: 'Perfil' },
+const navGroups = [
+  {
+    label: 'Principal',
+    items: [
+      { id: 'dashboard', icon: Home, label: 'Dashboard' },
+      { id: 'studyplan', icon: CheckSquare, label: 'Checklist Diário' },
+      { id: 'subjects', icon: Target, label: 'Missões' },
+    ],
+  },
+  {
+    label: 'Estudos',
+    items: [
+      { id: 'subjects', icon: BookOpen, label: 'Matérias' },
+      { id: 'review', icon: Layers3, label: 'Flashcards' },
+      { id: 'simulados', icon: Trophy, label: 'Simulado Oficial' },
+      { id: 'essay', icon: Pencil, label: 'Redação' },
+    ],
+  },
+  {
+    label: 'Físico e Perfil',
+    items: [
+      { id: 'taf', icon: Dumbbell, label: 'TAF — Treino' },
+      { id: 'profile', icon: User, label: 'Perfil' },
+      { id: 'profile-stats', icon: BarChart3, label: 'Estatísticas' },
+    ],
+  },
 ];
 
 export default function Layout({ children, activeTab, onNavigate }: LayoutProps) {
   const { profile } = useApp();
   const info = getLevelInfo(profile);
-  const [collapsed, setCollapsed] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const activeItem = navItems.find(item => item.id === activeTab);
+  const handleNavigate = (id: string) => {
+    if (id === 'profile-stats') {
+      onNavigate('profile');
+    } else {
+      onNavigate(id);
+    }
+    setMobileOpen(false);
+  };
 
-  const navButton = (item: typeof navItems[number], mobile = false) => (
-    <button
-      key={item.id}
-      onClick={() => {
-        onNavigate(item.id);
-        if (mobile) setMobileOpen(false);
-      }}
-      title={collapsed && !mobile ? item.label : undefined}
-      className={`group flex w-full items-center rounded-[1.25rem] px-3 py-3 text-left transition-all ${
-        activeTab === item.id
-          ? 'bg-gradient-to-r from-gold-500/22 to-pm-400/12 text-gold-300 ring-1 ring-gold-500/25'
-          : 'text-gray-400 hover:bg-white/[0.045] hover:text-white'
-      } ${collapsed && !mobile ? 'justify-center' : 'gap-3'}`}
-    >
-      <item.icon size={20} strokeWidth={activeTab === item.id ? 2.65 : 1.75} />
-      {(!collapsed || mobile) && <span className="text-sm font-black">{item.label}</span>}
-    </button>
+  const Sidebar = () => (
+    <aside className={`sidebar-shell ${mobileOpen ? 'open' : ''}`}>
+      <div className="border-b border-cyan-900/40 p-5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-cyan-400/40 bg-cyan-400/10">
+            <ShieldCheck size={21} className="text-pm-400" />
+          </div>
+
+          <div>
+            <div className="sidebar-logo">PM-SP 2026</div>
+            <div className="text-xs font-bold tracking-widest text-slate-500">ARENA DO RECRUTA</div>
+          </div>
+        </div>
+
+        <button
+          onClick={() => setMobileOpen(false)}
+          className="absolute right-3 top-3 rounded-lg border border-cyan-400/20 p-2 text-slate-400 lg:hidden"
+          aria-label="Fechar menu"
+        >
+          <X size={17} />
+        </button>
+      </div>
+
+      <div className="mx-3 mb-2 mt-4 rounded-xl border border-cyan-400/10 bg-cyan-400/[0.04] p-3">
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-400/40 bg-gradient-to-br from-[#1e3a5f] to-[#0a1f3f] text-lg font-black text-white">
+              R
+            </div>
+            <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#020818] bg-success shadow-[0_0_8px_#00ff88]" />
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <div className="truncate text-sm font-black text-white">{info.title}</div>
+            <div className="text-xs font-bold text-gold-500">Nível {info.level}</div>
+          </div>
+
+          <div className="text-right">
+            <div className="text-xs font-black text-success">{profile.xp} XP</div>
+            <div className="text-xs text-slate-500">{profile.streak} dias</div>
+          </div>
+        </div>
+
+        <div className="mt-2">
+          <div className="xp-bar-wrap">
+            <div className="xp-bar-fill" style={{ width: `${info.progress}%` }} />
+          </div>
+          <div className="mt-1 flex justify-between text-[10px] text-slate-500">
+            <span>{info.xpInLevel} / {info.xpForNext} XP</span>
+            <span className="text-pm-400">{info.progress}%</span>
+          </div>
+        </div>
+      </div>
+
+      <nav className="mt-2 max-h-[calc(100vh-250px)] overflow-y-auto pb-4">
+        {navGroups.map(group => (
+          <div key={group.label}>
+            <div className="mb-2 mt-4 px-4">
+              <span className="section-label">{group.label}</span>
+            </div>
+
+            {group.items.map(item => {
+              const active = activeTab === item.id || (item.id === 'profile-stats' && activeTab === 'profile');
+              return (
+                <button
+                  key={`${group.label}-${item.id}-${item.label}`}
+                  onClick={() => handleNavigate(item.id)}
+                  className={`nav-item w-[calc(100%-24px)] ${active ? 'active' : ''}`}
+                >
+                  <item.icon size={18} />
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        ))}
+      </nav>
+
+      <div className="mx-3 mb-4 mt-auto">
+        <button
+          className="btn-glow w-full !border-danger/40 !bg-danger/10 !text-danger"
+          onClick={() => handleNavigate('dashboard')}
+        >
+          😓 Modo Dia Ruim — 10min
+        </button>
+      </div>
+    </aside>
   );
 
   return (
-    <div className="min-h-[100dvh]">
+    <div>
+      <div className="pointer-events-none fixed inset-0 z-0">
+        {Array.from({ length: 55 }).map((_, i) => (
+          <span
+            key={i}
+            className="star"
+            style={{
+              left: `${(i * 37) % 100}%`,
+              top: `${(i * 53) % 100}%`,
+              animationDuration: `${2 + (i % 5)}s`,
+              animationDelay: `${(i % 7) * 0.4}s`,
+            }}
+          />
+        ))}
+
+        {Array.from({ length: 16 }).map((_, i) => (
+          <span
+            key={`p-${i}`}
+            className="particle"
+            style={{
+              left: `${(i * 43) % 100}%`,
+              background: ['#00d4ff', '#00ff88', '#a855f7', '#ffd700'][i % 4],
+              boxShadow: `0 0 6px ${['#00d4ff', '#00ff88', '#a855f7', '#ffd700'][i % 4]}`,
+              animationDuration: `${8 + (i % 8)}s`,
+              animationDelay: `${(i % 5) * 1.1}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      <Sidebar />
+
       {mobileOpen && (
         <button
-          aria-label="Fechar menu"
-          className="fixed inset-0 z-40 bg-black/65 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-[90] bg-black/60 lg:hidden"
           onClick={() => setMobileOpen(false)}
+          aria-label="Fechar menu"
         />
       )}
 
-      <div className="flex min-h-[100dvh]">
-        {/* Floating sidebar */}
-        <aside
-          className={`fixed left-4 top-4 z-40 hidden h-[calc(100dvh-2rem)] flex-col rounded-[2rem] border border-white/10 bg-[#070b14]/78 p-3 shadow-2xl shadow-black/35 backdrop-blur-2xl transition-all duration-300 md:flex ${
-            collapsed ? 'w-[82px]' : 'w-[268px]'
-          }`}
+      <header className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-cyan-400/15 bg-[#020818]/95 px-4 py-3 backdrop-blur-xl lg:hidden">
+        <button
+          className="hamburger h-10 w-10 items-center justify-center rounded-lg border border-cyan-400/20 text-pm-400"
+          onClick={() => setMobileOpen(true)}
+          aria-label="Abrir menu"
         >
-          <div className="flex h-full flex-col">
-            <div className="flex items-center justify-center">
-              <button
-                onClick={() => onNavigate('dashboard')}
-                className="flex h-13 w-13 items-center justify-center rounded-[1.35rem] border border-gold-500/30 bg-gold-500/15 text-gold-300"
-              >
-                <ShieldCheck size={24} />
-              </button>
-            </div>
+          <Menu size={18} />
+        </button>
 
-            {!collapsed && (
-              <div className="mt-3 px-2 text-center">
-                <p className="kicker text-gold-400">PM-SP 2026</p>
-                <h1 className="font-[Rajdhani,sans-serif] text-xl font-black text-white">
-                  Arena do Recruta
-                </h1>
-              </div>
-            )}
+        <div className="sidebar-logo text-sm">PM-SP 2026</div>
 
-            <button
-              onClick={() => setCollapsed(!collapsed)}
-              className="mt-4 flex w-full items-center justify-center rounded-[1.25rem] border border-white/10 bg-white/[0.035] py-2 text-gray-400 transition hover:text-white"
-              aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'}
-            >
-              {collapsed ? <PanelLeftOpen size={18} /> : <PanelLeftClose size={18} />}
-            </button>
-
-            <nav className="mt-5 flex-1 space-y-2">
-              {navItems.map(item => navButton(item))}
-            </nav>
-
-            <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.035] p-3">
-              <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-3'}`}>
-                <span className="text-2xl">{info.icon}</span>
-                {!collapsed && (
-                  <div>
-                    <p className="text-sm font-black text-white">{info.title}</p>
-                    <p className="text-[11px] text-gray-500">Nível {info.level}</p>
-                  </div>
-                )}
-              </div>
-
-              {!collapsed && (
-                <>
-                  <div className="progress-bar mt-3 h-[6px]">
-                    <div
-                      className="progress-bar-fill bg-gradient-to-r from-pm-500 via-pm-400 to-gold-500"
-                      style={{ width: `${info.progress}%` }}
-                    />
-                  </div>
-
-                  <div className="mt-3 flex items-center justify-between text-xs">
-                    <span className="flex items-center gap-1 text-orange-400">
-                      <Flame size={14} /> {profile.streak}
-                    </span>
-                    <span className="flex items-center gap-1 text-gold-400">
-                      <Star size={14} /> {profile.medals.length}
-                    </span>
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </aside>
-
-        {/* Mobile drawer */}
-        <aside
-          className={`fixed inset-y-0 left-0 z-50 w-80 max-w-[88vw] border-r border-white/10 bg-[#070b14]/96 p-4 backdrop-blur-2xl transition-transform duration-300 md:hidden ${
-            mobileOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
-        >
-          <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex min-w-0 items-center gap-3">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[1.35rem] border border-gold-500/30 bg-gold-500/15">
-                  <ShieldCheck size={22} className="text-gold-300" />
-                </div>
-                <div className="min-w-0">
-                  <p className="kicker text-gold-400">PM-SP 2026</p>
-                  <h1 className="truncate font-[Rajdhani,sans-serif] text-xl font-black text-white">
-                    Arena do Recruta
-                  </h1>
-                </div>
-              </div>
-
-              <button
-                onClick={() => setMobileOpen(false)}
-                className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.03] text-gray-400 hover:text-white"
-                aria-label="Fechar menu"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            <div className="mt-5 rounded-[1.5rem] border border-white/10 bg-white/[0.035] p-3">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{info.icon}</span>
-                <div>
-                  <p className="text-sm font-black text-white">{info.title}</p>
-                  <p className="text-[11px] text-gray-500">Nível {info.level} • {profile.xp} XP</p>
-                </div>
-              </div>
-
-              <div className="progress-bar mt-3 h-[6px]">
-                <div
-                  className="progress-bar-fill bg-gradient-to-r from-pm-500 via-pm-400 to-gold-500"
-                  style={{ width: `${info.progress}%` }}
-                />
-              </div>
-            </div>
-
-            <nav className="mt-5 flex-1 space-y-2">
-              {navItems.map(item => navButton(item, true))}
-            </nav>
-          </div>
-        </aside>
-
-        <div className={`recruit-shell-main flex min-w-0 flex-1 flex-col ${collapsed ? "" : "recruit-shell-main--open"}`}>
-          <header className="sticky top-0 z-30 border-b border-white/10 bg-[#050816]/72 backdrop-blur-2xl">
-            <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between gap-3 px-4 py-3 md:px-6 lg:px-8">
-              <div className="flex min-w-0 items-center gap-3">
-                <button
-                  onClick={() => setMobileOpen(true)}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.035] text-gray-300 hover:text-white md:hidden"
-                  aria-label="Abrir menu"
-                >
-                  <Menu size={18} />
-                </button>
-
-                <div className="min-w-0">
-                  <p className="kicker text-pm-300">Central de comando</p>
-                  <h2 className="truncate font-[Rajdhani,sans-serif] text-xl font-black text-white md:text-2xl">
-                    {activeItem?.label ?? 'Dashboard'}
-                  </h2>
-                </div>
-              </div>
-
-              <div className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-3 py-2 text-xs font-bold text-gray-300 lg:flex">
-                <Sparkles size={14} className="text-gold-400" />
-                Missão certa. Revisão curta. Constância diária.
-              </div>
-            </div>
-          </header>
-
-          <main className="flex-1 px-4 py-5 pb-24 md:px-6 md:pb-8 lg:px-8">
-            <div className="mx-auto w-full max-w-[1500px]">
-              {children}
-            </div>
-          </main>
+        <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-400/40 bg-gradient-to-br from-[#1e3a5f] to-[#0a1f3f] text-sm font-black text-white">
+          R
         </div>
-      </div>
+      </header>
+
+      <main className="main-content relative z-10">
+        {children}
+      </main>
     </div>
   );
 }
