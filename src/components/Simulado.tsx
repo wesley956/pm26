@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { questions } from '../data/questions';
 import { subjects } from '../data/subjects';
-import { EXAM_CONFIG } from '../config/examConfig';
+import { EXAM_CONFIG, EXAM_SUBJECTS } from '../config/examConfig';
 import { useApp } from '../store';
 import type { Question, SubjectId } from '../types';
 import { ChevronLeft, Target, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
@@ -32,6 +32,12 @@ function buildOfficialExamQuestions(): Question[] {
   }
 
   return shuffleQuestions(selected);
+}
+
+function getSimulationLabel(type: SimType): string {
+  if (type === 'mini') return 'Mini';
+  if (type === 'semanal') return 'Semanal';
+  return 'Completo oficial';
 }
 
 export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => void }) {
@@ -145,10 +151,19 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
 
           <button onClick={() => startSim('completo')} className="card w-full text-left hover:border-pm-400 border-l-4 border-danger">
             <div className="flex items-center gap-3">
-              <Target size={24} className="text-danger" />
-              <div>
+              <Target size={24} className="text-danger shrink-0" />
+              <div className="flex-1">
                 <h3 className="font-bold text-white">Simulado Completo Oficial</h3>
                 <p className="text-xs text-gray-500">60 questões • padrão PM-SP/Vunesp</p>
+
+                <div className="mt-3 grid grid-cols-1 gap-1">
+                  {EXAM_SUBJECTS.map(subject => (
+                    <div key={subject.id} className="flex justify-between text-[11px] text-gray-400">
+                      <span>{subject.label}</span>
+                      <span className="text-gold-400 font-semibold">{subject.officialQuestions} questões</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </button>
@@ -163,7 +178,7 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
                 <div key={sim.id} className="card flex justify-between items-center">
                   <div>
                     <p className="text-xs font-bold text-white">
-                                  {sim.type === 'mini' ? 'Mini' : sim.type === 'semanal' ? 'Semanal' : 'Completo oficial'}
+                      {getSimulationLabel(sim.type)}
                     </p>
                     <p className="text-[10px] text-gray-500">{new Date(sim.date).toLocaleDateString('pt-BR')}</p>
                   </div>
