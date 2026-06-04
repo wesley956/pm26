@@ -302,8 +302,8 @@ export const theoryLessons: TheoryLesson[] = [
     finalReminder: 'Se cair na prova, isole o x com calma e confira substituindo o valor na equação.',
     miniMission: 'Resolva: 2x + 6 = 20 e depois confira se o valor encontrado funciona.',
     notUnderstood: 'Modo simples: o x quer ficar sozinho. Tudo que está grudado nele precisa sair usando a operação contrária.'
-  },,
-{
+  },
+  {
     missionId: 'cg-02',
     subjectId: 'gerais',
     title: 'História do Brasil — Linha do Tempo da Missão Nacional',
