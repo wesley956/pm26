@@ -1,6 +1,7 @@
 import { useApp } from '../store';
 import { subjects } from '../data/subjects';
 import { getPrimaryDeadlineInfo, getSubjectProgress } from '../utils';
+import { questions } from '../data/questions';
 import { chooseSmartStudyAction } from '../utils/smartStudy';
 import { buildDailyChecklist } from '../utils/dailyChecklist';
 import { Play, Flame, Calendar, Target, Zap, ChevronRight, Timer, AlertTriangle, CheckCircle2, Circle } from 'lucide-react';
@@ -16,6 +17,43 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
   const totalAnswered = Object.keys(profile.completedQuestions).length;
   const correctCount = Object.values(profile.completedQuestions).filter(q => q.correct).length;
   const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+
+  const subjectStats = subjects.map(sub => {
+    const prefix = sub.id === 'portugues' ? 'pt' : sub.id === 'matematica' ? 'mt' : sub.id === 'gerais' ? 'cg' : sub.id === 'informatica' ? 'inf' : 'ap';
+    const answered = Object.values(profile.completedQuestions).filter(q => q.questionId.startsWith(prefix));
+    const total = answered.length;
+    const correct = answered.filter(q => q.correct).length;
+    const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+    const missionProgress = getSubjectProgress(sub.id, profile.completedMissions);
+    const questionCount = questions.filter(q => q.subjectId === sub.id).length;
+
+    const lowPracticePenalty = total < 5 ? 30 : 0;
+    const lowAccuracyPenalty = total > 0 ? Math.max(0, 75 - pct) : 25;
+    const missionPenalty = Math.max(0, sub.missions.length - missionProgress) * 3;
+    const strategicWeight =
+      sub.id === 'portugues' ? 20 :
+      sub.id === 'matematica' ? 16 :
+      sub.id === 'gerais' ? 16 :
+      sub.id === 'administracao' ? 12 :
+      6;
+
+    const priorityScore = lowPracticePenalty + lowAccuracyPenalty + missionPenalty + strategicWeight;
+
+    const reason =
+      total < 5 ? 'precisamos gerar dados respondendo questões' :
+      pct < 60 ? 'acerto baixo para meta top 100' :
+      missionProgress < sub.missions.length ? 'ainda há teoria premium para concluir' :
+      'manter revisão e volume';
+
+    const action =
+      missionProgress < sub.missions.length ? 'Abrir teoria premium' :
+      pct < 70 ? 'Treinar questões e revisar erros' :
+      'Fazer revisão rápida';
+
+    return { ...sub, total, correct, pct, missionProgress, questionCount, priorityScore, reason, action };
+  });
+
+  const topPriority = [...subjectStats].sort((a, b) => b.priorityScore - a.priorityScore)[0];
 
   // Check if studied today
   const today = new Date().toISOString().slice(0, 10);
@@ -105,6 +143,39 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           </button>
         </div>
       </div>
+
+      {/* Top 100 Priority */}
+      {topPriority && (
+        <div className="card border-l-4 border-danger">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-xs font-bold text-danger">🎯 PRIORIDADE TOP 100</p>
+              <h3 className="text-base font-bold text-white mt-1">
+                {topPriority.icon} {topPriority.name}
+              </h3>
+            </div>
+            <span className={`text-[11px] font-bold px-2 py-1 rounded-full ${
+              topPriority.total === 0 ? 'bg-gray-700 text-gray-300' :
+              topPriority.pct >= 75 ? 'bg-success/15 text-success' :
+              topPriority.pct >= 60 ? 'bg-gold-500/15 text-gold-400' :
+              'bg-danger/15 text-danger'
+            }`}>
+              {topPriority.total > 0 ? `${topPriority.pct}%` : 'sem dados'}
+            </span>
+          </div>
+
+          <p className="text-xs text-gray-400 mt-2">
+            {topPriority.reason} • {topPriority.missionProgress}/{topPriority.missions.length} missões • {topPriority.total}/{topPriority.questionCount} questões respondidas
+          </p>
+
+          <button
+            onClick={() => onNavigate('subject', { subjectId: topPriority.id })}
+            className="btn-primary w-full mt-3 text-sm"
+          >
+            {topPriority.action}
+          </button>
+        </div>
+      )}
 
       {/* Daily ADHD Checklist */}
       <div className="card border-l-4 border-pm-500">
