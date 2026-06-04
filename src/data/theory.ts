@@ -691,6 +691,103 @@ export const theoryLessons: TheoryLesson[] = [
     finalReminder: 'Se cair improbidade, identifique: ganhou vantagem, causou prejuízo ou violou princípio?',
     miniMission: 'Crie um exemplo para cada tipo: enriquecimento, prejuízo e princípio.',
     notUnderstood: 'Modo simples: improbidade é quando alguém usa a função pública de forma desonesta ou gravemente errada.'
+  },
+{
+    missionId: 'mt-01',
+    subjectId: 'matematica',
+    title: 'Operações Fundamentais — A Forja dos Números',
+    missionBrief: 'Dominar soma, subtração, multiplicação, divisão e sinais.',
+    dumbMode: 'Operação fundamental é a base da Matemática: somar, subtrair, multiplicar e dividir. Antes de pensar em fórmula difícil, você precisa controlar essas quatro armas.',
+    analogy: 'Pense como um ferreiro de RPG. Antes de criar uma espada lendária, ele precisa dominar martelo, fogo, metal e resfriamento. Na Matemática, as quatro operações são essas ferramentas básicas.',
+    vunespMode: 'A Vunesp costuma colocar conta com sinais, parênteses, decimais e ordem das operações dentro de problemas simples.',
+    traps: [
+      'Resolva primeiro parênteses.',
+      'Multiplicação e divisão vêm antes de soma e subtração.',
+      'Número negativo multiplicado por negativo dá positivo.',
+      'Cuidado com vírgula em números decimais.'
+    ],
+    memoryHook: 'Parênteses primeiro. Depois vezes/dividir. Depois soma/subtrai.',
+    finalReminder: 'Se cair conta grande, quebre em partes pequenas e respeite a ordem.',
+    miniMission: 'Resolva: -8 × 3 + 4 × 5 e explique cada passo.',
+    notUnderstood: 'Modo simples: Matemática é igual combate por turnos. Você precisa agir na ordem certa.'
+  },
+  {
+    missionId: 'mt-07',
+    subjectId: 'matematica',
+    title: 'Sistema de Equações — Dois Suspeitos na Mesma Ocorrência',
+    missionBrief: 'Resolver problemas com duas incógnitas sem se perder.',
+    dumbMode: 'Sistema de equações aparece quando existem duas informações e duas incógnitas. A missão é descobrir o valor de cada uma.',
+    analogy: 'Imagine uma investigação com dois suspeitos: X e Y. Uma testemunha diz uma coisa, outra testemunha diz outra. Você junta as pistas até descobrir quem é quem.',
+    vunespMode: 'A Vunesp pode cobrar sistema em problemas de idade, preço, quantidade de produtos ou soma e diferença entre números.',
+    traps: [
+      'No método da substituição, isole uma incógnita e substitua na outra equação.',
+      'No método da adição, some ou subtraia equações para eliminar uma letra.',
+      'Depois de achar uma incógnita, volte para achar a outra.',
+      'Sempre confira se os dois valores servem nas duas equações.'
+    ],
+    memoryHook: 'Sistema é investigação dupla: descubra X e Y usando duas pistas.',
+    finalReminder: 'Se cair sistema, escolha: substituição quando uma letra já está fácil; adição quando dá para eliminar.',
+    miniMission: 'Resolva: x + y = 10 e x - y = 4.',
+    notUnderstood: 'Modo simples: duas letras desconhecidas precisam de duas frases matemáticas para serem descobertas.'
+  },
+  {
+    missionId: 'mt-08',
+    subjectId: 'matematica',
+    title: 'Geometria Plana — Medindo o Campo de Batalha',
+    missionBrief: 'Entender área e perímetro como medidas do espaço.',
+    dumbMode: 'Perímetro é a volta da figura. Área é o espaço dentro da figura. Se você vai cercar um terreno, pensa em perímetro. Se vai cobrir o chão, pensa em área.',
+    analogy: 'Imagine montar uma base de sobrevivência. Para colocar cerca ao redor, você calcula perímetro. Para saber quantas placas usar no chão, calcula área.',
+    vunespMode: 'A banca cobra área de retângulo, quadrado, triângulo e círculo, além de perímetro e interpretação de medidas.',
+    traps: [
+      'Área de retângulo: base × altura.',
+      'Área de triângulo: base × altura ÷ 2.',
+      'Perímetro é soma dos lados.',
+      'Não misture unidade de área com unidade de comprimento.',
+      'm² é área; m é comprimento.'
+    ],
+    memoryHook: 'Perímetro dá a volta. Área preenche por dentro.',
+    finalReminder: 'Se cair figura, pergunte: quer cercar ou preencher?',
+    miniMission: 'Calcule a área e o perímetro de um retângulo de 8 m por 3 m.',
+    notUnderstood: 'Modo simples: perímetro é andar ao redor. Área é pintar o chão.'
+  },
+  {
+    missionId: 'mt-09',
+    subjectId: 'matematica',
+    title: 'Análise Combinatória — Contando Possibilidades de Missão',
+    missionBrief: 'Aprender a contar possibilidades sem listar uma por uma.',
+    dumbMode: 'Análise combinatória serve para contar quantas possibilidades existem. Em vez de escrever todas, você usa multiplicação e fórmulas simples.',
+    analogy: 'Imagine criar um personagem: 4 armaduras, 3 armas e 2 amuletos. Para saber quantas combinações existem, multiplica: 4 × 3 × 2 = 24.',
+    vunespMode: 'A Vunesp costuma cobrar princípio fundamental da contagem, combinações simples e situações de escolha.',
+    traps: [
+      'Se são etapas sucessivas, multiplique as possibilidades.',
+      'Se a ordem importa, o caso é diferente de quando a ordem não importa.',
+      'Escolher A-B é o mesmo que B-A quando a ordem não importa.',
+      'Em prova básica, muitas questões resolvem só com árvore ou multiplicação.'
+    ],
+    memoryHook: 'Escolhas em sequência? Multiplica.',
+    finalReminder: 'Se cair combinatória, pergunte: a ordem importa?',
+    miniMission: 'Você tem 3 camisetas e 4 calças. Quantos conjuntos pode montar?',
+    notUnderstood: 'Modo simples: é contar jeitos diferentes de montar uma coisa.'
+  },
+  {
+    missionId: 'mt-10',
+    subjectId: 'matematica',
+    title: 'Probabilidade — A Chance do Evento Acontecer',
+    missionBrief: 'Calcular chance usando casos favoráveis e casos possíveis.',
+    dumbMode: 'Probabilidade é chance. A fórmula básica é: casos favoráveis divididos pelos casos possíveis.',
+    analogy: 'Pense em rolar um dado em um RPG. Se você quer tirar número par, os resultados bons são 2, 4 e 6. São 3 resultados bons em 6 possíveis. Probabilidade = 3/6 = 1/2.',
+    vunespMode: 'A banca cobra dados, moedas, sorteios simples, eventos possíveis e eventos favoráveis.',
+    traps: [
+      'Casos favoráveis são os que servem para o que a questão pediu.',
+      'Casos possíveis são todos os resultados que podem acontecer.',
+      'Probabilidade nunca passa de 1 ou 100%.',
+      'Evento impossível tem probabilidade 0.',
+      'Evento certo tem probabilidade 1.'
+    ],
+    memoryHook: 'Probabilidade = quero / posso.',
+    finalReminder: 'Se cair probabilidade, conte primeiro todos os casos possíveis.',
+    miniMission: 'Qual a probabilidade de sair número maior que 4 em um dado comum?',
+    notUnderstood: 'Modo simples: probabilidade é dividir o número de resultados bons pelo total de resultados.'
   }
 ];
 
