@@ -15,20 +15,27 @@ export function SubjectList({ onNavigate }: { onNavigate: (tab: string, data?: a
       <h1 className="text-xl font-bold font-[Rajdhani,sans-serif]">📚 Matérias</h1>
       <p className="text-sm text-gray-400">Cada matéria é um mundo. Complete as missões para avançar.</p>
       <div className="space-y-3">
-        {subjects.map(sub => (
-          <button
-            key={sub.id}
-            onClick={() => onNavigate('subject', { subjectId: sub.id })}
-            className="card w-full text-left hover:border-pm-400 transition-all flex items-center gap-4"
-          >
-            <div className="text-3xl">{sub.icon}</div>
-            <div className="flex-1">
-              <h3 className="font-bold text-white">{sub.name}</h3>
-              <p className="text-xs text-gray-500">{sub.missions.length} missões • {sub.questionCount} questões</p>
-            </div>
-            <ChevronLeft size={16} className="text-gray-600 rotate-180" />
-          </button>
-        ))}
+        {subjects.map(sub => {
+          const theoryCount = sub.missions.filter(mission => getTheoryLesson(mission.id)).length;
+
+          return (
+            <button
+              key={sub.id}
+              onClick={() => onNavigate('subject', { subjectId: sub.id })}
+              className="card w-full text-left hover:border-pm-400 transition-all flex items-center gap-4"
+            >
+              <div className="text-3xl">{sub.icon}</div>
+              <div className="flex-1">
+                <h3 className="font-bold text-white">{sub.name}</h3>
+                <p className="text-xs text-gray-500">{sub.missions.length} missões • {sub.questionCount} questões</p>
+                {theoryCount > 0 && (
+                  <p className="text-[11px] text-gold-400 mt-1">🧠 {theoryCount} aulas com teoria personalizada</p>
+                )}
+              </div>
+              <ChevronLeft size={16} className="text-gray-600 rotate-180" />
+            </button>
+          );
+        })}
       </div>
     </div>
   );
@@ -42,6 +49,7 @@ export function SubjectDetail({ subjectId, onNavigate }: Props) {
 
   const completedInSubject = subject.missions.filter(m => profile.completedMissions.includes(m.id)).length;
   const pct = Math.round((completedInSubject / subject.missions.length) * 100);
+  const theoryCount = subject.missions.filter(mission => getTheoryLesson(mission.id)).length;
 
   return (
     <div className="space-y-4">
@@ -58,10 +66,21 @@ export function SubjectDetail({ subjectId, onNavigate }: Props) {
       <div className="progress-bar">
         <div className="progress-bar-fill" style={{ width: `${pct}%`, background: subject.color }} />
       </div>
+
+      {theoryCount > 0 && (
+        <div className="card border-l-4 border-gold-500">
+          <p className="text-xs font-bold text-gold-400">🧠 TEORIA PERSONALIZADA</p>
+          <p className="text-sm text-gray-300 mt-1">
+            {theoryCount}/{subject.missions.length} missões desta matéria já têm explicação no seu estilo: modo burro, exemplo do seu mundo, pegadinhas e modo Vunesp.
+          </p>
+        </div>
+      )}
+
       <div className="space-y-2">
         {subject.missions.map((mission, idx) => {
           const done = profile.completedMissions.includes(mission.id);
-  const theory = getTheoryLesson(mission.id);
+          const theory = getTheoryLesson(mission.id);
+
           return (
             <button
               key={mission.id}
@@ -77,6 +96,7 @@ export function SubjectDetail({ subjectId, onNavigate }: Props) {
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] text-gray-500">Missão {idx + 1}</span>
                   {idx === 0 && !done && <span className="text-[10px] bg-gold-500/20 text-gold-400 px-1.5 py-0.5 rounded">COMEÇAR AQUI</span>}
+                  {theory && <span className="text-[10px] bg-pm-500/20 text-pm-300 px-1.5 py-0.5 rounded">🧠 TEORIA PREMIUM</span>}
                 </div>
                 <h3 className={`text-sm font-semibold ${done ? 'text-gray-400 line-through' : 'text-white'}`}>{mission.title}</h3>
                 <p className="text-xs text-gray-500 mt-0.5">{mission.summary}</p>
