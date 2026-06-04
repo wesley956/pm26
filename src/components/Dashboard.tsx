@@ -98,22 +98,20 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
 
   return (
     <div className="space-y-5">
-      {/* Command Hero */}
-      <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(135deg,rgba(15,23,42,0.98),rgba(8,13,25,0.96)_45%,rgba(3,7,18,0.98))] p-4 shadow-2xl md:p-6 lg:p-7">
-        <div className="absolute -right-20 -top-24 h-72 w-72 rounded-full bg-pm-400/20 blur-3xl" />
-        <div className="absolute -bottom-28 left-20 h-64 w-64 rounded-full bg-gold-500/10 blur-3xl" />
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-pm-300/40 to-transparent" />
+      <section className="grid gap-5 xl:grid-cols-[minmax(0,1.6fr)_minmax(360px,0.8fr)]">
+        <div className="bento-card min-h-[360px] p-5 md:p-7">
+          <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-pm-400/18 blur-3xl" />
+          <div className="absolute -bottom-28 left-20 h-72 w-72 rounded-full bg-gold-500/10 blur-3xl" />
 
-        <div className="relative grid gap-5 lg:grid-cols-[1fr_360px] lg:items-stretch">
-          <div className="flex flex-col justify-between gap-6">
+          <div className="relative flex h-full flex-col justify-between gap-8">
             <div>
-              <div className="mb-4 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-2 rounded-full border border-gold-500/25 bg-gold-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-[0.22em] text-gold-300">
+              <div className="mb-5 flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-2 rounded-full border border-gold-500/24 bg-gold-500/10 px-3 py-1 kicker text-gold-300">
                   <ShieldCheck size={13} />
                   Operação Top 100
                 </span>
 
-                <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-[10px] font-black uppercase tracking-[0.18em] ${
+                <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 kicker ${
                   studiedToday ? 'border-success/30 bg-success/10 text-success' : 'border-pm-400/25 bg-pm-400/10 text-pm-300'
                 }`}>
                   <Activity size={13} />
@@ -121,87 +119,82 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
                 </span>
               </div>
 
-              <h1 className="max-w-3xl font-[Rajdhani,sans-serif] text-4xl font-black leading-[0.93] tracking-tight text-white md:text-6xl">
-                {studiedToday ? 'Mantenha o avanço.' : 'Faça a próxima missão certa.'}
+              <h1 className="max-w-4xl font-[Rajdhani,sans-serif] text-5xl font-black leading-[0.9] tracking-tight text-white md:text-7xl">
+                {studiedToday ? 'Mantenha o avanço.' : 'A próxima missão certa.'}
               </h1>
 
-              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-gray-400 md:text-base">
-                Uma ação principal por vez. Estude teoria, revise pegadinhas e treine questões sem se perder no excesso.
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-gray-400">
+                Uma ação por vez, sem bagunça: missão principal, prioridade crítica e mínimo diário.
               </p>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                <p className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.16em] text-gray-500">
+            <div className="grid gap-3 md:grid-cols-3">
+              <div className="soft-panel p-4">
+                <p className="flex items-center gap-2 kicker text-gray-500">
                   <Calendar size={13} /> Dias
                 </p>
-                <p className="mt-1 font-[Rajdhani,sans-serif] text-3xl font-black text-gold-300">{deadline.daysLeft}</p>
+                <p className="mt-2 font-[Rajdhani,sans-serif] text-4xl font-black text-gold-300">{deadline.daysLeft}</p>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                <p className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.16em] text-gray-500">
+              <div className="soft-panel p-4">
+                <p className="flex items-center gap-2 kicker text-gray-500">
                   <TrendingUp size={13} /> Acerto
                 </p>
-                <p className="mt-1 font-[Rajdhani,sans-serif] text-3xl font-black text-white">{accuracy}%</p>
+                <p className="mt-2 font-[Rajdhani,sans-serif] text-4xl font-black text-white">{accuracy}%</p>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                <p className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.16em] text-gray-500">
+              <div className="soft-panel p-4">
+                <p className="flex items-center gap-2 kicker text-gray-500">
                   <Zap size={13} /> Campanha
                 </p>
-                <p className="mt-1 font-[Rajdhani,sans-serif] text-3xl font-black text-white">{campaignPct}%</p>
+                <p className="mt-2 font-[Rajdhani,sans-serif] text-4xl font-black text-white">{campaignPct}%</p>
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="rounded-[1.6rem] border border-gold-500/25 bg-gold-500/[0.06] p-4 shadow-xl shadow-black/20">
-            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-gold-300">
-              Missão principal
+        <div className="bento-card p-5">
+          <p className="kicker text-gold-300">Missão principal</p>
+
+          <h2 className="mt-4 font-[Rajdhani,sans-serif] text-4xl font-black leading-[0.95] text-white">
+            {smartAction.title}
+          </h2>
+
+          <p className="mt-3 text-sm leading-relaxed text-gray-400">{smartAction.summary}</p>
+
+          <div className="soft-panel mt-5 p-4">
+            <p className="text-xs font-black text-pm-300">
+              {smartAction.subjectIcon ? `${smartAction.subjectIcon} ` : '🧭 '}
+              {smartAction.subjectLabel ?? 'Plano automático'}
             </p>
-
-            <h2 className="mt-3 font-[Rajdhani,sans-serif] text-2xl font-black leading-tight text-white">
-              {smartAction.title}
-            </h2>
-
-            <p className="mt-2 text-sm leading-relaxed text-gray-400">{smartAction.summary}</p>
-
-            <div className="mt-4 rounded-2xl border border-white/10 bg-black/20 p-3">
-              <p className="text-[11px] font-bold text-pm-300">
-                {smartAction.subjectIcon ? `${smartAction.subjectIcon} ` : '🧭 '}
-                {smartAction.subjectLabel ?? 'Plano automático'}
-              </p>
-              <p className="mt-1 text-xs leading-relaxed text-gray-500">{smartAction.reason}</p>
-            </div>
-
-            <div className="mt-4 flex items-center gap-2 text-xs text-gray-500">
-              <span className="inline-flex items-center gap-1 rounded-full bg-black/25 px-3 py-1">
-                <Timer size={12} /> {smartAction.minutes} min
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-gold-500/10 px-3 py-1 text-gold-300">
-                <Zap size={12} /> +{smartAction.xpReward} XP
-              </span>
-            </div>
-
-            <button onClick={() => navigateToAction(false)} className="btn-gold mt-5 w-full">
-              <span className="inline-flex items-center justify-center gap-2">
-                <Play size={18} />
-                Iniciar agora
-              </span>
-            </button>
+            <p className="mt-2 text-xs leading-relaxed text-gray-500">{smartAction.reason}</p>
           </div>
+
+          <div className="mt-5 flex flex-wrap items-center gap-2 text-xs text-gray-500">
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/[0.05] px-3 py-1">
+              <Timer size={12} /> {smartAction.minutes} min
+            </span>
+            <span className="inline-flex items-center gap-1 rounded-full bg-gold-500/10 px-3 py-1 text-gold-300">
+              <Zap size={12} /> +{smartAction.xpReward} XP
+            </span>
+          </div>
+
+          <button onClick={() => navigateToAction(false)} className="btn-gold mt-6 w-full">
+            <span className="inline-flex items-center justify-center gap-2">
+              <Play size={18} />
+              Iniciar agora
+            </span>
+          </button>
         </div>
       </section>
 
-      {/* Priority + Checklist */}
-      <section className="grid gap-5 lg:grid-cols-[1fr_1fr]">
+      <section className="grid gap-5 xl:grid-cols-[0.95fr_0.95fr_1.1fr]">
         {topPriority && (
-          <div className="card border-danger/35">
+          <div className="bento-card p-5">
             <div className="flex items-start justify-between gap-3">
               <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.22em] text-danger">
-                  Prioridade crítica
-                </p>
-                <h2 className="mt-2 font-[Rajdhani,sans-serif] text-3xl font-black text-white">
+                <p className="kicker text-danger">Prioridade crítica</p>
+                <h2 className="mt-3 font-[Rajdhani,sans-serif] text-4xl font-black text-white">
                   {topPriority.icon} {topPriority.name}
                 </h2>
               </div>
@@ -217,18 +210,18 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
             </div>
 
             <p className="mt-3 text-sm leading-relaxed text-gray-400">
-              {topPriority.reason}. Essa matéria deve receber atenção antes de você gastar energia com o resto.
+              {topPriority.reason}. Ataque isso antes de gastar energia no resto.
             </p>
 
-            <div className="mt-4 grid grid-cols-2 gap-3">
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-gray-500">Questões</p>
-                <p className="mt-1 text-xl font-black text-white">{topPriority.total}/{topPriority.questionCount}</p>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              <div className="soft-panel p-4">
+                <p className="kicker text-gray-500">Questões</p>
+                <p className="mt-1 text-2xl font-black text-white">{topPriority.total}/{topPriority.questionCount}</p>
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-black/20 p-3">
-                <p className="text-[10px] font-black uppercase tracking-[0.16em] text-gray-500">Teoria</p>
-                <p className="mt-1 text-xl font-black text-white">{topPriority.missionProgress}/{topPriority.missions.length}</p>
+              <div className="soft-panel p-4">
+                <p className="kicker text-gray-500">Teoria</p>
+                <p className="mt-1 text-2xl font-black text-white">{topPriority.missionProgress}/{topPriority.missions.length}</p>
               </div>
             </div>
 
@@ -241,29 +234,27 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           </div>
         )}
 
-        <div className="card border-pm-400/25">
+        <div className="bento-card p-5">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-pm-300">
-                Checklist diário
-              </p>
-              <h2 className="mt-2 font-[Rajdhani,sans-serif] text-3xl font-black text-white">
-                {dailyChecklist.title}
+              <p className="kicker text-pm-300">Checklist diário</p>
+              <h2 className="mt-3 font-[Rajdhani,sans-serif] text-4xl font-black text-white">
+                {dailyChecklist.completedCount}/{dailyChecklist.totalCount}
               </h2>
             </div>
 
             <span className={`rounded-full px-3 py-1 text-xs font-black ${
               dailyChecklist.isComplete ? 'bg-success/15 text-success' : 'bg-white/5 text-gray-300'
             }`}>
-              {dailyChecklist.completedCount}/{dailyChecklist.totalCount}
+              {dailyChecklist.isComplete ? 'feito' : 'pendente'}
             </span>
           </div>
 
-          <p className="mt-2 text-sm text-gray-500">{dailyChecklist.subtitle}</p>
+          <p className="mt-2 text-sm text-gray-500">{dailyChecklist.title}</p>
 
-          <div className="mt-4 space-y-2">
+          <div className="mt-5 space-y-2">
             {dailyChecklist.items.map(item => (
-              <div key={item.id} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 p-3">
+              <div key={item.id} className="flex items-start gap-3 rounded-[1.25rem] bg-white/[0.035] p-3">
                 {item.done ? (
                   <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-success" />
                 ) : (
@@ -280,90 +271,86 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
             ))}
           </div>
 
-          {!dailyChecklist.isComplete ? (
-            <button onClick={markDailyMinimumDone} className="mt-4 w-full rounded-2xl border border-white/10 bg-white/[0.03] py-3 text-xs font-bold text-gray-400 hover:text-gold-400">
+          {!dailyChecklist.isComplete && (
+            <button onClick={markDailyMinimumDone} className="mt-5 w-full rounded-[1.25rem] border border-white/10 bg-white/[0.035] py-3 text-xs font-bold text-gray-400 hover:text-gold-400">
               Marcar mínimo feito fora do app
             </button>
-          ) : (
-            <p className="mt-4 text-xs font-bold text-success">Mínimo concluído. Agora é bônus.</p>
           )}
         </div>
-      </section>
 
-      {/* Subjects */}
-      <section className="card">
-        <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
-          <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.22em] text-pm-300">Mapa de progresso</p>
-            <h2 className="mt-1 font-[Rajdhani,sans-serif] text-3xl font-black text-white">Matérias</h2>
+        <div className="bento-card p-5">
+          <div className="mb-4 flex items-center justify-between gap-3">
+            <div>
+              <p className="kicker text-pm-300">Mapa de progresso</p>
+              <h2 className="mt-1 font-[Rajdhani,sans-serif] text-3xl font-black text-white">Matérias</h2>
+            </div>
+
+            <button onClick={() => onNavigate('subjects')} className="inline-flex items-center gap-1 text-sm font-black text-gold-400 hover:text-gold-300">
+              Ver aulas
+              <ChevronRight size={15} />
+            </button>
           </div>
 
-          <button onClick={() => onNavigate('subjects')} className="inline-flex items-center gap-1 text-sm font-black text-gold-400 hover:text-gold-300">
-            Ver aulas
-            <ChevronRight size={15} />
-          </button>
-        </div>
+          <div className="space-y-3">
+            {subjects.map(sub => {
+              const prog = getSubjectProgress(sub.id, profile.completedMissions);
+              const pct = Math.round((prog / sub.missions.length) * 100);
+              const stat = subjectStats.find(s => s.id === sub.id);
 
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-5">
-          {subjects.map(sub => {
-            const prog = getSubjectProgress(sub.id, profile.completedMissions);
-            const pct = Math.round((prog / sub.missions.length) * 100);
-            const stat = subjectStats.find(s => s.id === sub.id);
+              return (
+                <button
+                  key={sub.id}
+                  onClick={() => onNavigate('subject', { subjectId: sub.id })}
+                  className="w-full rounded-[1.2rem] bg-white/[0.035] p-3 text-left transition hover:bg-white/[0.055]"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <p className="text-sm font-black text-white">{sub.icon} {sub.name}</p>
+                    <span className="text-[10px] font-bold text-gray-500">{prog}/{sub.missions.length}</span>
+                  </div>
 
-            return (
-              <button
-                key={sub.id}
-                onClick={() => onNavigate('subject', { subjectId: sub.id })}
-                className="rounded-2xl border border-white/10 bg-black/20 p-4 text-left transition hover:border-pm-400/40 hover:bg-white/[0.03]"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm font-black text-white">{sub.icon} {sub.name}</p>
-                  <span className="text-[10px] font-bold text-gray-500">{prog}/{sub.missions.length}</span>
-                </div>
+                  <div className="progress-bar mt-2 h-[6px]">
+                    <div className="progress-bar-fill" style={{ width: `${pct}%`, background: sub.color }} />
+                  </div>
 
-                <div className="progress-bar mt-3">
-                  <div className="progress-bar-fill" style={{ width: `${pct}%`, background: sub.color }} />
-                </div>
-
-                <div className="mt-2 flex justify-between text-[11px] text-gray-500">
-                  <span>{pct}% teoria</span>
-                  <span>{stat?.total ? `${stat.pct}% questões` : 'sem dados'}</span>
-                </div>
-              </button>
-            );
-          })}
+                  <div className="mt-1 flex justify-between text-[10px] text-gray-500">
+                    <span>{pct}% teoria</span>
+                    <span>{stat?.total ? `${stat.pct}% questões` : 'sem dados'}</span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* Shortcuts */}
-      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        <button onClick={() => onNavigate('simulados')} className="card text-left">
-          <Target size={22} className="mb-3 text-pm-300" />
-          <p className="font-black text-white">Simulados</p>
+      <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <button onClick={() => onNavigate('simulados')} className="bento-card p-5 text-left">
+          <Target size={24} className="mb-4 text-pm-300" />
+          <p className="text-lg font-black text-white">Simulados</p>
           <p className="mt-1 text-xs text-gray-500">Treino de prova</p>
         </button>
 
-        <button onClick={() => onNavigate('review')} className="card text-left">
-          <Flame size={22} className="mb-3 text-orange-400" />
-          <p className="font-black text-white">Revisão</p>
+        <button onClick={() => onNavigate('review')} className="bento-card p-5 text-left">
+          <Flame size={24} className="mb-4 text-orange-400" />
+          <p className="text-lg font-black text-white">Revisão</p>
           <p className="mt-1 text-xs text-gray-500">{profile.wrongQuestions.length} erros para rever</p>
         </button>
 
-        <button onClick={() => onNavigate('essay')} className="card text-left">
-          <Brain size={22} className="mb-3 text-gold-400" />
-          <p className="font-black text-white">Redação</p>
+        <button onClick={() => onNavigate('essay')} className="bento-card p-5 text-left">
+          <Brain size={24} className="mb-4 text-gold-400" />
+          <p className="text-lg font-black text-white">Redação</p>
           <p className="mt-1 text-xs text-gray-500">Estrutura e treino</p>
         </button>
 
-        <button onClick={() => onNavigate('taf')} className="card text-left">
-          <TrendingUp size={22} className="mb-3 text-success" />
-          <p className="font-black text-white">TAF</p>
+        <button onClick={() => onNavigate('taf')} className="bento-card p-5 text-left">
+          <TrendingUp size={24} className="mb-4 text-success" />
+          <p className="text-lg font-black text-white">TAF</p>
           <p className="mt-1 text-xs text-gray-500">Condicionamento</p>
         </button>
       </section>
 
       {!studiedToday && (
-        <button onClick={() => navigateToAction(true)} className="w-full rounded-2xl border border-white/10 bg-black/20 py-3 text-center text-xs font-bold text-gray-400 hover:text-gold-400">
+        <button onClick={() => navigateToAction(true)} className="w-full rounded-[1.35rem] border border-white/10 bg-white/[0.035] py-3 text-center text-xs font-bold text-gray-400 hover:text-gold-400">
           <span className="inline-flex items-center justify-center gap-2">
             <AlertTriangle size={13} />
             Dia ruim: me dá só 10 minutos
