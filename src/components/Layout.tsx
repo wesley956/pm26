@@ -192,7 +192,7 @@ export default function Layout({ children, activeTab, onNavigate }: LayoutProps)
           </div>
         </aside>
 
-        <div className={`flex min-w-0 flex-1 flex-col transition-all duration-300 md:pl-[106px] ${collapsed ? '' : 'md:pl-[296px]'}`}>
+        <div className={`flex min-w-0 flex-1 flex-col transition-all duration-300 ${collapsed ? 'md:pl-[114px]' : 'md:pl-[284px]'}`}>
           <header className="sticky top-0 z-30 border-b border-white/10 bg-[#050816]/72 backdrop-blur-2xl">
             <div className="mx-auto flex w-full max-w-[1500px] items-center justify-between gap-3 px-4 py-3 md:px-6 lg:px-8">
               <div className="flex min-w-0 items-center gap-3">
