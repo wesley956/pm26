@@ -302,7 +302,102 @@ export const theoryLessons: TheoryLesson[] = [
     finalReminder: 'Se cair na prova, isole o x com calma e confira substituindo o valor na equação.',
     miniMission: 'Resolva: 2x + 6 = 20 e depois confira se o valor encontrado funciona.',
     notUnderstood: 'Modo simples: o x quer ficar sozinho. Tudo que está grudado nele precisa sair usando a operação contrária.'
+  },,
+{
+    missionId: 'cg-02',
+    subjectId: 'gerais',
+    title: 'História do Brasil — Linha do Tempo da Missão Nacional',
+    missionBrief: 'Entender Colônia e Império como fases de uma campanha histórica.',
+    dumbMode: 'História do Brasil não é decorar um monte de data solta. É entender a sequência dos acontecimentos: primeiro o Brasil foi colônia de Portugal, depois virou independente, depois Império, e só depois República.',
+    analogy: 'Pense como uma saga de fantasia. A Colônia é quando o reino distante manda em tudo. A Independência é a ruptura com o reino antigo. O Império é quando surge uma nova coroa local. A República é quando o sistema muda de novo.',
+    vunespMode: 'A Vunesp costuma cobrar acontecimentos marcantes: chegada dos portugueses, ciclos econômicos, Independência, Abolição, Proclamação da República e Era Vargas.',
+    traps: [
+      'Independência do Brasil: 1822.',
+      'Abolição da escravidão: 1888.',
+      'Proclamação da República: 1889.',
+      'Não confunda Brasil Império com República Velha.'
+    ],
+    memoryHook: '1500 Colônia, 1822 Independência, 1888 Abolição, 1889 República.',
+    finalReminder: 'Se cair História, organize primeiro a fase: Colônia, Império ou República.',
+    miniMission: 'Repita a linha: 1500, 1822, 1888, 1889 e diga o que aconteceu em cada ano.',
+    notUnderstood: 'Modo simples: pense em fases de jogo. O Brasil não nasceu República. Ele passou por fases até chegar no modelo atual.'
   },
+  {
+    missionId: 'cg-03',
+    subjectId: 'gerais',
+    title: 'República Brasileira — Troca de Sistema e Disputa de Poder',
+    missionBrief: 'Entender a República como mudança de regime e disputa política.',
+    dumbMode: 'República é um sistema em que o chefe de Estado não é rei nem imperador hereditário. No Brasil, a República começou em 1889, quando o Império acabou.',
+    analogy: 'Imagine uma guilda que deixa de obedecer a uma família real e passa a escolher líderes por outro sistema. Isso não significa que tudo ficou justo de imediato. Mudou a regra do poder, mas continuaram disputas.',
+    vunespMode: 'A banca gosta de República Velha, Era Vargas, Ditadura Militar, Redemocratização e Constituição de 1988.',
+    traps: [
+      'República não começou em 1822; isso foi Independência.',
+      'Era Vargas começa em 1930.',
+      'Ditadura Militar começa em 1964.',
+      'Constituição Cidadã é de 1988.'
+    ],
+    memoryHook: '1889 abre a República; 1988 consolida a Constituição Cidadã.',
+    finalReminder: 'Se cair República, procure qual período o enunciado está cobrando.',
+    miniMission: 'Associe: 1930 = Vargas, 1964 = regime militar, 1988 = Constituição.',
+    notUnderstood: 'Modo simples: República é outra fase do jogo político brasileiro, depois do Império.'
+  },
+  {
+    missionId: 'cg-04',
+    subjectId: 'gerais',
+    title: 'Geografia Física — O Mapa do Território',
+    missionBrief: 'Entender clima, relevo, rios e biomas como o terreno da missão.',
+    dumbMode: 'Geografia física estuda a parte natural do território: relevo, clima, vegetação, rios e biomas. É o mapa do jogo antes dos personagens entrarem.',
+    analogy: 'Em um RPG de sobrevivência, você precisa saber se está em floresta, deserto, montanha ou pântano. No Brasil, os biomas funcionam como esses cenários: Amazônia, Cerrado, Mata Atlântica, Caatinga, Pampa e Pantanal.',
+    vunespMode: 'A Vunesp cobra biomas, clima predominante, rios importantes, problemas ambientais e características gerais do território brasileiro.',
+    traps: [
+      'Maior bioma brasileiro: Amazônia.',
+      'Mata Atlântica é muito devastada e aparece bastante em questões ambientais.',
+      'Pantanal é planície alagável.',
+      'Cerrado é importante para nascentes e agropecuária.'
+    ],
+    memoryHook: 'Bioma é o cenário natural da missão.',
+    finalReminder: 'Se cair bioma, pense no clima, vegetação e localização.',
+    miniMission: 'Liste os 6 biomas brasileiros sem olhar.',
+    notUnderstood: 'Modo simples: geografia física é estudar o mapa natural: rios, clima, vegetação e relevo.'
+  },
+  {
+    missionId: 'cg-07',
+    subjectId: 'gerais',
+    title: 'Constituição Federal — O Código Supremo do Reino',
+    missionBrief: 'Entender direitos e garantias fundamentais sem linguagem jurídica pesada.',
+    dumbMode: 'A Constituição é a lei mais importante do país. Ela organiza o Estado e protege direitos básicos, como vida, liberdade, igualdade, segurança e propriedade.',
+    analogy: 'Pense na Constituição como o grimório principal de um reino. Nenhuma regra menor pode contrariar esse livro. Se uma ordem menor vai contra o grimório, ela perde força.',
+    vunespMode: 'A banca cobra muito o art. 5º, direitos fundamentais, igualdade, liberdade, habeas corpus, mandado de segurança e art. 144 sobre segurança pública.',
+    traps: [
+      'Habeas corpus protege liberdade de locomoção.',
+      'Mandado de segurança protege direito líquido e certo.',
+      'Todos são iguais perante a lei.',
+      'Segurança pública é dever do Estado e responsabilidade de todos.'
+    ],
+    memoryHook: 'Constituição é a regra máxima: todo o resto obedece.',
+    finalReminder: 'Se cair direito fundamental, pense em proteção contra abuso e garantia do cidadão.',
+    miniMission: 'Explique em uma frase para que serve o habeas corpus.',
+    notUnderstood: 'Modo simples: a Constituição é o manual principal do Brasil. Ela diz como o Estado funciona e quais direitos não podem ser ignorados.'
+  },
+  {
+    missionId: 'cg-10',
+    subjectId: 'gerais',
+    title: 'Segurança Pública — A Missão Constitucional da PM',
+    missionBrief: 'Entender o papel da segurança pública e da Polícia Militar.',
+    dumbMode: 'Segurança pública é dever do Estado, direito e responsabilidade de todos. A Polícia Militar atua na polícia ostensiva e na preservação da ordem pública.',
+    analogy: 'Imagine uma cidade em um mundo de fantasia. A guarda da cidade patrulha as ruas, evita conflitos, responde ocorrências e mantém a ordem. Essa é a ideia da atuação ostensiva: presença visível para prevenir e agir rápido.',
+    vunespMode: 'A Vunesp cobra o art. 144 da Constituição, a função da PM, diferença entre polícia ostensiva e polícia judiciária, e a ideia de preservação da ordem pública.',
+    traps: [
+      'Polícia Militar não é polícia judiciária; essa função é da Polícia Civil nos Estados.',
+      'PM faz polícia ostensiva e preservação da ordem pública.',
+      'Segurança pública não é só dever da polícia; também é responsabilidade de todos.',
+      'Ordem pública envolve tranquilidade, segurança e funcionamento normal da vida social.'
+    ],
+    memoryHook: 'PM aparece, previne e preserva a ordem.',
+    finalReminder: 'Se cair função da PM, marque polícia ostensiva e preservação da ordem pública.',
+    miniMission: 'Repita: PM = ostensiva + ordem pública.',
+    notUnderstood: 'Modo simples: a PM é a força visível na rua para prevenir problemas e agir quando a ordem pública é ameaçada.'
+  }
 ];
 
 export function getTheoryLesson(missionId: string): TheoryLesson | undefined {
