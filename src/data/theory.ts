@@ -398,7 +398,7 @@ export const theoryLessons: TheoryLesson[] = [
     miniMission: 'Repita: PM = ostensiva + ordem pública.',
     notUnderstood: 'Modo simples: a PM é a força visível na rua para prevenir problemas e agir quando a ordem pública é ameaçada.'
   },
-{
+  {
     missionId: 'inf-01',
     subjectId: 'informatica',
     title: 'Hardware e Software — Corpo e Alma da Máquina',
