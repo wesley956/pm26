@@ -27,6 +27,51 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
   const weaknesses = subjectStats.filter(s => s.total > 0).sort((a, b) => a.pct - b.pct).slice(0, 3);
   const behind = subjectStats.filter(s => s.missionProgress < 5);
 
+  const top100Priorities = subjectStats
+    .map(s => {
+      const lowPracticePenalty = s.total < 5 ? 30 : 0;
+      const lowAccuracyPenalty = s.total > 0 ? Math.max(0, 75 - s.pct) : 25;
+      const missionPenalty = Math.max(0, s.missions.length - s.missionProgress) * 3;
+      const strategicWeight =
+        s.id === 'portugues' ? 20 :
+        s.id === 'matematica' ? 16 :
+        s.id === 'gerais' ? 16 :
+        s.id === 'administracao' ? 12 :
+        6;
+
+      const priorityScore = lowPracticePenalty + lowAccuracyPenalty + missionPenalty + strategicWeight;
+
+      const reason =
+        s.total < 5 ? 'poucos dados de questões' :
+        s.pct < 60 ? 'acerto baixo para brigar por classificação alta' :
+        s.missionProgress < s.missions.length ? 'teoria ainda incompleta' :
+        'manter revisão para não perder desempenho';
+
+      const action =
+        s.missionProgress < s.missions.length ? 'Abrir teoria premium' :
+        s.pct < 70 ? 'Treinar questões e revisar erros' :
+        'Fazer revisão rápida';
+
+      return { ...s, priorityScore, reason, action };
+    })
+    .sort((a, b) => b.priorityScore - a.priorityScore)
+    .slice(0, 3);
+
+  const diagnosticTitle =
+    totalAnswered < 20 ? 'Ainda temos poucos dados' :
+    accuracy >= 80 ? 'Ritmo competitivo' :
+    accuracy >= 65 ? 'Base em construção' :
+    'Zona de recuperação';
+
+  const diagnosticMessage =
+    totalAnswered < 20
+      ? 'Responda mais questões para o diagnóstico ficar preciso. Por enquanto, siga a prioridade automática por peso e dificuldade.'
+      : accuracy >= 80
+        ? 'Você está em ritmo bom. Agora o foco é manter constância, revisar erros e aumentar volume.'
+        : accuracy >= 65
+          ? 'Você está construindo base. Para top 100, precisa subir acerto e reduzir os buracos nas matérias prioritárias.'
+          : 'Para top 100, o foco agora é recuperar base: teoria curta, revisão guiada e questões comentadas todos os dias.';
+
   return (
     <div className="space-y-4">
       <h1 className="text-xl font-bold font-[Rajdhani,sans-serif]">👤 Perfil do Aluno</h1>
@@ -62,6 +107,57 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
         <div className="card text-center">
           <p className="text-2xl font-bold text-gold-400">{accuracy}%</p>
           <p className="text-[10px] text-gray-500">Taxa de acerto</p>
+        </div>
+      </div>
+
+      {/* Top 100 Diagnostic */}
+      <div className="card border-l-4 border-danger">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <h3 className="text-sm font-bold text-white flex items-center gap-2">
+              <Target size={14} className="text-danger" /> Diagnóstico Top 100
+            </h3>
+            <p className="text-xs text-gray-400 mt-1">{diagnosticTitle}</p>
+          </div>
+          <span className={`text-[11px] font-bold px-2 py-1 rounded-full ${
+            accuracy >= 80 ? 'bg-success/15 text-success' :
+            accuracy >= 65 ? 'bg-gold-500/15 text-gold-400' :
+            'bg-danger/15 text-danger'
+          }`}>
+            {accuracy}% geral
+          </span>
+        </div>
+
+        <p className="text-sm text-gray-300 mt-3 leading-relaxed">{diagnosticMessage}</p>
+
+        <div className="mt-4 space-y-2">
+          {top100Priorities.map((s, index) => (
+            <button
+              key={s.id}
+              onClick={() => onNavigate('subject', { subjectId: s.id })}
+              className="w-full text-left rounded-xl border border-pm-700/70 bg-pm-900/50 p-3 hover:border-gold-500/60 transition-colors"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-sm font-bold text-white">
+                  {index + 1}. {s.icon} {s.name}
+                </p>
+                <span className={`text-[11px] font-bold ${
+                  s.total === 0 ? 'text-gray-500' :
+                  s.pct >= 75 ? 'text-success' :
+                  s.pct >= 60 ? 'text-gold-400' :
+                  'text-danger'
+                }`}>
+                  {s.total > 0 ? `${s.pct}%` : 'sem dados'}
+                </span>
+              </div>
+              <p className="text-[11px] text-gray-500 mt-1">
+                {s.reason} • {s.missionProgress}/{s.missions.length} missões • {s.total} questões
+              </p>
+              <p className="text-[11px] text-pm-300 mt-1 font-semibold">
+                Próxima ação: {s.action}
+              </p>
+            </button>
+          ))}
         </div>
       </div>
 
