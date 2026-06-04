@@ -1,7 +1,9 @@
 import { useState, useMemo } from 'react';
 import { questions } from '../data/questions';
 import { subjects } from '../data/subjects';
+import { EXAM_CONFIG } from '../config/examConfig';
 import { useApp } from '../store';
+import type { Question, SubjectId } from '../types';
 import { ChevronLeft, Target, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 type SimType = 'mini' | 'semanal' | 'completo';
@@ -14,6 +16,22 @@ function getSimulationBonus(type: SimType | null): number {
 
 function calculateSimulationXp(correctAnswers: number, type: SimType | null): number {
   return correctAnswers * 20 + getSimulationBonus(type);
+}
+
+function shuffleQuestions(list: Question[]): Question[] {
+  return [...list].sort(() => Math.random() - 0.5);
+}
+
+function buildOfficialExamQuestions(): Question[] {
+  const distribution = EXAM_CONFIG.objectiveExam.subjects;
+  const selected: Question[] = [];
+
+  for (const [subjectId, count] of Object.entries(distribution) as Array<[SubjectId, number]>) {
+    const subjectQuestions = questions.filter(question => question.subjectId === subjectId);
+    selected.push(...shuffleQuestions(subjectQuestions).slice(0, count));
+  }
+
+  return shuffleQuestions(selected);
 }
 
 export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => void }) {
@@ -29,8 +47,13 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
 
   const simQuestions = useMemo(() => {
     if (!simType) return [];
-    const count = simType === 'mini' ? 5 : simType === 'semanal' ? 15 : 30; // reduced for usability
-    return [...questions].sort(() => Math.random() - 0.5).slice(0, count);
+
+    if (simType === 'completo') {
+      return buildOfficialExamQuestions();
+    }
+
+    const count = simType === 'mini' ? 5 : 15;
+    return shuffleQuestions(questions).slice(0, count);
   }, [simType]);
 
   const currentQ = simQuestions[currentIndex];
@@ -97,7 +120,7 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
           <ChevronLeft size={16} /> Voltar
         </button>
         <h1 className="text-xl font-bold font-[Rajdhani,sans-serif]">🎯 Simulados</h1>
-        <p className="text-sm text-gray-400">Teste seus conhecimentos com simulados no estilo Vunesp.</p>
+        <p className="text-sm text-gray-400">Teste seus conhecimentos com simulados no estilo Vunesp. O completo segue a distribuição oficial de 60 questões.</p>
 
         <div className="space-y-3">
           <button onClick={() => startSim('mini')} className="card w-full text-left hover:border-pm-400 border-l-4 border-pm-400">
@@ -124,8 +147,8 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
             <div className="flex items-center gap-3">
               <Target size={24} className="text-danger" />
               <div>
-                <h3 className="font-bold text-white">Simulado Completo</h3>
-                <p className="text-xs text-gray-500">30 questões • ~60 minutos</p>
+                <h3 className="font-bold text-white">Simulado Completo Oficial</h3>
+                <p className="text-xs text-gray-500">60 questões • padrão PM-SP/Vunesp</p>
               </div>
             </div>
           </button>
@@ -140,7 +163,7 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
                 <div key={sim.id} className="card flex justify-between items-center">
                   <div>
                     <p className="text-xs font-bold text-white">
-                      {sim.type === 'mini' ? 'Mini' : sim.type === 'semanal' ? 'Semanal' : 'Completo'}
+                                  {sim.type === 'mini' ? 'Mini' : sim.type === 'semanal' ? 'Semanal' : 'Completo oficial'}
                     </p>
                     <p className="text-[10px] text-gray-500">{new Date(sim.date).toLocaleDateString('pt-BR')}</p>
                   </div>
