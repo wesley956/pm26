@@ -4,7 +4,22 @@ import { getPrimaryDeadlineInfo, getSubjectProgress } from '../utils';
 import { questions } from '../data/questions';
 import { chooseSmartStudyAction } from '../utils/smartStudy';
 import { buildDailyChecklist } from '../utils/dailyChecklist';
-import { Play, Flame, Calendar, Target, Zap, ChevronRight, Timer, AlertTriangle, CheckCircle2, Circle } from 'lucide-react';
+import {
+  Play,
+  Flame,
+  Calendar,
+  Target,
+  Zap,
+  ChevronRight,
+  Timer,
+  AlertTriangle,
+  CheckCircle2,
+  Circle,
+  ShieldCheck,
+  BookOpen,
+  TrendingUp,
+  Crosshair,
+} from 'lucide-react';
 
 export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
   const { profile, setBadDayMode, markDailyMinimumDone } = useApp();
@@ -12,7 +27,6 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
   const smartAction = chooseSmartStudyAction(profile);
   const dailyChecklist = buildDailyChecklist(profile);
 
-  // Stats
   const completedCount = profile.completedMissions.length;
   const totalAnswered = Object.keys(profile.completedQuestions).length;
   const correctCount = Object.values(profile.completedQuestions).filter(q => q.correct).length;
@@ -55,9 +69,9 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
 
   const topPriority = [...subjectStats].sort((a, b) => b.priorityScore - a.priorityScore)[0];
 
-  // Check if studied today
   const today = new Date().toISOString().slice(0, 10);
   const studiedToday = profile.lastStudyDate === today;
+  const overallMissionPct = Math.round((completedCount / subjects.reduce((sum, sub) => sum + sub.missions.length, 0)) * 100);
 
   const navigateToAction = (useBadDayMode = false) => {
     const action = useBadDayMode
@@ -81,230 +95,277 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
     onNavigate('simulados');
   };
 
-  const handleStartMission = () => {
-    navigateToAction(false);
-  };
-
-  const handleBadDay = () => {
-    navigateToAction(true);
-  };
+  const handleStartMission = () => navigateToAction(false);
+  const handleBadDay = () => navigateToAction(true);
 
   return (
-    <div className="space-y-4">
-      {/* Greeting */}
-      <div>
-        <h1 className="text-2xl font-bold font-[Rajdhani,sans-serif] text-white">
-          {studiedToday ? '🎉 Bom te ver de volta!' : '⚔️ Preparado para a batalha?'}
-        </h1>
-        <p className="text-sm text-gray-400 mt-1">
-          {studiedToday ? 'Você já estudou hoje. Continue assim!' : 'Comece sua missão diária agora.'}
-        </p>
-      </div>
+    <div className="space-y-5">
+      {/* Hero */}
+      <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-slate-950 via-pm-800 to-slate-950 p-5 shadow-2xl md:p-7">
+        <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-pm-400/20 blur-3xl" />
+        <div className="absolute -bottom-24 left-1/3 h-56 w-56 rounded-full bg-gold-500/10 blur-3xl" />
 
-      {/* Days until exam */}
-      <div className="card flex items-center gap-3 border-l-4 border-gold-500">
-        <Calendar size={28} className="text-gold-500 shrink-0" />
-        <div>
-          <p className="text-2xl font-bold text-gold-400 font-[Rajdhani,sans-serif]">{deadline.daysLeft} dias</p>
-          <p className="text-xs text-gray-400">{deadline.title}</p>
-          <p className="text-[10px] text-gray-500 mt-0.5">{deadline.subtitle}</p>
-          <p className="text-[10px] text-gray-600 mt-0.5">{deadline.helper}</p>
-        </div>
-      </div>
-
-      {/* Smart Mission Card */}
-      <div className="card animate-pulse-gold relative overflow-hidden">
-        <div className="absolute top-0 right-0 bg-gold-500 text-pm-900 text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
-          MISSÃO INTELIGENTE
-        </div>
-        <div className="mt-2">
-          <p className="text-xs text-pm-300 mb-1">
-            {smartAction.subjectIcon ? `${smartAction.subjectIcon} ` : '🧭 '}
-            {smartAction.subjectLabel ?? 'Plano automático'}
-          </p>
-          <h2 className="text-lg font-bold text-white">{smartAction.title}</h2>
-          <p className="text-sm text-gray-400 mt-1">{smartAction.summary}</p>
-
-          <div className="mt-3 rounded-xl bg-pm-900/60 border border-pm-700 p-3">
-            <p className="text-[11px] uppercase tracking-wide text-gold-400 font-bold mb-1">
-              Por que essa missão?
-            </p>
-            <p className="text-xs text-gray-400">{smartAction.reason}</p>
-          </div>
-
-          <div className="flex items-center gap-4 mt-3 text-xs text-gray-500">
-            <span className="flex items-center gap-1"><Timer size={12} /> {smartAction.minutes} min</span>
-            <span className="flex items-center gap-1"><Zap size={12} /> +{smartAction.xpReward} XP</span>
-          </div>
-
-          <button onClick={handleStartMission} className="btn-gold w-full mt-4 flex items-center justify-center gap-2 text-base">
-            <Play size={20} />
-            {smartAction.buttonLabel}
-          </button>
-        </div>
-      </div>
-
-      {/* Top 100 Priority */}
-      {topPriority && (
-        <div className="card border-l-4 border-danger">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="text-xs font-bold text-danger">🎯 PRIORIDADE TOP 100</p>
-              <h3 className="text-base font-bold text-white mt-1">
-                {topPriority.icon} {topPriority.name}
-              </h3>
-            </div>
-            <span className={`text-[11px] font-bold px-2 py-1 rounded-full ${
-              topPriority.total === 0 ? 'bg-gray-700 text-gray-300' :
-              topPriority.pct >= 75 ? 'bg-success/15 text-success' :
-              topPriority.pct >= 60 ? 'bg-gold-500/15 text-gold-400' :
-              'bg-danger/15 text-danger'
-            }`}>
-              {topPriority.total > 0 ? `${topPriority.pct}%` : 'sem dados'}
-            </span>
-          </div>
-
-          <p className="text-xs text-gray-400 mt-2">
-            {topPriority.reason} • {topPriority.missionProgress}/{topPriority.missions.length} missões • {topPriority.total}/{topPriority.questionCount} questões respondidas
-          </p>
-
-          <button
-            onClick={() => onNavigate('subject', { subjectId: topPriority.id })}
-            className="btn-primary w-full mt-3 text-sm"
-          >
-            {topPriority.action}
-          </button>
-        </div>
-      )}
-
-      {/* Daily ADHD Checklist */}
-      <div className="card border-l-4 border-pm-500">
-        <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="relative grid gap-5 lg:grid-cols-[1.45fr_0.8fr] lg:items-end">
           <div>
-            <h3 className="text-sm font-bold text-white">{dailyChecklist.title}</h3>
-            <p className="text-xs text-gray-500 mt-0.5">{dailyChecklist.subtitle}</p>
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-gold-500/25 bg-gold-500/10 px-3 py-1 text-[11px] font-black uppercase tracking-[0.22em] text-gold-300">
+              <ShieldCheck size={14} />
+              Central de Comando Top 100
+            </div>
+
+            <h1 className="font-[Rajdhani,sans-serif] text-3xl font-black leading-none text-white md:text-5xl">
+              {studiedToday ? 'Operação de hoje em andamento.' : 'Hora de avançar no ranking.'}
+            </h1>
+
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-400 md:text-base">
+              Nada de estudar no escuro. O sistema escolhe a missão, mostra sua prioridade e transforma teoria em treino de prova.
+            </p>
+
+            <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+              <button onClick={handleStartMission} className="btn-gold flex items-center justify-center gap-2 text-base">
+                <Play size={20} />
+                {smartAction.buttonLabel}
+              </button>
+
+              <button onClick={() => onNavigate('profile')} className="btn-primary flex items-center justify-center gap-2 text-base">
+                <Crosshair size={19} />
+                Ver diagnóstico
+              </button>
+            </div>
           </div>
-          <div className={`text-xs font-bold px-2 py-1 rounded-full ${
-            dailyChecklist.isComplete ? 'bg-success/15 text-success' : 'bg-pm-700 text-gray-300'
-          }`}>
-            {dailyChecklist.completedCount}/{dailyChecklist.totalCount}
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-2xl border border-white/10 bg-black/25 p-4">
+              <Calendar size={20} className="mb-2 text-gold-400" />
+              <p className="font-[Rajdhani,sans-serif] text-3xl font-black text-gold-300">{deadline.daysLeft}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">dias restantes</p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-black/25 p-4">
+              <TrendingUp size={20} className="mb-2 text-pm-300" />
+              <p className="font-[Rajdhani,sans-serif] text-3xl font-black text-white">{accuracy}%</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">acerto geral</p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-black/25 p-4">
+              <BookOpen size={20} className="mb-2 text-pm-300" />
+              <p className="font-[Rajdhani,sans-serif] text-3xl font-black text-white">{completedCount}</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">missões</p>
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-black/25 p-4">
+              <Zap size={20} className="mb-2 text-gold-400" />
+              <p className="font-[Rajdhani,sans-serif] text-3xl font-black text-white">{overallMissionPct}%</p>
+              <p className="text-[11px] font-semibold uppercase tracking-wide text-gray-500">campanha</p>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div className="space-y-2">
-          {dailyChecklist.items.map(item => (
-            <div key={item.id} className="flex items-start gap-2">
-              {item.done ? (
-                <CheckCircle2 size={18} className="text-success shrink-0 mt-0.5" />
-              ) : (
-                <Circle size={18} className="text-gray-600 shrink-0 mt-0.5" />
-              )}
+      {/* Main grid */}
+      <div className="grid gap-5 lg:grid-cols-[1.25fr_0.85fr]">
+        <div className="space-y-5">
+          {/* Smart Mission */}
+          <section className="card overflow-hidden border-gold-500/25">
+            <div className="absolute right-0 top-0 rounded-bl-2xl bg-gold-500 px-3 py-1 text-[10px] font-black uppercase tracking-wider text-slate-950">
+              missão inteligente
+            </div>
+
+            <div className="pr-8">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-pm-300">
+                {smartAction.subjectIcon ? `${smartAction.subjectIcon} ` : '🧭 '}
+                {smartAction.subjectLabel ?? 'Plano automático'}
+              </p>
+
+              <h2 className="mt-2 font-[Rajdhani,sans-serif] text-2xl font-black text-white">
+                {smartAction.title}
+              </h2>
+
+              <p className="mt-2 text-sm leading-relaxed text-gray-400">{smartAction.summary}</p>
+            </div>
+
+            <div className="mt-4 rounded-2xl border border-pm-400/15 bg-black/25 p-4">
+              <p className="mb-1 text-[11px] font-black uppercase tracking-[0.18em] text-gold-400">
+                Por que essa missão?
+              </p>
+              <p className="text-sm leading-relaxed text-gray-400">{smartAction.reason}</p>
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-3 text-xs text-gray-500">
+              <span className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1">
+                <Timer size={12} /> {smartAction.minutes} min
+              </span>
+              <span className="flex items-center gap-1 rounded-full border border-gold-500/20 bg-gold-500/10 px-3 py-1 text-gold-300">
+                <Zap size={12} /> +{smartAction.xpReward} XP
+              </span>
+            </div>
+
+            <button onClick={handleStartMission} className="btn-gold mt-5 w-full text-base">
+              Iniciar missão agora
+            </button>
+          </section>
+
+          {/* Subject Progress */}
+          <section className="card">
+            <div className="mb-4 flex items-center justify-between gap-3">
               <div>
-                <p className={`text-sm font-medium ${item.done ? 'text-gray-400 line-through' : 'text-gray-200'}`}>
-                  {item.label}
+                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-pm-300">Mapa de campanha</p>
+                <h3 className="mt-1 text-lg font-black text-white">Progresso por matéria</h3>
+              </div>
+              <button onClick={() => onNavigate('subjects')} className="text-xs font-bold text-gold-400 hover:text-gold-300">
+                Ver todas
+              </button>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-2">
+              {subjects.map(sub => {
+                const prog = getSubjectProgress(sub.id, profile.completedMissions);
+                const pct = Math.round((prog / sub.missions.length) * 100);
+                const stat = subjectStats.find(s => s.id === sub.id);
+                return (
+                  <button
+                    key={sub.id}
+                    onClick={() => onNavigate('subject', { subjectId: sub.id })}
+                    className="rounded-2xl border border-white/10 bg-black/20 p-4 text-left transition-all hover:border-pm-400/40 hover:bg-white/[0.03]"
+                  >
+                    <div className="mb-3 flex items-center justify-between gap-3">
+                      <span className="text-sm font-bold text-white">{sub.icon} {sub.name}</span>
+                      <span className="text-[11px] font-bold text-gray-500">{prog}/{sub.missions.length}</span>
+                    </div>
+                    <div className="progress-bar">
+                      <div className="progress-bar-fill" style={{ width: `${pct}%`, background: sub.color }} />
+                    </div>
+                    <div className="mt-2 flex justify-between text-[11px] text-gray-500">
+                      <span>{pct}% teoria</span>
+                      <span>{stat?.total ? `${stat.pct}% questões` : 'sem dados'}</span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        </div>
+
+        <aside className="space-y-5">
+          {/* Top Priority */}
+          {topPriority && (
+            <section className="card border-danger/40">
+              <p className="text-[11px] font-black uppercase tracking-[0.2em] text-danger">Prioridade Top 100</p>
+              <div className="mt-3 flex items-start justify-between gap-3">
+                <div>
+                  <h3 className="font-[Rajdhani,sans-serif] text-2xl font-black text-white">
+                    {topPriority.icon} {topPriority.name}
+                  </h3>
+                  <p className="mt-1 text-xs leading-relaxed text-gray-500">{topPriority.reason}</p>
+                </div>
+
+                <span className={`rounded-full px-2 py-1 text-[11px] font-black ${
+                  topPriority.total === 0 ? 'bg-gray-700 text-gray-300' :
+                  topPriority.pct >= 75 ? 'bg-success/15 text-success' :
+                  topPriority.pct >= 60 ? 'bg-gold-500/15 text-gold-400' :
+                  'bg-danger/15 text-danger'
+                }`}>
+                  {topPriority.total > 0 ? `${topPriority.pct}%` : 'sem dados'}
+                </span>
+              </div>
+
+              <div className="mt-4 rounded-2xl border border-white/10 bg-black/20 p-3">
+                <p className="text-[11px] text-gray-500">
+                  {topPriority.missionProgress}/{topPriority.missions.length} missões • {topPriority.total}/{topPriority.questionCount} questões respondidas
                 </p>
-                <p className="text-[11px] text-gray-500">{item.hint}</p>
+                <p className="mt-1 text-sm font-bold text-pm-300">Próxima ação: {topPriority.action}</p>
+              </div>
+
+              <button onClick={() => onNavigate('subject', { subjectId: topPriority.id })} className="btn-primary mt-4 w-full text-sm">
+                Atacar prioridade
+              </button>
+            </section>
+          )}
+
+          {/* Daily Checklist */}
+          <section className="card border-pm-400/25">
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <div>
+                <p className="text-[11px] font-black uppercase tracking-[0.2em] text-pm-300">Ritual diário</p>
+                <h3 className="mt-1 text-base font-black text-white">{dailyChecklist.title}</h3>
+                <p className="mt-1 text-xs text-gray-500">{dailyChecklist.subtitle}</p>
+              </div>
+
+              <div className={`rounded-full px-2 py-1 text-xs font-black ${
+                dailyChecklist.isComplete ? 'bg-success/15 text-success' : 'bg-white/5 text-gray-300'
+              }`}>
+                {dailyChecklist.completedCount}/{dailyChecklist.totalCount}
               </div>
             </div>
-          ))}
-        </div>
 
-        {!dailyChecklist.isComplete && (
-          <button onClick={markDailyMinimumDone} className="w-full mt-3 text-xs text-gray-400 hover:text-gold-400 transition-colors">
-            Estudei fora do app — marcar mínimo de hoje
-          </button>
-        )}
+            <div className="space-y-3">
+              {dailyChecklist.items.map(item => (
+                <div key={item.id} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/20 p-3">
+                  {item.done ? (
+                    <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-success" />
+                  ) : (
+                    <Circle size={18} className="mt-0.5 shrink-0 text-gray-600" />
+                  )}
+                  <div>
+                    <p className={`text-sm font-bold ${item.done ? 'text-gray-500 line-through' : 'text-gray-200'}`}>
+                      {item.label}
+                    </p>
+                    <p className="text-[11px] text-gray-500">{item.hint}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-        {dailyChecklist.isComplete && (
-          <p className="mt-3 text-xs text-success font-semibold">
-            Mínimo de hoje concluído. Agora o resto é bônus.
-          </p>
-        )}
+            {!dailyChecklist.isComplete ? (
+              <button onClick={markDailyMinimumDone} className="mt-4 w-full text-xs font-bold text-gray-400 transition-colors hover:text-gold-400">
+                Estudei fora do app — marcar mínimo de hoje
+              </button>
+            ) : (
+              <p className="mt-4 text-xs font-bold text-success">Mínimo de hoje concluído. O resto é bônus.</p>
+            )}
+          </section>
+        </aside>
       </div>
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-2 gap-3">
-        <button onClick={() => onNavigate('simulados')} className="card flex items-center gap-2 hover:border-pm-400 transition-colors text-left">
-          <Target size={20} className="text-pm-400" />
-          <div>
-            <p className="text-sm font-semibold">Simulado Rápido</p>
-            <p className="text-[10px] text-gray-500">5 questões</p>
-          </div>
+      {/* Actions */}
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <button onClick={() => onNavigate('simulados')} className="card text-left hover:border-pm-400/40">
+          <Target size={22} className="mb-3 text-pm-300" />
+          <p className="font-bold text-white">Simulados</p>
+          <p className="mt-1 text-xs text-gray-500">Treino de prova</p>
         </button>
-        <button onClick={() => onNavigate('review')} className="card flex items-center gap-2 hover:border-pm-400 transition-colors text-left">
-          <Flame size={20} className="text-orange-400" />
-          <div>
-            <p className="text-sm font-semibold">Revisão</p>
-            <p className="text-[10px] text-gray-500">{profile.wrongQuestions.length} para rever</p>
-          </div>
-        </button>
-      </div>
 
-      {/* Bad Day Mode */}
+        <button onClick={() => onNavigate('review')} className="card text-left hover:border-gold-500/40">
+          <Flame size={22} className="mb-3 text-orange-400" />
+          <p className="font-bold text-white">Revisão</p>
+          <p className="mt-1 text-xs text-gray-500">{profile.wrongQuestions.length} erros para rever</p>
+        </button>
+
+        <button onClick={() => onNavigate('essay')} className="card text-left hover:border-gold-500/40">
+          <BookOpen size={22} className="mb-3 text-gold-400" />
+          <p className="font-bold text-white">Redação</p>
+          <p className="mt-1 text-xs text-gray-500">Estrutura e treino</p>
+        </button>
+
+        <button onClick={() => onNavigate('taf')} className="card text-left hover:border-success/40">
+          <TrendingUp size={22} className="mb-3 text-success" />
+          <p className="font-bold text-white">TAF</p>
+          <p className="mt-1 text-xs text-gray-500">Condicionamento</p>
+        </button>
+      </section>
+
       {!studiedToday && (
-        <button onClick={handleBadDay} className="w-full text-center py-2 text-xs text-gray-500 hover:text-gray-300 transition-colors flex items-center justify-center gap-1">
-          <AlertTriangle size={12} />
-          Não sei por onde começar / dia ruim: me dá só 10 minutos
+        <button onClick={handleBadDay} className="w-full rounded-2xl border border-white/10 bg-black/20 py-3 text-center text-xs font-bold text-gray-400 transition-colors hover:text-gold-400">
+          <span className="inline-flex items-center justify-center gap-2">
+            <AlertTriangle size={13} />
+            Dia ruim: me dá só 10 minutos
+          </span>
         </button>
       )}
 
-      {/* Progress Overview */}
-      <div>
-        <h3 className="text-sm font-bold text-gray-300 mb-3 flex items-center gap-2">
-          <Zap size={14} /> Progresso por Matéria
-        </h3>
-        <div className="space-y-3">
-          {subjects.map(sub => {
-            const prog = getSubjectProgress(sub.id, profile.completedMissions);
-            const pct = Math.round((prog / sub.missions.length) * 100);
-            return (
-              <button key={sub.id} onClick={() => onNavigate('subject', { subjectId: sub.id })} className="w-full text-left">
-                <div className="flex justify-between items-center mb-1">
-                  <span className="text-sm font-medium flex items-center gap-2">
-                    {sub.icon} {sub.name}
-                  </span>
-                  <span className="text-xs text-gray-500">{prog}/{sub.missions.length}</span>
-                </div>
-                <div className="progress-bar">
-                  <div className="progress-bar-fill" style={{ width: `${pct}%`, background: sub.color }} />
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Stats Grid */}
-      <div className="grid grid-cols-3 gap-3">
-        <div className="card text-center">
-          <p className="text-xl font-bold text-white">{completedCount}</p>
-          <p className="text-[10px] text-gray-500">Missões</p>
-        </div>
-        <div className="card text-center">
-          <p className="text-xl font-bold text-white">{totalAnswered}</p>
-          <p className="text-[10px] text-gray-500">Questões</p>
-        </div>
-        <div className="card text-center">
-          <p className="text-xl font-bold text-gold-400">{accuracy}%</p>
-          <p className="text-[10px] text-gray-500">Acertos</p>
-        </div>
-      </div>
-
-      {/* Navigation Cards */}
-      <div className="space-y-2">
-        <button onClick={() => onNavigate('studyplan')} className="card w-full flex items-center justify-between hover:border-pm-400 transition-colors">
-          <span className="text-sm">📋 Plano de Estudos</span>
-          <ChevronRight size={16} className="text-gray-500" />
-        </button>
-        <button onClick={() => onNavigate('essay')} className="card w-full flex items-center justify-between hover:border-pm-400 transition-colors">
-          <span className="text-sm">✍️ Redação</span>
-          <ChevronRight size={16} className="text-gray-500" />
-        </button>
-        <button onClick={() => onNavigate('taf')} className="card w-full flex items-center justify-between hover:border-pm-400 transition-colors">
-          <span className="text-sm">🏃 TAF — Treino Físico</span>
-          <ChevronRight size={16} className="text-gray-500" />
-        </button>
-      </div>
+      <button onClick={() => onNavigate('studyplan')} className="card flex w-full items-center justify-between hover:border-pm-400/40">
+        <span className="text-sm font-bold text-white">📋 Plano de Estudos completo</span>
+        <ChevronRight size={16} className="text-gray-500" />
+      </button>
     </div>
   );
 }
