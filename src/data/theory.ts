@@ -788,6 +788,103 @@ export const theoryLessons: TheoryLesson[] = [
     finalReminder: 'Se cair probabilidade, conte primeiro todos os casos possíveis.',
     miniMission: 'Qual a probabilidade de sair número maior que 4 em um dado comum?',
     notUnderstood: 'Modo simples: probabilidade é dividir o número de resultados bons pelo total de resultados.'
+  },
+  {
+    missionId: 'cg-01',
+    subjectId: 'gerais',
+    title: 'Atualidades — Patrulha do Mundo Real',
+    missionBrief: 'Aprender atualidades sem virar refém de notícia infinita.',
+    dumbMode: 'Atualidades não é decorar todas as notícias. É entender temas importantes que afetam sociedade, política, economia, tecnologia, meio ambiente e segurança pública.',
+    analogy: 'Pense como um investigador acompanhando pistas do mundo real. Você não precisa saber cada fofoca da cidade; precisa saber os eventos que mudam o cenário da missão.',
+    vunespMode: 'A Vunesp costuma cobrar temas relevantes, não notícia aleatória: conflitos, eleições, meio ambiente, tecnologia, saúde pública, economia, cidadania e direitos humanos.',
+    traps: [
+      'Não estude atualidades por boato ou rede social sem fonte.',
+      'Cuidado com alternativa sensacionalista.',
+      'Atualidades geralmente exigem contexto, não só data.',
+      'Tema recorrente vale mais do que notícia isolada.'
+    ],
+    memoryHook: 'Atualidades é entender o cenário da missão, não decorar manchete solta.',
+    finalReminder: 'Se cair atualidade, procure a alternativa mais equilibrada e ligada a fatos verificáveis.',
+    miniMission: 'Escolha uma notícia importante da semana e responda: quem, o quê, onde, quando, por quê e consequência.',
+    notUnderstood: 'Modo simples: atualidades é saber o que está acontecendo no mundo e por que isso importa.'
+  },
+  {
+    missionId: 'cg-05',
+    subjectId: 'gerais',
+    title: 'Geografia Humana e Econômica — O Movimento da População',
+    missionBrief: 'Entender população, urbanização, economia e desigualdades regionais.',
+    dumbMode: 'Geografia humana estuda pessoas, cidades, trabalho, economia, migração e desigualdade. Geografia econômica olha como produção, comércio, indústria, agropecuária e serviços se organizam no espaço.',
+    analogy: 'Imagine um mapa de RPG com cidades, rotas comerciais, minas, fazendas e regiões pobres ou ricas. Geografia humana e econômica é entender como as pessoas vivem e produzem nesse mapa.',
+    vunespMode: 'A banca cobra urbanização, concentração populacional, regiões econômicas, industrialização, agropecuária, serviços, migração e desigualdade regional.',
+    traps: [
+      'O Brasil é majoritariamente urbano.',
+      'A Região Sudeste concentra população, indústria, serviços e riqueza.',
+      'Agropecuária moderna não significa ausência de tecnologia.',
+      'Desigualdade regional é tema recorrente.',
+      'Urbanização rápida pode gerar problemas como moradia precária e transporte ruim.'
+    ],
+    memoryHook: 'Geografia humana olha pessoas; econômica olha produção e riqueza.',
+    finalReminder: 'Se cair economia brasileira, lembre do peso do Sudeste, dos serviços e da agropecuária moderna.',
+    miniMission: 'Explique por que grandes cidades atraem pessoas, mas também criam problemas urbanos.',
+    notUnderstood: 'Modo simples: é estudar onde as pessoas vivem, trabalham, produzem e por que algumas regiões são mais ricas que outras.'
+  },
+  {
+    missionId: 'cg-06',
+    subjectId: 'gerais',
+    title: 'Geografia de São Paulo — O Centro Forte do Mapa',
+    missionBrief: 'Entender por que São Paulo é tão importante no Brasil.',
+    dumbMode: 'São Paulo é um dos estados mais importantes do país por causa da população, indústria, serviços, tecnologia, agropecuária moderna, universidades, rodovias e mercado consumidor.',
+    analogy: 'Pense em São Paulo como a capital comercial de um grande reino. Mesmo não sendo a capital política do país, concentra rotas, comércio, produção, conhecimento e muita gente.',
+    vunespMode: 'A banca pode cobrar economia paulista, urbanização, Região Metropolitana de São Paulo, interior industrial e agrícola, rios, relevo e importância logística.',
+    traps: [
+      'São Paulo não é só indústria; também tem serviços fortes e agropecuária moderna.',
+      'A capital concentra muitos serviços, mas o interior também é muito importante.',
+      'O estado possui forte rede de rodovias.',
+      'Problemas urbanos como trânsito, desigualdade e moradia também podem aparecer.'
+    ],
+    memoryHook: 'São Paulo é força econômica: indústria, serviços, tecnologia e agro moderno.',
+    finalReminder: 'Se cair SP, pense em diversidade econômica e concentração populacional.',
+    miniMission: 'Liste três motivos que tornam São Paulo importante para a economia brasileira.',
+    notUnderstood: 'Modo simples: São Paulo é um dos motores do Brasil, porque produz, vende, transporta, pesquisa e concentra muita gente.'
+  },
+  {
+    missionId: 'cg-08',
+    subjectId: 'gerais',
+    title: 'Organização do Estado — Quem Manda em Qual Missão',
+    missionBrief: 'Entender União, Estados, DF, Municípios e os três Poderes.',
+    dumbMode: 'O Brasil é uma Federação. Isso significa que União, Estados, Distrito Federal e Municípios têm autonomia dentro das regras da Constituição. Além disso, o poder se divide em Legislativo, Executivo e Judiciário.',
+    analogy: 'Imagine uma aliança de reinos. Existe o comando central, mas cada território tem responsabilidades próprias. Para não virar tirania, as funções são divididas entre criar leis, administrar e julgar.',
+    vunespMode: 'A banca cobra entes federativos, autonomia, três Poderes, funções típicas e organização básica do Estado brasileiro.',
+    traps: [
+      'União, Estados, DF e Municípios são entes federativos.',
+      'Legislativo cria leis e fiscaliza.',
+      'Executivo administra e executa políticas públicas.',
+      'Judiciário julga conflitos.',
+      'Autonomia não significa soberania absoluta.'
+    ],
+    memoryHook: 'Legislativo faz lei, Executivo executa, Judiciário julga.',
+    finalReminder: 'Se cair organização do Estado, separe ente federativo de Poder da República.',
+    miniMission: 'Classifique: Prefeitura, Governo do Estado, Congresso Nacional, Tribunal de Justiça.',
+    notUnderstood: 'Modo simples: o Brasil divide tarefas entre lugares diferentes e poderes diferentes para ninguém concentrar tudo sozinho.'
+  },
+  {
+    missionId: 'cg-09',
+    subjectId: 'gerais',
+    title: 'Meio Ambiente — Sobrevivência do Território',
+    missionBrief: 'Entender sustentabilidade, impactos ambientais e proteção dos recursos naturais.',
+    dumbMode: 'Meio ambiente envolve natureza, recursos naturais e qualidade de vida. Sustentabilidade é usar os recursos hoje sem destruir a possibilidade de uso pelas próximas gerações.',
+    analogy: 'Imagine uma campanha de sobrevivência. Se o grupo cortar toda a floresta, sujar a água e gastar toda a comida, vence um dia e perde a guerra. Sustentabilidade é sobreviver hoje sem condenar amanhã.',
+    vunespMode: 'A banca cobra desmatamento, queimadas, poluição, mudanças climáticas, sustentabilidade, recursos hídricos, biomas e cidadania ambiental.',
+    traps: [
+      'Sustentabilidade não é parar todo desenvolvimento; é equilibrar economia, sociedade e ambiente.',
+      'Desmatamento afeta clima, biodiversidade e água.',
+      'Poluição urbana envolve ar, rios, lixo e saneamento.',
+      'Educação ambiental e responsabilidade coletiva são temas recorrentes.'
+    ],
+    memoryHook: 'Sustentabilidade é vencer a missão sem destruir o mapa.',
+    finalReminder: 'Se cair meio ambiente, procure equilíbrio entre desenvolvimento, preservação e responsabilidade social.',
+    miniMission: 'Dê um exemplo de atitude individual e uma política pública que ajudam o meio ambiente.',
+    notUnderstood: 'Modo simples: meio ambiente é o cenário onde a vida acontece. Se destruir o cenário, a missão falha.'
   }
 ];
 
