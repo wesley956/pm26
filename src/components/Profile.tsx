@@ -1,7 +1,8 @@
+import type { ChangeEvent } from 'react';
 import { useApp } from '../store';
 import { subjects } from '../data/subjects';
 import { getLevelInfo, getMedalDefinitions, getSubjectProgress } from '../utils';
-import { Trophy, Target, TrendingUp, AlertTriangle } from 'lucide-react';
+import { Trophy, Target, TrendingUp, AlertTriangle, Download, Upload } from 'lucide-react';
 
 export default function Profile({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
   const { profile, setBadDayMode } = useApp();
@@ -71,6 +72,54 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
         : accuracy >= 65
           ? 'Você está construindo base. Para top 100, precisa subir acerto e reduzir os buracos nas matérias prioritárias.'
           : 'Para top 100, o foco agora é recuperar base: teoria curta, revisão guiada e questões comentadas todos os dias.';
+
+  const handleExportProgress = () => {
+    const payload = {
+      app: 'pm-sp-arena',
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      profile,
+    };
+
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+
+    link.href = url;
+    link.download = `pm-sp-progresso-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImportProgress = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+
+    if (!file) return;
+
+    try {
+      const content = await file.text();
+      const parsed = JSON.parse(content);
+      const importedProfile = parsed.profile ?? parsed;
+
+      if (!importedProfile || typeof importedProfile !== 'object' || !('xp' in importedProfile)) {
+        throw new Error('Arquivo inválido.');
+      }
+
+      if (!confirm('Importar este backup vai substituir o progresso atual neste navegador. Continuar?')) {
+        return;
+      }
+
+      localStorage.setItem('pm-sp-arena', JSON.stringify(importedProfile));
+      alert('Backup importado com sucesso. O app será recarregado.');
+      window.location.reload();
+    } catch {
+      alert('Não consegui importar esse arquivo. Verifique se é um backup válido do PM-SP Arena.');
+    }
+  };
 
   return (
     <div className="space-y-4">
@@ -241,6 +290,25 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
       <button onClick={() => setBadDayMode(true)} className="w-full text-center py-2 text-xs text-gray-500 hover:text-gray-300">
         😰 Ativar modo "Dia Ruim" (só 10 min de estudo)
       </button>
+
+      {/* Backup */}
+      <div className="card border-l-4 border-pm-500">
+        <h3 className="text-sm font-bold text-white mb-2">💾 Backup do Progresso</h3>
+        <p className="text-xs text-gray-500 mb-3">
+          Salve seu progresso em um arquivo para não perder tudo se trocar de celular, limpar o navegador ou reinstalar o app.
+        </p>
+
+        <div className="grid grid-cols-2 gap-2">
+          <button onClick={handleExportProgress} className="btn-primary flex items-center justify-center gap-2 text-sm">
+            <Download size={15} /> Exportar
+          </button>
+
+          <label className="btn-primary flex items-center justify-center gap-2 text-sm cursor-pointer">
+            <Upload size={15} /> Importar
+            <input type="file" accept="application/json,.json" onChange={handleImportProgress} className="hidden" />
+          </label>
+        </div>
+      </div>
 
       {/* Reset */}
       <div className="text-center">
