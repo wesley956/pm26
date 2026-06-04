@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { questions } from '../data/questions';
 import { subjects } from '../data/subjects';
+import { theoryLessons } from '../data/theory';
 import { useApp } from '../store';
 import { ChevronLeft, RotateCcw, CheckCircle2, XCircle, ArrowRight, Layers, Zap } from 'lucide-react';
 
@@ -19,14 +20,22 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
   }, [profile.wrongQuestions]);
 
   const flashcards = useMemo(() => {
-    return subjects.flatMap(s => s.missions.map(m => ({
-      id: m.id,
-      subjectId: m.subjectId,
-      front: m.title,
-      back: m.content,
-      subjectName: s.name,
-      subjectIcon: s.icon,
-    })));
+    return theoryLessons.map(lesson => {
+      const subject = subjects.find(s => s.id === lesson.subjectId);
+
+      return {
+        id: lesson.missionId,
+        subjectId: lesson.subjectId,
+        front: lesson.title,
+        back: [
+          `🧩 Macete: ${lesson.memoryHook}`,
+          `📌 Se cair na prova: ${lesson.finalReminder}`,
+          `🪤 Pegadinha: ${lesson.traps[0] ?? 'Revise as pegadinhas da aula.'}`,
+        ].join('\n\n'),
+        subjectName: subject?.name ?? 'Matéria',
+        subjectIcon: subject?.icon ?? '🧠',
+      };
+    });
   }, []);
 
   const quickQs = useMemo(() => [...questions].sort(() => Math.random() - 0.5).slice(0, 5), []);
@@ -266,7 +275,7 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
           {showAnswer ? (
             <>
               <p className="text-[10px] text-gold-400 mb-2">RESPOSTA (toque para ver a pergunta)</p>
-              <p className="text-sm text-gray-300 leading-relaxed">{currentCard.back}</p>
+              <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">{currentCard.back}</p>
             </>
           ) : (
             <>
