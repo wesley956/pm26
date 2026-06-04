@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 
 const questionsText = readFileSync('src/data/questions.ts', 'utf8');
 const subjectsText = readFileSync('src/data/subjects.ts', 'utf8');
+const theoryText = readFileSync('src/data/theory.ts', 'utf8');
 
 const failures = [];
 
@@ -13,6 +14,25 @@ if (duplicateQuestionIds.length > 0) {
 }
 
 const subjectIds = [...subjectsText.matchAll(/id: '([^']+)',\s+name:/g)].map(match => match[1]);
+const missionIds = [...subjectsText.matchAll(/id: '([^']+)',\s+subjectId:/g)].map(match => match[1]);
+const theoryMissionIds = [...theoryText.matchAll(/missionId: '([^']+)'/g)].map(match => match[1]);
+const duplicateTheoryIds = theoryMissionIds.filter((id, index) => theoryMissionIds.indexOf(id) !== index);
+
+if (duplicateTheoryIds.length > 0) {
+  failures.push(`IDs duplicados em theory.ts: ${[...new Set(duplicateTheoryIds)].join(', ')}`);
+}
+
+for (const missionId of missionIds) {
+  if (!theoryMissionIds.includes(missionId)) {
+    failures.push(`Missão sem teoria personalizada: ${missionId}`);
+  }
+}
+
+for (const lessonId of theoryMissionIds) {
+  if (!missionIds.includes(lessonId)) {
+    failures.push(`Teoria sem missão correspondente: ${lessonId}`);
+  }
+}
 
 for (const subjectId of subjectIds) {
   const hasQuestion = questionsText.includes(`subjectId: '${subjectId}'`);
@@ -44,6 +64,31 @@ for (const line of questionBlocks) {
     failures.push(`${id}: deve ter exatamente 5 alternativas, encontrou ${optionCount}`);
   }
 }
+
+
+const requiredTheoryFields = [
+  'missionBrief',
+  'dumbMode',
+  'analogy',
+  'vunespMode',
+  'memoryHook',
+  'finalReminder',
+  'miniMission',
+  'notUnderstood',
+];
+
+for (const field of requiredTheoryFields) {
+  const count = (theoryText.match(new RegExp(`${field}: '`, 'g')) ?? []).length;
+  if (count !== missionIds.length) {
+    failures.push(`Campo obrigatório de teoria com quantidade inválida: ${field} (${count}/${missionIds.length})`);
+  }
+}
+
+const trapsCount = (theoryText.match(/traps: \[/g) ?? []).length;
+if (trapsCount !== missionIds.length) {
+  failures.push(`Cada aula teórica deve ter lista de pegadinhas (${trapsCount}/${missionIds.length})`);
+}
+
 
 const forbiddenPhrases = [
   'mais próxima',
