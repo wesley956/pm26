@@ -495,6 +495,202 @@ export const theoryLessons: TheoryLesson[] = [
     finalReminder: 'Se cair golpe digital, procure engenharia social, link falso ou roubo de dados.',
     miniMission: 'Diga a diferença entre phishing, malware e backup.',
     notUnderstood: 'Modo simples: segurança digital é não deixar seus dados caírem na mão errada.'
+  },
+{
+    missionId: 'pt-02',
+    subjectId: 'portugues',
+    title: 'Tipos Textuais — Identificando o Monstro pelo Rastro',
+    missionBrief: 'Diferenciar narração, descrição e dissertação sem decorar conceito seco.',
+    dumbMode: 'Tipo textual é o jeito que o texto funciona. Narração conta acontecimentos. Descrição mostra características. Dissertação defende ideia ou explica um tema.',
+    analogy: 'Imagine uma investigação sobrenatural. Se o texto conta uma perseguição, é narração. Se descreve a criatura, é descrição. Se explica por que ela ameaça a cidade, é dissertação.',
+    vunespMode: 'A Vunesp costuma cobrar a finalidade do texto: narrar, descrever, explicar, informar, convencer ou defender ponto de vista.',
+    traps: [
+      'Narração tem ação, tempo, personagem e acontecimento.',
+      'Descrição tem características e detalhes.',
+      'Dissertação trabalha ideia, argumento e conclusão.',
+      'Texto argumentativo tenta convencer.'
+    ],
+    memoryHook: 'Narra ação. Descreve aparência. Disserta ideia.',
+    finalReminder: 'Se cair na prova, pergunte: esse texto conta, mostra ou defende?',
+    miniMission: 'Pegue 3 textos curtos e classifique: narração, descrição ou dissertação.',
+    notUnderstood: 'Modo simples: narração é filme acontecendo; descrição é foto detalhada; dissertação é debate.'
+  },
+  {
+    missionId: 'pt-04',
+    subjectId: 'portugues',
+    title: 'Classes de Palavras — A Guilda da Gramática',
+    missionBrief: 'Entender a função das palavras dentro da frase.',
+    dumbMode: 'Classe de palavra é o papel que uma palavra faz. Substantivo nomeia. Adjetivo caracteriza. Verbo indica ação, estado ou fenômeno. Advérbio modifica verbo, adjetivo ou outro advérbio.',
+    analogy: 'Pense em uma guilda de RPG: o guerreiro ataca, o curandeiro cura, o mago lança feitiço. Na frase, cada palavra também tem uma função.',
+    vunespMode: 'A Vunesp cobra identificação de classes, principalmente substantivo, adjetivo, verbo, advérbio, pronome, preposição e conjunção.',
+    traps: [
+      'A mesma palavra pode mudar de classe conforme o uso.',
+      'Adjetivo caracteriza substantivo.',
+      'Advérbio geralmente modifica verbo.',
+      'Preposição liga termos: de, com, para, em, a.',
+      'Conjunção liga orações ou ideias.'
+    ],
+    memoryHook: 'Classe é função. Pergunte o que a palavra faz na frase.',
+    finalReminder: 'Se cair na prova, não olhe a palavra isolada; olhe o papel dela na frase.',
+    miniMission: 'Na frase “O candidato estudou muito”, identifique substantivo, verbo e advérbio.',
+    notUnderstood: 'Modo simples: palavra é personagem. Para saber a classe, descubra a função dela na equipe.'
+  },
+  {
+    missionId: 'pt-06',
+    subjectId: 'portugues',
+    title: 'Regência — Quem Exige Preposição?',
+    missionBrief: 'Entender por que alguns verbos pedem preposição e outros não.',
+    dumbMode: 'Regência é a relação de dependência entre palavras. Alguns verbos ou nomes exigem uma preposição específica. Quem gosta, gosta de algo. Quem obedece, obedece a alguém ou a algo.',
+    analogy: 'Imagine uma magia que só funciona com ingrediente certo. O verbo é a magia; a preposição é o ingrediente obrigatório. Se usar o ingrediente errado, a frase falha.',
+    vunespMode: 'A banca cobra verbos clássicos: assistir, aspirar, visar, obedecer, preferir, lembrar, esquecer, chegar e ir.',
+    traps: [
+      'Assistir no sentido de ver pede a: assisti ao filme.',
+      'Aspirar no sentido de desejar pede a: aspiro ao cargo.',
+      'Visar no sentido de desejar pede a: viso ao cargo.',
+      'Obedecer pede a: obedeceu ao edital.',
+      'Preferir pede estrutura: preferiu X a Y.'
+    ],
+    memoryHook: 'Regência é o verbo pedindo senha para completar sentido.',
+    finalReminder: 'Se cair na prova, pergunte: esse verbo exige preposição?',
+    miniMission: 'Monte frases com assistir, obedecer, visar e preferir.',
+    notUnderstood: 'Modo simples: alguns verbos são exigentes. Eles não aceitam qualquer complemento; pedem preposição certa.'
+  },
+  {
+    missionId: 'pt-09',
+    subjectId: 'portugues',
+    title: 'Figuras de Linguagem — Magias do Sentido',
+    missionBrief: 'Reconhecer metáfora, metonímia, hipérbole, ironia e eufemismo.',
+    dumbMode: 'Figura de linguagem é quando a frase usa sentido especial, diferente do literal. Ela serve para dar força, beleza, exagero, crítica ou suavização.',
+    analogy: 'Em fantasia, dizer “ele é um dragão em combate” não significa que ele virou dragão. Significa que luta com força. Isso é metáfora.',
+    vunespMode: 'A Vunesp costuma dar uma frase curta e pedir a figura de linguagem predominante.',
+    traps: [
+      'Metáfora é comparação sem “como”.',
+      'Hipérbole é exagero.',
+      'Ironia diz o contrário do que quer dizer.',
+      'Eufemismo suaviza algo pesado.',
+      'Metonímia troca um termo por outro relacionado.'
+    ],
+    memoryHook: 'Metáfora compara. Hipérbole exagera. Ironia inverte. Eufemismo suaviza.',
+    finalReminder: 'Se cair na prova, descubra se a frase exagera, compara, suaviza ou ironiza.',
+    miniMission: 'Crie uma frase com metáfora e outra com hipérbole.',
+    notUnderstood: 'Modo simples: figura de linguagem é quando a frase ganha efeito especial, não literal.'
+  },
+  {
+    missionId: 'pt-10',
+    subjectId: 'portugues',
+    title: 'Ortografia e Acentuação — Inspeção Final da Escrita',
+    missionBrief: 'Revisar escrita correta e regras básicas de acentuação.',
+    dumbMode: 'Ortografia é escrever certo. Acentuação é saber quando uma palavra recebe acento. Você não precisa decorar o dicionário inteiro; precisa dominar padrões que caem muito.',
+    analogy: 'Pense em uma inspeção militar. Antes de sair para missão, cada detalhe do uniforme é conferido. Na escrita, acento e ortografia são essa inspeção final.',
+    vunespMode: 'A banca cobra palavras parecidas, grafias comuns em concurso e regras de oxítonas, paroxítonas e proparoxítonas.',
+    traps: [
+      'Todas as proparoxítonas são acentuadas.',
+      'Oxítonas terminadas em a, e, o, em e ens são acentuadas.',
+      'Paroxítonas têm regras mais variadas.',
+      'Item e itens não têm acento.',
+      'Privilégio, exceção e disciplina são grafias comuns em prova.'
+    ],
+    memoryHook: 'Proparoxítona? Acentua sempre.',
+    finalReminder: 'Se cair acentuação, classifique a sílaba tônica antes de responder.',
+    miniMission: 'Classifique: café, fácil, médico, itens, caráter.',
+    notUnderstood: 'Modo simples: descubra qual sílaba é mais forte. Depois aplique a regra.'
+  },
+  {
+    missionId: 'ap-04',
+    subjectId: 'administracao',
+    title: 'Licitações — A Compra Pública sem Favoritismo',
+    missionBrief: 'Entender licitação como disputa organizada para contratar melhor.',
+    dumbMode: 'Licitação é o processo que a Administração usa para comprar, contratar obra ou serviço de forma justa, buscando proposta vantajosa e evitando favorecimento.',
+    analogy: 'Imagine uma guilda escolhendo quem vai fornecer armas para a guarda. Se o chefe escolhe o amigo sem disputa, há risco de corrupção. A licitação cria regras para todos competirem.',
+    vunespMode: 'A banca cobra finalidade da licitação, princípios, modalidades e diferença entre dispensa e inexigibilidade.',
+    traps: [
+      'Licitação busca proposta vantajosa, não necessariamente o menor preço em todo caso.',
+      'Pregão é usado para bens e serviços comuns.',
+      'Dispensa ocorre quando a lei permite não licitar.',
+      'Inexigibilidade ocorre quando a competição é inviável.',
+      'Isonomia significa igualdade entre participantes.'
+    ],
+    memoryHook: 'Licitação é competição com regra para proteger o dinheiro público.',
+    finalReminder: 'Se cair licitação, pense em isonomia, proposta vantajosa e interesse público.',
+    miniMission: 'Explique a diferença entre dispensa e inexigibilidade em uma frase.',
+    notUnderstood: 'Modo simples: licitação é o Estado comprando com regras para não virar escolha de amigo.'
+  },
+  {
+    missionId: 'ap-05',
+    subjectId: 'administracao',
+    title: 'Servidores Públicos — Agentes em Missão do Estado',
+    missionBrief: 'Entender ingresso, deveres, direitos e estabilidade de servidores.',
+    dumbMode: 'Servidor público é uma pessoa que trabalha para o Estado. Em regra, entra por concurso. Ele tem deveres, direitos e deve agir em favor do interesse público.',
+    analogy: 'Pense em uma ordem de guardiões. Para entrar, precisa passar por seleção. Depois, o guardião não age como dono da ordem; ele segue regras, hierarquia e deveres.',
+    vunespMode: 'A banca cobra concurso público, estabilidade, acumulação de cargos, deveres funcionais e responsabilidade do servidor.',
+    traps: [
+      'Concurso público é a regra de ingresso.',
+      'Estabilidade não é liberdade para trabalhar mal.',
+      'Servidor responde por atos ilegais.',
+      'Acumulação de cargos só é permitida em hipóteses constitucionais.',
+      'Cargo público não é propriedade do servidor.'
+    ],
+    memoryHook: 'Servidor serve ao público, não a si mesmo.',
+    finalReminder: 'Se cair servidor, procure concurso, dever funcional e interesse público.',
+    miniMission: 'Diga por que estabilidade não significa impunidade.',
+    notUnderstood: 'Modo simples: servidor é agente do Estado e precisa seguir regras mais rígidas que um trabalhador comum.'
+  },
+  {
+    missionId: 'ap-06',
+    subjectId: 'administracao',
+    title: 'Controle da Administração — Quem Vigia o Vigia?',
+    missionBrief: 'Entender controle interno, externo, judicial e popular.',
+    dumbMode: 'Controle da Administração é fiscalização. Serve para impedir abuso, erro, desperdício e corrupção. Pode ser feito pelo próprio órgão, por outro Poder, pelo Judiciário ou pelo cidadão.',
+    analogy: 'Em uma organização de investigação, ninguém pode agir sem supervisão. Até o líder precisa prestar contas. Controle é o sistema que impede que a missão vire bagunça.',
+    vunespMode: 'A banca cobra controle interno, externo, legislativo, Tribunal de Contas, controle judicial e participação popular.',
+    traps: [
+      'Controle interno é feito dentro do próprio Poder ou órgão.',
+      'Controle externo é feito pelo Legislativo com auxílio dos Tribunais de Contas.',
+      'Controle judicial verifica legalidade, não substitui mérito administrativo em regra.',
+      'Cidadão pode provocar controle por denúncias e ações próprias.'
+    ],
+    memoryHook: 'Controle é fiscalização para manter a Administração dentro da lei.',
+    finalReminder: 'Se cair controle externo, lembre: Legislativo + Tribunal de Contas.',
+    miniMission: 'Classifique: corregedoria, Tribunal de Contas, Judiciário e cidadão.',
+    notUnderstood: 'Modo simples: controle é alguém conferindo se o poder público está agindo certo.'
+  },
+  {
+    missionId: 'ap-08',
+    subjectId: 'administracao',
+    title: 'Responsabilidade Fiscal — O Tesouro não é Infinito',
+    missionBrief: 'Entender a lógica da Lei de Responsabilidade Fiscal.',
+    dumbMode: 'Responsabilidade fiscal é gastar dinheiro público com planejamento, controle e transparência. O governo não pode agir como se o dinheiro fosse infinito.',
+    analogy: 'Imagine um grupo em sobrevivência com comida limitada. Se o líder gasta tudo no primeiro dia, todos sofrem depois. A LRF existe para evitar esse tipo de irresponsabilidade com recursos públicos.',
+    vunespMode: 'A banca cobra planejamento, equilíbrio das contas, transparência, limites de despesa, metas fiscais e responsabilidade na gestão.',
+    traps: [
+      'LRF não é só cortar gastos; é controlar e planejar.',
+      'Transparência é parte essencial da responsabilidade fiscal.',
+      'Geração de despesa precisa respeitar regras.',
+      'Renúncia de receita também exige cuidado.'
+    ],
+    memoryHook: 'Dinheiro público tem missão, limite e prestação de contas.',
+    finalReminder: 'Se cair LRF, pense em planejamento, controle, transparência e equilíbrio.',
+    miniMission: 'Explique por que gastar sem planejamento prejudica a população.',
+    notUnderstood: 'Modo simples: LRF é o freio para o governo não gastar de qualquer jeito.'
+  },
+  {
+    missionId: 'ap-09',
+    subjectId: 'administracao',
+    title: 'Improbidade Administrativa — Quando o Agente Vira Vilão',
+    missionBrief: 'Entender atos de improbidade sem juridiquês.',
+    dumbMode: 'Improbidade é conduta desonesta ou ilegal grave praticada por agente público ou por quem se beneficia dela. Pode envolver enriquecimento ilícito, prejuízo ao erário ou violação de princípios.',
+    analogy: 'Em uma guilda, o guardião que usa o cargo para roubar tesouro, favorecer aliados ou prejudicar o povo deixa de ser guardião e vira vilão. Isso é a lógica da improbidade.',
+    vunespMode: 'A banca cobra os tipos de atos de improbidade e exemplos práticos de enriquecimento ilícito, dano ao erário e violação de princípios.',
+    traps: [
+      'Enriquecimento ilícito envolve vantagem indevida.',
+      'Prejuízo ao erário envolve dano ao dinheiro público.',
+      'Violação de princípios atinge deveres como honestidade, legalidade e imparcialidade.',
+      'Nem todo erro administrativo é improbidade; precisa gravidade e enquadramento legal.'
+    ],
+    memoryHook: 'Improbidade é traição ao interesse público.',
+    finalReminder: 'Se cair improbidade, identifique: ganhou vantagem, causou prejuízo ou violou princípio?',
+    miniMission: 'Crie um exemplo para cada tipo: enriquecimento, prejuízo e princípio.',
+    notUnderstood: 'Modo simples: improbidade é quando alguém usa a função pública de forma desonesta ou gravemente errada.'
   }
 ];
 
