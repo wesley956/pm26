@@ -112,7 +112,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           </div>
 
           <div className="card px-4 py-3 text-center">
-            <div className="section-label mb-1">S Sequência</div>
+            <div className="section-label mb-1">Sequência</div>
             <div className="font-orbitron text-2xl font-black neon-gold">{profile.streak}</div>
             <div className="text-xs text-slate-500">dias seguidos</div>
           </div>
@@ -174,7 +174,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
                     : 'bg-white/5 text-slate-600'
                 }`}
               >
-                {i < Math.min(7, profile.streak) ? 'S' : i + 1}
+                {i < Math.min(7, profile.streak) ? '✓' : i + 1}
               </div>
             ))}
           </div>
@@ -271,7 +271,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
                 Dia ruim
               </button>
               <button className="btn-gold" onClick={() => navigateToAction(false)}>
-                Executar XP
+                Executar
               </button>
             </div>
           </div>
@@ -326,7 +326,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           <div className="space-y-2">
             <div className="section-label mb-2">Medalhas</div>
             <div className="grid grid-cols-4 gap-2">
-              {['M','S','XP','📚','💪','🎯','🌟','🃏'].map((m, i) => {
+              {['🏆','🔥','⚡','📚','💪','🎯','🌟','🃏'].map((m, i) => {
                 const earned = i < Math.max(1, Math.min(8, profile.medals.length || 2));
                 return (
                   <div
@@ -413,7 +413,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           </div>
 
           <div className="card p-5">
-            <div className="section-label mb-3">XP Atalhos</div>
+            <div className="section-label mb-3">Atalhos</div>
             <div className="grid grid-cols-2 gap-2">
               <button className="btn-glow text-sm" onClick={() => onNavigate('simulados')}>
                 <Trophy size={15} /> Simulado
