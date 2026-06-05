@@ -1211,3 +1211,153 @@ body {
   padding: clamp(24px, 4vw, 42px);
 }
 
+
+/* =========================================================
+   STUDY UX 2.1 — redação, TAF e perfil confortável
+   ========================================================= */
+
+.form-shell {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-bottom: 56px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 18px;
+}
+
+@media (min-width: 980px) {
+  .form-grid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr);
+    align-items: start;
+  }
+}
+
+.editor-card {
+  background: var(--study-surface);
+  border: 1px solid var(--study-border);
+  border-radius: 24px;
+  padding: clamp(18px, 3vw, 30px);
+}
+
+.essay-editor {
+  width: 100%;
+  min-height: 420px;
+  resize: vertical;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--study-text);
+  background: rgba(8, 13, 22, 0.72);
+  border: 1px solid var(--study-border);
+  border-radius: 20px;
+  padding: 22px;
+}
+
+.essay-editor::placeholder {
+  color: #667085;
+}
+
+.metric-grid {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 680px) {
+  .metric-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.metric-card {
+  background: var(--study-surface);
+  border: 1px solid var(--study-border);
+  border-radius: 20px;
+  padding: 18px;
+  text-align: center;
+}
+
+.metric-value {
+  color: var(--study-text);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.metric-label {
+  margin-top: 6px;
+  color: var(--study-soft);
+  font-size: .86rem;
+  line-height: 1.35;
+}
+
+.list-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(140, 205, 245, 0.10);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.score-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.score-button {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  border: 1px solid rgba(140, 205, 245, 0.14);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--study-muted);
+  font-weight: 900;
+}
+
+.score-button-active {
+  border-color: rgba(216, 183, 106, 0.42);
+  background: rgba(216, 183, 106, 0.14);
+  color: var(--study-gold);
+}
+
+.taf-exercise-grid {
+  display: grid;
+  gap: 12px;
+}
+
+@media (min-width: 760px) {
+  .taf-exercise-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.profile-priority-card {
+  width: 100%;
+  text-align: left;
+  border-radius: 18px;
+  border: 1px solid rgba(140, 205, 245, 0.12);
+  background: rgba(255, 255, 255, 0.025);
+  padding: 15px;
+  transition: border-color .18s ease, background .18s ease;
+}
+
+.profile-priority-card:hover {
+  border-color: rgba(216, 183, 106, 0.28);
+  background: rgba(216, 183, 106, 0.055);
+}
+
+.medal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (min-width: 760px) {
+  .medal-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+

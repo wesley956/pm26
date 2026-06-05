@@ -13,7 +13,6 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
   const correctCount = Object.values(profile.completedQuestions).filter(q => q.correct).length;
   const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
 
-  // Strengths & weaknesses
   const subjectStats = subjects.map(sub => {
     const subQs = Object.values(profile.completedQuestions).filter(q => {
       const prefix = sub.id === 'portugues' ? 'pt' : sub.id === 'matematica' ? 'mt' : sub.id === 'gerais' ? 'cg' : sub.id === 'informatica' ? 'inf' : 'ap';
@@ -122,53 +121,59 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
   };
 
   return (
-    <div className="space-y-4">
-      <h1 className="text-xl font-bold font-[Rajdhani,sans-serif]">👤 Perfil do Aluno</h1>
+    <div className="study-wide">
+      <div className="mb-6">
+        <p className="section-label mb-2">Diagnóstico</p>
+        <h1 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Perfil do aluno</h1>
+        <p className="study-subtitle mt-2">
+          Veja seu progresso, prioridades e pontos de atenção sem poluição visual.
+        </p>
+      </div>
 
-      {/* Rank Card */}
-      <div className="card text-center py-6">
-        <div className="text-5xl mb-2">{info.icon}</div>
-        <h2 className="text-2xl font-bold font-[Rajdhani,sans-serif] text-gold-400">{info.title}</h2>
-        <p className="text-sm text-gray-400">Nível {info.level}</p>
-        <div className="mt-3 mx-16">
-          <div className="progress-bar">
-            <div className="progress-bar-fill bg-gradient-to-r from-pm-500 to-gold-500" style={{ width: `${info.progress}%` }} />
+      <section className="study-card mb-5 text-center">
+        <div className="text-5xl">{info.icon}</div>
+        <h2 className="mt-2 font-[Rajdhani,sans-serif] text-4xl font-black text-gold-400">{info.title}</h2>
+        <p className="text-slate-400">Nível {info.level}</p>
+
+        <div className="mx-auto mt-5 max-w-xl">
+          <div className="xp-bar-wrap">
+            <div className="xp-bar-fill" style={{ width: `${info.progress}%` }} />
           </div>
-          <p className="text-[10px] text-gray-500 mt-1">{info.xpInLevel}/{info.xpForNext} XP para próximo nível</p>
+          <p className="mt-2 text-sm text-slate-500">{info.xpInLevel}/{info.xpForNext} XP para próximo nível</p>
         </div>
-        <p className="text-lg font-bold text-white mt-2">{profile.xp.toLocaleString()} XP total</p>
-      </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="card text-center">
-          <p className="text-2xl font-bold text-orange-400">{profile.streak}</p>
-          <p className="text-[10px] text-gray-500">Dias seguidos</p>
-        </div>
-        <div className="card text-center">
-          <p className="text-2xl font-bold text-white">{profile.completedMissions.length}</p>
-          <p className="text-[10px] text-gray-500">Missões completas</p>
-        </div>
-        <div className="card text-center">
-          <p className="text-2xl font-bold text-white">{totalAnswered}</p>
-          <p className="text-[10px] text-gray-500">Questões respondidas</p>
-        </div>
-        <div className="card text-center">
-          <p className="text-2xl font-bold text-gold-400">{accuracy}%</p>
-          <p className="text-[10px] text-gray-500">Taxa de acerto</p>
-        </div>
-      </div>
+        <p className="mt-3 text-xl font-black text-white">{profile.xp.toLocaleString()} XP total</p>
+      </section>
 
-      {/* Top 100 Diagnostic */}
-      <div className="card border-l-4 border-danger">
-        <div className="flex items-start justify-between gap-3">
+      <section className="metric-grid mb-5">
+        <div className="metric-card">
+          <p className="metric-value text-orange-300">{profile.streak}</p>
+          <p className="metric-label">Dias seguidos</p>
+        </div>
+        <div className="metric-card">
+          <p className="metric-value">{profile.completedMissions.length}</p>
+          <p className="metric-label">Missões completas</p>
+        </div>
+        <div className="metric-card">
+          <p className="metric-value">{totalAnswered}</p>
+          <p className="metric-label">Questões respondidas</p>
+        </div>
+        <div className="metric-card">
+          <p className="metric-value text-gold-400">{accuracy}%</p>
+          <p className="metric-label">Taxa de acerto</p>
+        </div>
+      </section>
+
+      <section className="study-card mb-5">
+        <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div>
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Target size={14} className="text-danger" /> Diagnóstico Top 100
+            <h3 className="flex items-center gap-2 text-xl font-black text-white">
+              <Target size={18} className="text-danger" /> Diagnóstico Top 100
             </h3>
-            <p className="text-xs text-gray-400 mt-1">{diagnosticTitle}</p>
+            <p className="mt-1 text-sm text-slate-400">{diagnosticTitle}</p>
           </div>
-          <span className={`text-[11px] font-bold px-2 py-1 rounded-full ${
+
+          <span className={`inline-flex rounded-full px-3 py-1 text-sm font-black ${
             accuracy >= 80 ? 'bg-success/15 text-success' :
             accuracy >= 65 ? 'bg-gold-500/15 text-gold-400' :
             'bg-danger/15 text-danger'
@@ -177,21 +182,21 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
           </span>
         </div>
 
-        <p className="text-sm text-gray-300 mt-3 leading-relaxed">{diagnosticMessage}</p>
+        <p className="study-body mt-4">{diagnosticMessage}</p>
 
-        <div className="mt-4 space-y-2">
+        <div className="mt-5 grid gap-3">
           {top100Priorities.map((s, index) => (
             <button
               key={s.id}
               onClick={() => onNavigate('subject', { subjectId: s.id })}
-              className="w-full text-left rounded-xl border border-pm-700/70 bg-pm-900/50 p-3 hover:border-gold-500/60 transition-colors"
+              className="profile-priority-card"
             >
-              <div className="flex items-center justify-between gap-2">
-                <p className="text-sm font-bold text-white">
+              <div className="flex items-center justify-between gap-3">
+                <p className="font-black text-white">
                   {index + 1}. {s.icon} {s.name}
                 </p>
-                <span className={`text-[11px] font-bold ${
-                  s.total === 0 ? 'text-gray-500' :
+                <span className={`text-sm font-black ${
+                  s.total === 0 ? 'text-slate-500' :
                   s.pct >= 75 ? 'text-success' :
                   s.pct >= 60 ? 'text-gold-400' :
                   'text-danger'
@@ -199,120 +204,159 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
                   {s.total > 0 ? `${s.pct}%` : 'sem dados'}
                 </span>
               </div>
-              <p className="text-[11px] text-gray-500 mt-1">
+
+              <p className="mt-1 text-sm leading-relaxed text-slate-500">
                 {s.reason} • {s.missionProgress}/{s.missions.length} missões • {s.total} questões
               </p>
-              <p className="text-[11px] text-pm-300 mt-1 font-semibold">
+              <p className="mt-1 text-sm font-bold text-pm-300">
                 Próxima ação: {s.action}
               </p>
             </button>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Subject Progress */}
-      <div>
-        <h3 className="text-sm font-bold text-gray-300 mb-3 flex items-center gap-2"><Target size={14} /> Progresso por Matéria</h3>
-        <div className="space-y-3">
-          {subjectStats.map(s => (
-            <div key={s.id}>
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-sm">{s.icon} {s.name}</span>
-                <div className="flex items-center gap-3 text-xs">
-                  <span className="text-gray-500">{s.missionProgress}/{s.missions.length} missões</span>
-                  {s.total > 0 && <span className={s.pct >= 70 ? 'text-success' : s.pct >= 50 ? 'text-gold-400' : 'text-danger'}>{s.pct}% acerto</span>}
+      <section className="study-card mb-5">
+        <h3 className="mb-4 flex items-center gap-2 text-xl font-black text-white">
+          <Target size={18} /> Progresso por matéria
+        </h3>
+
+        <div className="grid gap-4">
+          {subjectStats.map(s => {
+            const pct = Math.round((s.missionProgress / s.missions.length) * 100);
+
+            return (
+              <button
+                key={s.id}
+                onClick={() => onNavigate('subject', { subjectId: s.id })}
+                className="w-full text-left"
+              >
+                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                  <span className="font-bold text-white">{s.icon} {s.name}</span>
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="text-slate-500">{s.missionProgress}/{s.missions.length} missões</span>
+                    {s.total > 0 && (
+                      <span className={s.pct >= 70 ? 'text-success' : s.pct >= 50 ? 'text-gold-400' : 'text-danger'}>
+                        {s.pct}% acerto
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-              <div className="progress-bar">
-                <div className="progress-bar-fill" style={{ width: `${Math.round((s.missionProgress / s.missions.length) * 100)}%`, background: s.color }} />
-              </div>
-            </div>
-          ))}
+                <div className="progress-bar">
+                  <div className="progress-bar-fill" style={{ width: `${pct}%`, background: s.color }} />
+                </div>
+              </button>
+            );
+          })}
         </div>
+      </section>
+
+      <div className="mb-5 grid gap-5 lg:grid-cols-2">
+        {strengths.length > 0 && (
+          <section className="study-card">
+            <h3 className="mb-3 flex items-center gap-2 text-xl font-black text-white">
+              <TrendingUp size={18} className="text-success" /> Pontos fortes
+            </h3>
+            <div className="grid gap-2">
+              {strengths.map(s => (
+                <div key={s.id} className="list-card flex justify-between">
+                  <span>{s.icon} {s.name}</span>
+                  <span className="font-black text-success">{s.pct}%</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {weaknesses.length > 0 && (
+          <section className="study-card">
+            <h3 className="mb-3 flex items-center gap-2 text-xl font-black text-white">
+              <AlertTriangle size={18} className="text-danger" /> Pontos fracos
+            </h3>
+            <div className="grid gap-2">
+              {weaknesses.map(s => (
+                <button
+                  key={s.id}
+                  onClick={() => onNavigate('subject', { subjectId: s.id })}
+                  className="list-card flex justify-between text-left"
+                >
+                  <span>{s.icon} {s.name}</span>
+                  <span className="font-black text-danger">{s.pct}%</span>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
 
-      {/* Strengths & Weaknesses */}
-      {strengths.length > 0 && (
-        <div>
-          <h3 className="text-sm font-bold text-gray-300 mb-2 flex items-center gap-2"><TrendingUp size={14} /> Pontos Fortes</h3>
-          {strengths.map(s => (
-            <div key={s.id} className="flex justify-between items-center text-sm py-1">
-              <span>{s.icon} {s.name}</span>
-              <span className="text-success font-bold">{s.pct}%</span>
-            </div>
-          ))}
-        </div>
-      )}
-      {weaknesses.length > 0 && (
-        <div>
-          <h3 className="text-sm font-bold text-gray-300 mb-2 flex items-center gap-2"><AlertTriangle size={14} /> Pontos Fracos</h3>
-          {weaknesses.map(s => (
-            <button key={s.id} onClick={() => onNavigate('subject', { subjectId: s.id })} className="flex justify-between items-center text-sm py-1 w-full text-left">
-              <span>{s.icon} {s.name}</span>
-              <span className="text-danger font-bold">{s.pct}%</span>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Behind schedule */}
       {behind.length > 0 && (
-        <div className="card border-l-4 border-orange-400">
-          <h3 className="text-xs font-bold text-orange-400 mb-1">⚠️ MATÉRIAS ATRASADAS</h3>
-          <div className="space-y-1">
+        <section className="study-card mb-5">
+          <h3 className="study-kicker orange">Matérias atrasadas</h3>
+          <div className="grid gap-2">
             {behind.map(s => (
-              <button key={s.id} onClick={() => onNavigate('subject', { subjectId: s.id })} className="text-sm text-gray-400 hover:text-white w-full text-left">
+              <button
+                key={s.id}
+                onClick={() => onNavigate('subject', { subjectId: s.id })}
+                className="list-card w-full text-left text-sm text-slate-300"
+              >
                 {s.icon} {s.name} — {s.missionProgress}/{s.missions.length} missões
               </button>
             ))}
           </div>
-        </div>
+        </section>
       )}
 
-      {/* Medals */}
-      <div>
-        <h3 className="text-sm font-bold text-gray-300 mb-3 flex items-center gap-2"><Trophy size={14} /> Medalhas ({profile.medals.length}/{allMedals.length})</h3>
-        <div className="grid grid-cols-2 gap-2">
+      <section className="study-card mb-5">
+        <h3 className="mb-4 flex items-center gap-2 text-xl font-black text-white">
+          <Trophy size={18} className="text-gold-400" /> Medalhas ({profile.medals.length}/{allMedals.length})
+        </h3>
+
+        <div className="medal-grid">
           {allMedals.map(medal => {
             const earned = profile.medals.find(m => m.id === medal.id);
             return (
-              <div key={medal.id} className={`card text-center py-3 ${earned ? 'border-gold-500/30' : 'opacity-40'}`}>
-                <div className="text-2xl">{medal.icon}</div>
-                <p className="text-xs font-bold text-white mt-1">{medal.name}</p>
-                <p className="text-[10px] text-gray-500">{medal.desc}</p>
+              <div key={medal.id} className={`list-card text-center ${earned ? 'border-gold-500/30' : 'opacity-45'}`}>
+                <div className="text-3xl">{medal.icon}</div>
+                <p className="mt-2 text-sm font-black text-white">{medal.name}</p>
+                <p className="mt-1 text-xs leading-relaxed text-slate-500">{medal.desc}</p>
               </div>
             );
           })}
         </div>
-      </div>
+      </section>
 
-      {/* Bad Day Mode */}
-      <button onClick={() => setBadDayMode(true)} className="w-full text-center py-2 text-xs text-gray-500 hover:text-gray-300">
-        😰 Ativar modo "Dia Ruim" (só 10 min de estudo)
-      </button>
-
-      {/* Backup */}
-      <div className="card border-l-4 border-pm-500">
-        <h3 className="text-sm font-bold text-white mb-2">💾 Backup do Progresso</h3>
-        <p className="text-xs text-gray-500 mb-3">
+      <section className="study-card mb-5">
+        <h3 className="mb-2 text-xl font-black text-white">Backup do progresso</h3>
+        <p className="mb-4 text-sm leading-relaxed text-slate-400">
           Salve seu progresso em um arquivo para não perder tudo se trocar de celular, limpar o navegador ou reinstalar o app.
         </p>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid gap-3 sm:grid-cols-2">
           <button onClick={handleExportProgress} className="btn-primary flex items-center justify-center gap-2 text-sm">
             <Download size={15} /> Exportar
           </button>
 
-          <label className="btn-primary flex items-center justify-center gap-2 text-sm cursor-pointer">
+          <label className="btn-primary flex cursor-pointer items-center justify-center gap-2 text-sm">
             <Upload size={15} /> Importar
             <input type="file" accept="application/json,.json" onChange={handleImportProgress} className="hidden" />
           </label>
         </div>
-      </div>
+      </section>
 
-      {/* Reset */}
-      <div className="text-center">
-        <button onClick={() => { if (confirm('Tem certeza? Todo o progresso será perdido!')) { localStorage.clear(); window.location.reload(); }}} className="text-xs text-danger/50 hover:text-danger">
+      <div className="grid gap-3 text-center">
+        <button onClick={() => setBadDayMode(true)} className="btn-ghost w-full">
+          Ativar modo Dia Ruim — só 10 min de estudo
+        </button>
+
+        <button
+          onClick={() => {
+            if (confirm('Tem certeza? Todo o progresso será perdido!')) {
+              localStorage.clear();
+              window.location.reload();
+            }
+          }}
+          className="text-sm text-danger/60 hover:text-danger"
+        >
           Resetar todo o progresso
         </button>
       </div>

@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { essayThemes, essayStructure, essayChecklist } from '../data/essays';
 import { useApp } from '../store';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CheckCircle2, Pencil } from 'lucide-react';
 
 export default function Essay({ onNavigate }: { onNavigate: (tab: string) => void }) {
   const { profile, addEssay, addXP } = useApp();
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [showStructure, setShowStructure] = useState(false);
-  const [showChecklist, setShowChecklist] = useState(false);
+  const [showChecklist, setShowChecklist] = useState(true);
   const [essayText, setEssayText] = useState('');
   const [selfGrade, setSelfGrade] = useState(0);
 
@@ -29,130 +29,185 @@ export default function Essay({ onNavigate }: { onNavigate: (tab: string) => voi
       selfGrade,
     });
 
-    if (!hasEssayToday) {
-      addXP(50);
-    }
+    if (!hasEssayToday) addXP(50);
 
     setEssayText('');
     setSelfGrade(0);
     setSelectedTheme(null);
   };
 
-  // Theme selection
   if (!selectedTheme) {
     return (
-      <div className="space-y-4">
-        <button onClick={() => onNavigate('dashboard')} className="text-sm text-pm-300 flex items-center gap-1">
+      <div className="form-shell">
+        <button onClick={() => onNavigate('dashboard')} className="study-back">
           <ChevronLeft size={16} /> Voltar
         </button>
-        <h1 className="text-xl font-bold font-[Rajdhani,sans-serif]">✍️ Redação</h1>
-        <p className="text-sm text-gray-400">Escolha um tema e treine sua dissertação.</p>
 
-        <div className="space-y-2">
+        <div className="mb-6">
+          <p className="section-label mb-2">Treino discursivo</p>
+          <h1 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Redação</h1>
+          <p className="study-subtitle mt-2">
+            Escolha um tema e escreva com calma. Aqui o foco é clareza, estrutura e prática real.
+          </p>
+        </div>
+
+        <div className="grid gap-3">
           {essayThemes.map(t => (
-            <button key={t.id} onClick={() => setSelectedTheme(t.id)} className="card w-full text-left hover:border-pm-400">
-              <h3 className="text-sm font-bold text-white">{t.title}</h3>
-              <p className="text-xs text-gray-500 mt-1">{t.description}</p>
+            <button
+              key={t.id}
+              onClick={() => setSelectedTheme(t.id)}
+              className="study-card text-left transition hover:-translate-y-0.5"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.03]">
+                  <Pencil size={22} className="text-gold-400" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-black text-white">{t.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-400">{t.description}</p>
+                </div>
+              </div>
             </button>
           ))}
         </div>
 
-        <button onClick={() => setShowStructure(!showStructure)} className="btn-primary w-full text-sm">
-          {showStructure ? 'Esconder' : 'Ver'} Estrutura da Redação
-        </button>
-        {showStructure && (
-          <div className="space-y-3 animate-fade-in">
-            {Object.entries(essayStructure).map(([key, value]) => (
-              <div key={key} className="card">
-                <pre className="text-xs text-gray-300 whitespace-pre-wrap font-[Inter,sans-serif]">{value}</pre>
-              </div>
-            ))}
-          </div>
-        )}
+        <div className="study-card mt-5">
+          <button
+            onClick={() => setShowStructure(!showStructure)}
+            className="flex w-full items-center justify-between text-left"
+          >
+            <span className="study-kicker !mb-0">Estrutura da redação</span>
+            <ChevronRight size={18} className={`transition ${showStructure ? 'rotate-90' : ''}`} />
+          </button>
+
+          {showStructure && (
+            <div className="mt-4 grid gap-3 animate-fade-in">
+              {Object.entries(essayStructure).map(([key, value]) => (
+                <div key={key} className="list-card">
+                  <p className="mb-2 text-sm font-black capitalize text-white">{key}</p>
+                  <pre className="whitespace-pre-wrap font-[Inter,sans-serif] text-sm leading-relaxed text-slate-300">{value}</pre>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
 
         {profile.essays.length > 0 && (
-          <div>
-            <h3 className="text-sm font-bold text-gray-300 mb-2">Redações escritas: {profile.essays.length}</h3>
+          <div className="study-card mt-5">
+            <p className="text-sm text-slate-400">Redações escritas: <strong className="text-white">{profile.essays.length}</strong></p>
           </div>
         )}
       </div>
     );
   }
 
-  // Writing area
   return (
-    <div className="space-y-4 animate-fade-in">
-      <button onClick={() => setSelectedTheme(null)} className="text-sm text-pm-300 flex items-center gap-1">
+    <div className="form-shell animate-fade-in">
+      <button onClick={() => setSelectedTheme(null)} className="study-back">
         <ChevronLeft size={16} /> Temas
       </button>
 
-      <div className="card border-l-4 border-gold-500">
-        <h2 className="font-bold text-white">{theme?.title}</h2>
-        <p className="text-xs text-gray-400 mt-1">{theme?.description}</p>
-        {theme?.tips && (
-          <div className="mt-2">
-            <p className="text-[10px] font-bold text-pm-300">DICAS:</p>
-            <ul className="text-xs text-gray-500 space-y-0.5">
-              {theme.tips.map((tip, i) => <li key={i}>• {tip}</li>)}
-            </ul>
+      <div className="mb-6">
+        <p className="section-label mb-2">Editor de redação</p>
+        <h1 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">{theme?.title}</h1>
+        <p className="study-subtitle mt-2">{theme?.description}</p>
+      </div>
+
+      <div className="form-grid">
+        <div className="editor-card">
+          {theme?.tips && (
+            <div className="reading-callout mb-5">
+              <p className="mb-2 font-black text-white">Dicas para este tema</p>
+              <ul className="study-list">
+                {theme.tips.map((tip, i) => (
+                  <li key={i}>
+                    <span className="study-bullet">{i + 1}</span>
+                    <span>{tip}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <textarea
+            value={essayText}
+            onChange={e => setEssayText(e.target.value)}
+            placeholder="Escreva sua redação aqui. Pense em introdução, desenvolvimento e conclusão..."
+            className="essay-editor"
+          />
+
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm text-slate-500">
+            <span>{trimmedEssay.length} caracteres • ~{estimatedLines} linhas estimadas</span>
+            <span className={minimumLengthReached ? 'text-success' : 'text-orange-300'}>
+              mínimo para salvar: 600 caracteres
+            </span>
           </div>
-        )}
-      </div>
 
-      <textarea
-        value={essayText}
-        onChange={e => setEssayText(e.target.value)}
-        placeholder="Escreva sua redação aqui... (mínimo 20 linhas para uma boa nota)"
-        className="w-full h-64 text-sm resize-none"
-      />
-      <p className="text-xs text-gray-500">
-        {trimmedEssay.length} caracteres • ~{estimatedLines} linhas estimadas • mínimo para salvar: 600 caracteres
-      </p>
+          {!minimumLengthReached && (
+            <p className="mt-2 text-sm text-orange-300">
+              Escreva um pouco mais antes de salvar. Isso evita ganhar XP com rascunho muito curto.
+            </p>
+          )}
 
-      {!minimumLengthReached && (
-        <p className="text-[11px] text-orange-300">
-          Escreva um pouco mais antes de salvar. Isso evita ganhar XP com rascunho muito curto.
-        </p>
-      )}
-
-      {hasEssayToday && (
-        <p className="text-[11px] text-gray-500">
-          Você já ganhou XP de redação hoje. Novas redações serão salvas, mas sem XP extra.
-        </p>
-      )}
-
-      {/* Checklist */}
-      <button onClick={() => setShowChecklist(!showChecklist)} className="text-sm text-pm-300 flex items-center gap-1">
-        {showChecklist ? '▼' : <ChevronRight size={14} />} Checklist de Correção
-      </button>
-      {showChecklist && (
-        <div className="space-y-1 animate-fade-in">
-          {essayChecklist.map((item, i) => (
-            <label key={i} className="flex items-start gap-2 text-xs text-gray-400">
-              <input type="checkbox" className="mt-0.5" />
-              <span>{item}</span>
-            </label>
-          ))}
+          {hasEssayToday && (
+            <p className="mt-2 text-sm text-slate-500">
+              Você já ganhou XP de redação hoje. Novas redações serão salvas, mas sem XP extra.
+            </p>
+          )}
         </div>
-      )}
 
-      {/* Self grading */}
-      <div>
-        <p className="text-sm font-bold text-gray-300 mb-2">Autoavaliação (0-10):</p>
-        <div className="flex gap-2">
-          {[0, 2, 4, 5, 6, 7, 8, 10].map(n => (
-            <button key={n} onClick={() => setSelfGrade(n)} className={`w-9 h-9 rounded-lg text-sm font-bold ${
-              selfGrade === n ? 'bg-gold-500 text-pm-900' : 'bg-pm-700 text-gray-400'
-            }`}>{n}</button>
-          ))}
-        </div>
+        <aside className="grid gap-4">
+          <div className="study-card">
+            <button
+              onClick={() => setShowChecklist(!showChecklist)}
+              className="flex w-full items-center justify-between text-left"
+            >
+              <span className="study-kicker !mb-0">Checklist de correção</span>
+              <ChevronRight size={18} className={`transition ${showChecklist ? 'rotate-90' : ''}`} />
+            </button>
+
+            {showChecklist && (
+              <div className="mt-4 grid gap-2 animate-fade-in">
+                {essayChecklist.map((item, i) => (
+                  <label key={i} className="check-item cursor-pointer">
+                    <input type="checkbox" className="mt-1" />
+                    <span className="text-sm leading-relaxed text-slate-300">{item}</span>
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="study-card">
+            <p className="study-kicker">Autoavaliação</p>
+            <p className="mb-3 text-sm text-slate-400">Dê uma nota de 0 a 10 para sua redação.</p>
+
+            <div className="score-row">
+              {[0, 2, 4, 5, 6, 7, 8, 10].map(n => (
+                <button
+                  key={n}
+                  onClick={() => setSelfGrade(n)}
+                  className={`score-button ${selfGrade === n ? 'score-button-active' : ''}`}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={handleSubmit}
+            disabled={!trimmedEssay || !minimumLengthReached}
+            className={`w-full py-4 text-base ${
+              trimmedEssay && minimumLengthReached
+                ? 'btn-gold'
+                : 'cursor-not-allowed rounded-xl border border-white/10 bg-white/[0.03] font-bold text-slate-600'
+            }`}
+          >
+            {hasEssayToday ? 'Salvar redação' : 'Salvar redação +50 XP'}
+          </button>
+        </aside>
       </div>
-
-      <button onClick={handleSubmit} disabled={!trimmedEssay || !minimumLengthReached} className={`w-full py-3 rounded-xl font-bold ${
-        trimmedEssay && minimumLengthReached ? 'btn-gold' : 'bg-pm-800 text-gray-600 cursor-not-allowed'
-      }`}>
-        {hasEssayToday ? 'Salvar Redação' : 'Salvar Redação +50 XP'}
-      </button>
     </div>
   );
 }
