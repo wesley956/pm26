@@ -1091,3 +1091,123 @@ body {
     border-radius: 18px;
   }
 }
+
+/* =========================================================
+   STUDY UX 2.0 — revisão, flashcard e prova
+   ========================================================= */
+
+.review-shell {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding-bottom: 56px;
+}
+
+.review-menu-grid {
+  display: grid;
+  gap: 16px;
+}
+
+@media (min-width: 820px) {
+  .review-menu-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.review-choice-card {
+  background: var(--study-surface);
+  border: 1px solid var(--study-border);
+  border-radius: 22px;
+  padding: 22px;
+  text-align: left;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.review-choice-card:hover {
+  border-color: var(--study-border-strong);
+  background: var(--study-surface-2);
+  transform: translateY(-1px);
+}
+
+.flashcard-shell {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding-bottom: 56px;
+}
+
+.flashcard-card {
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28px;
+  padding: clamp(28px, 5vw, 54px);
+  background: linear-gradient(180deg, rgba(16, 26, 43, .92), rgba(12, 20, 34, .86));
+  border: 1px solid var(--study-border);
+  text-align: center;
+  cursor: pointer;
+}
+
+.flashcard-label {
+  color: var(--study-blue);
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.flashcard-front {
+  color: var(--study-text);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+  line-height: 1.1;
+  font-weight: 900;
+}
+
+.flashcard-back {
+  max-width: 62ch;
+  color: var(--study-muted);
+  font-size: 1.06rem;
+  line-height: 1.85;
+  white-space: pre-line;
+}
+
+.flashcard-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.sim-menu-card {
+  background: var(--study-surface);
+  border: 1px solid var(--study-border);
+  border-radius: 22px;
+  padding: 22px;
+  text-align: left;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.sim-menu-card:hover {
+  border-color: var(--study-border-strong);
+  background: var(--study-surface-2);
+  transform: translateY(-1px);
+}
+
+.result-shell {
+  width: 100%;
+  max-width: 920px;
+  margin: 0 auto;
+  padding-bottom: 56px;
+}
+
+.result-card {
+  background: var(--study-surface);
+  border: 1px solid var(--study-border);
+  border-radius: 28px;
+  padding: clamp(24px, 4vw, 42px);
+}
+

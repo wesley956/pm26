@@ -4,7 +4,7 @@ import { subjects } from '../data/subjects';
 import { EXAM_CONFIG, EXAM_SUBJECTS } from '../config/examConfig';
 import { useApp } from '../store';
 import type { Question, SubjectId } from '../types';
-import { ChevronLeft, Target, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, Target, Clock, ArrowRight, CheckCircle2, RotateCcw } from 'lucide-react';
 
 type SimType = 'mini' | 'semanal' | 'completo';
 
@@ -53,10 +53,7 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
 
   const simQuestions = useMemo(() => {
     if (!simType) return [];
-
-    if (simType === 'completo') {
-      return buildOfficialExamQuestions();
-    }
+    if (simType === 'completo') return buildOfficialExamQuestions();
 
     const count = simType === 'mini' ? 5 : 15;
     return shuffleQuestions(questions).slice(0, count);
@@ -78,8 +75,10 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
 
   const handleConfirm = () => {
     if (selected === null || !currentQ) return;
+
     const correct = selected === currentQ.correct;
     answerQuestion(currentQ.id, selected, correct);
+
     const sid = currentQ.subjectId;
     setResults(prev => ({
       ...prev,
@@ -88,6 +87,7 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
         correct: (prev[sid]?.correct || 0) + (correct ? 1 : 0),
       }
     }));
+
     setShowResult(true);
   };
 
@@ -104,6 +104,7 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
   const finishSim = () => {
     const totalCorrect = Object.values(results).reduce((acc, r) => acc + r.correct, 0);
     const xpEarned = calculateSimulationXp(totalCorrect, simType);
+
     addSimulation({
       id: `sim-${Date.now()}`,
       date: new Date().toISOString(),
@@ -113,78 +114,72 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
       subjectResults: results as any,
       xpEarned,
     });
+
     addXP(xpEarned);
     updateStreak();
     setFinished(true);
   };
 
-  // Menu
   if (!active) {
     return (
-      <div className="space-y-4">
-        <button onClick={() => onNavigate('dashboard')} className="text-sm text-pm-300 flex items-center gap-1">
+      <div className="study-wide">
+        <button onClick={() => onNavigate('dashboard')} className="study-back">
           <ChevronLeft size={16} /> Voltar
         </button>
-        <h1 className="text-xl font-bold font-[Rajdhani,sans-serif]">🎯 Simulados</h1>
-        <p className="text-sm text-gray-400">Teste seus conhecimentos com simulados no estilo Vunesp. O completo segue a distribuição oficial de 60 questões.</p>
 
-        <div className="space-y-3">
-          <button onClick={() => startSim('mini')} className="card w-full text-left hover:border-pm-400 border-l-4 border-pm-400">
-            <div className="flex items-center gap-3">
-              <Target size={24} className="text-pm-400" />
-              <div>
-                <h3 className="font-bold text-white">Mini Simulado</h3>
-                <p className="text-xs text-gray-500">5 questões • ~10 minutos</p>
-              </div>
-            </div>
+        <div className="mb-6">
+          <p className="section-label mb-2">Modo prova</p>
+          <h1 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Simulados</h1>
+          <p className="study-subtitle mt-2">
+            Treine no estilo Vunesp. O simulado completo segue a distribuição oficial de 60 questões.
+          </p>
+        </div>
+
+        <div className="grid gap-4 lg:grid-cols-3">
+          <button onClick={() => startSim('mini')} className="sim-menu-card">
+            <Target size={30} className="mb-4 text-pm-300" />
+            <h3 className="text-2xl font-black text-white">Mini simulado</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">5 questões • cerca de 10 minutos</p>
           </button>
 
-          <button onClick={() => startSim('semanal')} className="card w-full text-left hover:border-pm-400 border-l-4 border-gold-500">
-            <div className="flex items-center gap-3">
-              <Target size={24} className="text-gold-400" />
-              <div>
-                <h3 className="font-bold text-white">Simulado Semanal</h3>
-                <p className="text-xs text-gray-500">15 questões • ~30 minutos</p>
-              </div>
-            </div>
+          <button onClick={() => startSim('semanal')} className="sim-menu-card">
+            <Target size={30} className="mb-4 text-gold-400" />
+            <h3 className="text-2xl font-black text-white">Simulado semanal</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">15 questões • cerca de 30 minutos</p>
           </button>
 
-          <button onClick={() => startSim('completo')} className="card w-full text-left hover:border-pm-400 border-l-4 border-danger">
-            <div className="flex items-center gap-3">
-              <Target size={24} className="text-danger shrink-0" />
-              <div className="flex-1">
-                <h3 className="font-bold text-white">Simulado Completo Oficial</h3>
-                <p className="text-xs text-gray-500">60 questões • padrão PM-SP/Vunesp</p>
-
-                <div className="mt-3 grid grid-cols-1 gap-1">
-                  {EXAM_SUBJECTS.map(subject => (
-                    <div key={subject.id} className="flex justify-between text-[11px] text-gray-400">
-                      <span>{subject.label}</span>
-                      <span className="text-gold-400 font-semibold">{subject.officialQuestions} questões</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+          <button onClick={() => startSim('completo')} className="sim-menu-card">
+            <Target size={30} className="mb-4 text-danger" />
+            <h3 className="text-2xl font-black text-white">Completo oficial</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">60 questões • padrão PM-SP/Vunesp</p>
           </button>
         </div>
 
-        {/* Past results */}
+        <div className="study-card mt-5">
+          <h3 className="study-kicker gold">Distribuição oficial</h3>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {EXAM_SUBJECTS.map(subject => (
+              <div key={subject.id} className="flex justify-between rounded-xl bg-white/[0.03] px-3 py-2 text-sm">
+                <span className="text-slate-300">{subject.label}</span>
+                <span className="font-bold text-gold-400">{subject.officialQuestions} questões</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {profile.simulationResults.length > 0 && (
-          <div>
-            <h3 className="text-sm font-bold text-gray-300 mb-2">Resultados Anteriores</h3>
-            <div className="space-y-2">
+          <div className="study-card mt-5">
+            <h3 className="study-kicker">Resultados anteriores</h3>
+            <div className="grid gap-2">
               {profile.simulationResults.slice(-5).reverse().map(sim => (
-                <div key={sim.id} className="card flex justify-between items-center">
+                <div key={sim.id} className="flex items-center justify-between rounded-xl bg-white/[0.03] px-3 py-3">
                   <div>
-                    <p className="text-xs font-bold text-white">
-                      {getSimulationLabel(sim.type)}
-                    </p>
-                    <p className="text-[10px] text-gray-500">{new Date(sim.date).toLocaleDateString('pt-BR')}</p>
+                    <p className="font-bold text-white">{getSimulationLabel(sim.type)}</p>
+                    <p className="text-xs text-slate-500">{new Date(sim.date).toLocaleDateString('pt-BR')}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm font-bold text-gold-400">{sim.correctAnswers}/{sim.totalQuestions}</p>
-                    <p className="text-[10px] text-gray-500">{Math.round((sim.correctAnswers / sim.totalQuestions) * 100)}%</p>
+                    <p className="font-bold text-gold-400">{sim.correctAnswers}/{sim.totalQuestions}</p>
+                    <p className="text-xs text-slate-500">{Math.round((sim.correctAnswers / sim.totalQuestions) * 100)}%</p>
                   </div>
                 </div>
               ))}
@@ -195,7 +190,6 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
     );
   }
 
-  // Finished
   if (finished) {
     const totalCorrect = Object.values(results).reduce((a, r) => a + r.correct, 0);
     const totalQ = simQuestions.length;
@@ -203,120 +197,147 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
     const xpEarned = calculateSimulationXp(totalCorrect, simType);
 
     return (
-      <div className="space-y-4 text-center animate-slide-up">
-        <div className="text-5xl">{pct >= 70 ? '🏆' : pct >= 50 ? '💪' : '📚'}</div>
-        <h2 className="text-2xl font-bold font-[Rajdhani,sans-serif]">
-          {pct >= 70 ? 'Excelente desempenho!' : pct >= 50 ? 'Bom trabalho!' : 'Continue estudando!'}
-        </h2>
-        <div className="card">
-          <p className="text-4xl font-bold text-gold-400">{totalCorrect}/{totalQ}</p>
-          <p className="text-sm text-gray-400">acertos ({pct}%)</p>
-          <p className="text-xs text-pm-300 mt-2">Tempo: {minutesSpent} min • +{xpEarned} XP</p>
-        </div>
+      <div className="result-shell text-center animate-slide-up">
+        <div className="result-card">
+          <h2 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">
+            {pct >= 70 ? 'Excelente desempenho' : pct >= 50 ? 'Bom trabalho' : 'Continue estudando'}
+          </h2>
 
-        {/* Per subject breakdown */}
-        <div className="space-y-2 text-left">
-          <h3 className="text-sm font-bold text-gray-300">Desempenho por Matéria:</h3>
-          {subjects.map(sub => {
-            const r = results[sub.id];
-            if (!r) return null;
-            return (
-              <div key={sub.id} className="flex justify-between items-center text-sm">
-                <span>{sub.icon} {sub.name}</span>
-                <span className={r.correct / r.total >= 0.7 ? 'text-success' : r.correct / r.total >= 0.5 ? 'text-gold-400' : 'text-danger'}>
-                  {r.correct}/{r.total} ({Math.round((r.correct / r.total) * 100)}%)
-                </span>
-              </div>
-            );
-          })}
-        </div>
+          <p className="mt-3 text-2xl font-black text-gold-400">{totalCorrect}/{totalQ}</p>
+          <p className="text-slate-400">acertos ({pct}%)</p>
+          <p className="mt-1 text-sm text-pm-300">Tempo: {minutesSpent} min • +{xpEarned} XP</p>
 
-        {/* Recommendations */}
-        <div className="card text-left">
-          <h3 className="text-xs font-bold text-gold-400 mb-2">📋 RECOMENDAÇÕES:</h3>
-          <div className="space-y-1 text-xs text-gray-400">
-            {subjects.map(sub => {
-              const r = results[sub.id];
-              if (!r || r.correct / r.total >= 0.7) return null;
-              return <p key={sub.id}>• Reforce <strong className="text-white">{sub.name}</strong> — acerto abaixo de 70%</p>;
-            })}
-            {Object.values(results).every(r => r.correct / r.total >= 0.7) && (
-              <p>• Você está indo muito bem! Mantenha o ritmo com revisões regulares.</p>
-            )}
+          <div className="mt-6 text-left">
+            <h3 className="study-kicker mb-3">Desempenho por matéria</h3>
+            <div className="grid gap-2">
+              {subjects.map(sub => {
+                const r = results[sub.id];
+                if (!r) return null;
+                const subjectPct = Math.round((r.correct / r.total) * 100);
+
+                return (
+                  <div key={sub.id} className="flex justify-between rounded-xl bg-white/[0.03] px-3 py-2 text-sm">
+                    <span>{sub.icon} {sub.name}</span>
+                    <span className={subjectPct >= 70 ? 'text-success' : subjectPct >= 50 ? 'text-gold-400' : 'text-danger'}>
+                      {r.correct}/{r.total} ({subjectPct}%)
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
 
-        <button onClick={() => { setActive(false); setSimType(null); }} className="btn-primary w-full">Voltar aos Simulados</button>
+          <div className="study-card mt-6 text-left">
+            <h3 className="study-kicker gold">Recomendações</h3>
+            <div className="study-body">
+              {subjects.map(sub => {
+                const r = results[sub.id];
+                if (!r || r.correct / r.total >= 0.7) return null;
+                return <p key={sub.id}>Reforce <strong>{sub.name}</strong>: acerto abaixo de 70%.</p>;
+              })}
+              {Object.values(results).every(r => r.correct / r.total >= 0.7) && (
+                <p>Você está indo bem. Mantenha o ritmo com revisões regulares.</p>
+              )}
+            </div>
+          </div>
+
+          <button onClick={() => { setActive(false); setSimType(null); }} className="btn-primary mt-6 w-full">
+            Voltar aos simulados
+          </button>
+        </div>
       </div>
     );
   }
 
-  // Active simulation
+  const subject = subjects.find(s => s.id === currentQ.subjectId);
+  const progress = ((currentIndex + 1) / simQuestions.length) * 100;
+
   return (
-    <div className="space-y-4 animate-fade-in">
-      <div className="flex items-center justify-between">
-        <span className="text-xs text-gray-500 flex items-center gap-1"><Clock size={12} /> {minutesSpent} min</span>
-        <span className="text-xs text-gray-500">{currentIndex + 1}/{simQuestions.length}</span>
+    <div className="quiz-shell animate-fade-in">
+      <div className="quiz-topline">
+        <span className="flex items-center gap-1 text-sm text-slate-400">
+          <Clock size={14} /> {minutesSpent} min
+        </span>
+
+        <span className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-sm font-bold text-slate-400">
+          {currentIndex + 1}/{simQuestions.length}
+        </span>
       </div>
 
-      <div className="progress-bar">
-        <div className="progress-bar-fill bg-gradient-to-r from-pm-500 to-gold-500" style={{ width: `${((currentIndex + 1) / simQuestions.length) * 100}%` }} />
+      <div className="xp-bar-wrap mb-5">
+        <div className="xp-bar-fill" style={{ width: `${progress}%` }} />
       </div>
 
-      <span className="text-[10px] bg-pm-700 text-pm-300 px-2 py-0.5 rounded-full">
-        {subjects.find(s => s.id === currentQ.subjectId)?.icon} {subjects.find(s => s.id === currentQ.subjectId)?.name}
-      </span>
-
-      <div className="card">
-        <p className="text-sm text-gray-200 leading-relaxed">{currentQ.text}</p>
+      <div className="mb-4 inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-bold text-pm-300">
+        {subject?.icon} {subject?.name}
       </div>
 
-      <div className="space-y-2">
+      <div className="quiz-card">
+        <p className="quiz-question">{currentQ.text}</p>
+      </div>
+
+      <div className="option-list">
         {currentQ.options.map((opt, idx) => {
           const letter = 'ABCDE'[idx];
           const isCorrect = idx === currentQ.correct;
-          const isSelected = selected === idx;
-          let cls = '';
-          if (showResult) {
-            if (isCorrect) cls = 'border-success bg-success/10';
-            else if (isSelected) cls = 'border-danger bg-danger/10';
-          } else if (isSelected) cls = 'border-gold-500 bg-gold-500/10';
+          const isWrongSelection = showResult && selected === idx && !isCorrect;
+
+          const stateClass =
+            showResult && isCorrect ? 'option-card-correct' :
+            isWrongSelection ? 'option-card-wrong' :
+            selected === idx ? 'option-card-selected' :
+            '';
 
           return (
-            <button key={idx} onClick={() => !showResult && setSelected(idx)} className={`w-full text-left card flex items-center gap-3 ${cls}`}>
-              <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                showResult && isCorrect ? 'bg-success text-white' :
-                showResult && isSelected ? 'bg-danger text-white' :
-                isSelected ? 'bg-gold-500 text-pm-900' : 'bg-pm-700 text-gray-400'
-              }`}>{letter}</span>
-              <span className="text-sm text-gray-300">{opt}</span>
+            <button
+              key={idx}
+              onClick={() => !showResult && setSelected(idx)}
+              className={`option-card ${stateClass}`}
+            >
+              <span className="option-letter">{showResult && isCorrect ? '✓' : isWrongSelection ? '✕' : letter}</span>
+              <span className="option-text">{opt}</span>
             </button>
           );
         })}
       </div>
 
       {showResult && (
-        <div className={`card border-l-4 ${selected === currentQ.correct ? 'border-success' : 'border-danger'} animate-fade-in`}>
-          <div className="flex items-center gap-2 mb-1">
-            {selected === currentQ.correct ? <CheckCircle2 size={16} className="text-success" /> : <span className="text-danger text-sm">✗</span>}
-            <span className={`text-sm font-bold ${selected === currentQ.correct ? 'text-success' : 'text-danger'}`}>
-              {selected === currentQ.correct ? 'Correto!' : 'Incorreto'}
+        <div className={`quiz-explanation animate-fade-in ${
+          selected === currentQ.correct
+            ? 'border border-success/30 bg-success/10'
+            : 'border border-danger/30 bg-danger/10'
+        }`}>
+          <div className="mb-2 flex items-center gap-2">
+            {selected === currentQ.correct ? (
+              <CheckCircle2 size={20} className="text-success" />
+            ) : (
+              <span className="text-lg text-danger">✕</span>
+            )}
+
+            <span className={`font-black ${selected === currentQ.correct ? 'text-success' : 'text-danger'}`}>
+              {selected === currentQ.correct ? 'Correto' : 'Incorreto'}
             </span>
           </div>
-          <p className="text-sm text-gray-400">{currentQ.explanation}</p>
+          <p className="text-base leading-relaxed text-slate-300">{currentQ.explanation}</p>
         </div>
       )}
 
-      {!showResult ? (
-        <button onClick={handleConfirm} disabled={selected === null} className={`w-full py-3 rounded-xl font-bold ${
-          selected !== null ? 'btn-gold' : 'bg-pm-800 text-gray-600 cursor-not-allowed'
-        }`}>Confirmar</button>
-      ) : (
-        <button onClick={handleNext} className="btn-primary w-full flex items-center justify-center gap-2">
-          {currentIndex + 1 >= simQuestions.length ? 'Ver Resultado' : 'Próxima'}
-          <ArrowRight size={16} />
-        </button>
-      )}
+      <div className="mt-5">
+        {!showResult ? (
+          <button
+            onClick={handleConfirm}
+            disabled={selected === null}
+            className={`w-full py-4 text-base ${selected !== null ? 'btn-gold' : 'cursor-not-allowed rounded-xl border border-white/10 bg-white/[0.03] font-bold text-slate-600'}`}
+          >
+            Confirmar resposta
+          </button>
+        ) : (
+          <button onClick={handleNext} className="btn-primary w-full py-4 text-base">
+            {currentIndex + 1 >= simQuestions.length ? 'Ver resultado' : 'Próxima questão'}
+            <ArrowRight size={16} />
+          </button>
+        )}
+      </div>
     </div>
   );
 }

@@ -28,9 +28,9 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
         subjectId: lesson.subjectId,
         front: lesson.title,
         back: [
-          `🧩 Macete: ${lesson.memoryHook}`,
-          `📌 Se cair na prova: ${lesson.finalReminder}`,
-          `🪤 Pegadinha: ${lesson.traps[0] ?? 'Revise as pegadinhas da aula.'}`,
+          `Macete: ${lesson.memoryHook}`,
+          `Se cair na prova: ${lesson.finalReminder}`,
+          `Pegadinha: ${lesson.traps[0] ?? 'Revise as pegadinhas da aula.'}`,
         ].join('\n\n'),
         subjectName: subject?.name ?? 'Matéria',
         subjectIcon: subject?.icon ?? '🧠',
@@ -71,9 +71,7 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
 
     answerQuestion(questionId, selectedAnswer, correct);
 
-    if (correct) {
-      setSessionCorrect(s => s + 1);
-    }
+    if (correct) setSessionCorrect(s => s + 1);
 
     if (shouldAwardXp) {
       const xp = wasWrongBefore ? 20 : 10;
@@ -91,48 +89,139 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
     setShowAnswer(false);
   };
 
+  const renderQuestionReview = (question: typeof questions[number], total: number, title: string) => {
+    return (
+      <div className="quiz-shell animate-fade-in">
+        <div className="quiz-topline">
+          <button onClick={backToMenu} className="study-back !mb-0">
+            <ChevronLeft size={16} /> Menu de revisão
+          </button>
+
+          <div className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-sm font-bold text-slate-400">
+            {currentIndex + 1}/{total}
+          </div>
+        </div>
+
+        <p className="section-label mb-3">{title}</p>
+
+        <div className="quiz-card">
+          <p className="quiz-question">{question.text}</p>
+        </div>
+
+        <div className="option-list">
+          {question.options.map((opt, idx) => {
+            const letter = 'ABCDE'[idx];
+            const isCorrect = idx === question.correct;
+            const isWrongSelection = showAnswer && selected === idx && !isCorrect;
+
+            const stateClass =
+              showAnswer && isCorrect ? 'option-card-correct' :
+              isWrongSelection ? 'option-card-wrong' :
+              selected === idx ? 'option-card-selected' :
+              '';
+
+            return (
+              <button
+                key={idx}
+                onClick={() => { if (!showAnswer) setSelected(idx); }}
+                className={`option-card ${stateClass} ${showAnswer ? 'pointer-events-none' : ''}`}
+              >
+                <span className="option-letter">
+                  {showAnswer && isCorrect ? '✓' : isWrongSelection ? '✕' : letter}
+                </span>
+                <span className="option-text">{opt}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {showAnswer && (
+          <div className={`quiz-explanation animate-fade-in ${
+            selected === question.correct
+              ? 'border border-success/30 bg-success/10'
+              : 'border border-danger/30 bg-danger/10'
+          }`}>
+            <div className="mb-2 flex items-center gap-2">
+              {selected === question.correct ? (
+                <CheckCircle2 size={20} className="text-success" />
+              ) : (
+                <XCircle size={20} className="text-danger" />
+              )}
+
+              <span className={`font-black ${selected === question.correct ? 'text-success' : 'text-danger'}`}>
+                {selected === question.correct ? 'Correto' : 'Incorreto'}
+              </span>
+            </div>
+
+            <p className="text-base leading-relaxed text-slate-300">{question.explanation}</p>
+          </div>
+        )}
+
+        <div className="mt-5">
+          {!showAnswer ? (
+            <button
+              onClick={() => {
+                if (selected !== null) handleReviewedQuestion(question.id, selected, question.correct);
+              }}
+              disabled={selected === null}
+              className={`w-full py-4 text-base ${selected !== null ? 'btn-gold' : 'cursor-not-allowed rounded-xl border border-white/10 bg-white/[0.03] font-bold text-slate-600'}`}
+            >
+              Confirmar resposta
+            </button>
+          ) : (
+            <button
+              onClick={() => { setCurrentIndex(i => i + 1); setSelected(null); setShowAnswer(false); }}
+              className="btn-primary w-full py-4 text-base"
+            >
+              Próxima <ArrowRight size={16} />
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   if (mode === 'menu') {
     return (
-      <div className="space-y-4">
-        <button onClick={() => onNavigate('dashboard')} className="text-sm text-pm-300 flex items-center gap-1">
+      <div className="review-shell">
+        <button onClick={() => onNavigate('dashboard')} className="study-back">
           <ChevronLeft size={16} /> Início
         </button>
 
-        <h1 className="text-xl font-bold font-[Rajdhani,sans-serif]">🔄 Revisão</h1>
-        <p className="text-sm text-gray-400">Revise o que você já aprendeu e corrija erros.</p>
+        <div className="mb-6">
+          <p className="section-label mb-2">Memória e correção</p>
+          <h1 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Revisão</h1>
+          <p className="study-subtitle mt-2">
+            Revise com calma: corrija erros, use flashcards e faça uma rodada rápida quando tiver pouco tempo.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 gap-3">
-          <button onClick={() => startMode('wrong')} className="card text-left hover:border-pm-400 flex items-center gap-3">
-            <XCircle size={24} className="text-danger shrink-0" />
-            <div>
-              <h3 className="text-sm font-bold">Questões Erradas</h3>
-              <p className="text-xs text-gray-500">{wrongQs.length} questões para revisar</p>
-            </div>
+        <div className="review-menu-grid">
+          <button onClick={() => startMode('wrong')} className="review-choice-card">
+            <XCircle size={30} className="mb-4 text-danger" />
+            <h3 className="text-xl font-black text-white">Questões erradas</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">{wrongQs.length} questões para revisar com explicação.</p>
           </button>
 
-          <button onClick={() => startMode('flashcards')} className="card text-left hover:border-pm-400 flex items-center gap-3">
-            <Layers size={24} className="text-pm-400 shrink-0" />
-            <div>
-              <h3 className="text-sm font-bold">Flashcards</h3>
-              <p className="text-xs text-gray-500">{flashcards.length} cards para revisar</p>
-            </div>
+          <button onClick={() => startMode('flashcards')} className="review-choice-card">
+            <Layers size={30} className="mb-4 text-pm-300" />
+            <h3 className="text-xl font-black text-white">Flashcards</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">{flashcards.length} cards de teoria personalizada.</p>
           </button>
 
-          <button onClick={() => startMode('quick')} className="card text-left hover:border-pm-400 flex items-center gap-3">
-            <RotateCcw size={24} className="text-gold-400 shrink-0" />
-            <div>
-              <h3 className="text-sm font-bold">Revisão Rápida (10 min)</h3>
-              <p className="text-xs text-gray-500">5 questões aleatórias para não enferrujar</p>
-            </div>
+          <button onClick={() => startMode('quick')} className="review-choice-card">
+            <RotateCcw size={30} className="mb-4 text-gold-400" />
+            <h3 className="text-xl font-black text-white">Revisão rápida</h3>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">5 questões aleatórias para manter o cérebro aquecido.</p>
           </button>
         </div>
 
-        <div className="card border-l-4 border-pm-500">
-          <h3 className="text-xs font-bold text-pm-300 mb-2">📅 PROGRAMAÇÃO DE REVISÃO</h3>
-          <div className="space-y-1 text-xs text-gray-400">
-            <p>• <strong className="text-white">24h:</strong> Revise o que estudou ontem</p>
-            <p>• <strong className="text-white">7 dias:</strong> Revise o que estudou na semana passada</p>
-            <p>• <strong className="text-white">30 dias:</strong> Revise o que estudou no mês passado</p>
+        <div className="study-card mt-5">
+          <h3 className="study-kicker">Programação de revisão</h3>
+          <div className="study-body">
+            <p><strong>24h:</strong> revise o que estudou ontem.</p>
+            <p><strong>7 dias:</strong> revise o conteúdo da semana passada.</p>
+            <p><strong>30 dias:</strong> revise o que já está começando a sumir da memória.</p>
           </div>
         </div>
       </div>
@@ -142,11 +231,13 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
   if (mode === 'wrong') {
     if (wrongQs.length === 0) {
       return (
-        <div className="space-y-4 text-center">
-          <CheckCircle2 size={48} className="text-success mx-auto" />
-          <h2 className="text-xl font-bold">Nenhuma questão errada!</h2>
-          <p className="text-sm text-gray-400">Parabéns! Continue assim.</p>
-          <button onClick={backToMenu} className="btn-primary">Voltar</button>
+        <div className="review-shell text-center">
+          <div className="study-card">
+            <CheckCircle2 size={52} className="mx-auto mb-4 text-success" />
+            <h2 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Nenhuma questão errada</h2>
+            <p className="study-subtitle mx-auto mt-2">Parabéns. Continue treinando para manter o desempenho.</p>
+            <button onClick={backToMenu} className="btn-primary mt-6">Voltar</button>
+          </div>
         </div>
       );
     }
@@ -155,142 +246,70 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
       const pct = sessionTotal > 0 ? Math.round((sessionCorrect / sessionTotal) * 100) : 0;
 
       return (
-        <div className="space-y-4 text-center animate-slide-up">
-          <div className="text-4xl">{pct >= 70 ? '🎉' : '💪'}</div>
-          <h2 className="text-xl font-bold">Revisão concluída!</h2>
-          <p className="text-sm text-gold-400">{sessionCorrect}/{sessionTotal} acertos ({pct}%)</p>
-          <p className="text-xs text-pm-300 flex items-center justify-center gap-1">
-            <Zap size={12} /> +{sessionXp} XP por correções reais
-          </p>
-          <button onClick={backToMenu} className="btn-primary">Voltar ao Menu</button>
+        <div className="result-shell text-center animate-slide-up">
+          <div className="result-card">
+            <h2 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Revisão concluída</h2>
+            <p className="mt-3 text-lg text-slate-300">
+              {sessionCorrect}/{sessionTotal} acertos ({pct}%)
+            </p>
+            <p className="mt-1 text-sm text-pm-300">+{sessionXp} XP por correções reais</p>
+            <button onClick={backToMenu} className="btn-primary mt-6">Voltar ao menu</button>
+          </div>
         </div>
       );
     }
 
-    return (
-      <div className="space-y-4 animate-fade-in">
-        <button onClick={backToMenu} className="text-sm text-pm-300 flex items-center gap-1">
-          <ChevronLeft size={16} /> Menu de Revisão
-        </button>
-
-        <div className="text-xs text-gray-500">{currentIndex + 1}/{wrongQs.length} — Questões Erradas</div>
-
-        <div className="card">
-          <p className="text-sm text-gray-200 leading-relaxed">{currentWrongQ.text}</p>
-        </div>
-
-        <div className="space-y-2">
-          {currentWrongQ.options.map((opt, idx) => {
-            const letter = 'ABCDE'[idx];
-            const isCorrect = idx === currentWrongQ.correct;
-            const isSelected = selected === idx;
-
-            return (
-              <button
-                key={idx}
-                onClick={() => { if (!showAnswer) setSelected(idx); }}
-                className={`w-full text-left card flex items-center gap-3 transition-all ${
-                  showAnswer && isCorrect ? 'border-success bg-success/10' :
-                  showAnswer && isSelected && !isCorrect ? 'border-danger bg-danger/10' :
-                  isSelected && !showAnswer ? 'border-gold-500' : ''
-                }`}
-              >
-                <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                  showAnswer && isCorrect ? 'bg-success text-white' :
-                  showAnswer && isSelected ? 'bg-danger text-white' :
-                  isSelected ? 'bg-gold-500 text-pm-900' : 'bg-pm-700 text-gray-400'
-                }`}>
-                  {letter}
-                </span>
-                <span className="text-sm text-gray-300">{opt}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {showAnswer && (
-          <div className="card border-l-4 border-pm-500 animate-fade-in">
-            <p className="text-xs font-bold text-pm-300 mb-1">EXPLICAÇÃO:</p>
-            <p className="text-sm text-gray-400">{currentWrongQ.explanation}</p>
-            {selected === currentWrongQ.correct && (
-              <p className="text-xs text-success mt-2">Questão removida da lista de erros.</p>
-            )}
-          </div>
-        )}
-
-        {!showAnswer ? (
-          <button
-            onClick={() => {
-              if (selected !== null) {
-                handleReviewedQuestion(currentWrongQ.id, selected, currentWrongQ.correct);
-              }
-            }}
-            disabled={selected === null}
-            className={`w-full py-3 rounded-xl font-bold ${selected !== null ? 'btn-gold' : 'bg-pm-800 text-gray-600 cursor-not-allowed'}`}
-          >
-            Confirmar
-          </button>
-        ) : (
-          <button
-            onClick={() => { setCurrentIndex(i => i + 1); setSelected(null); setShowAnswer(false); }}
-            className="btn-primary w-full flex items-center justify-center gap-2"
-          >
-            Próxima <ArrowRight size={16} />
-          </button>
-        )}
-      </div>
-    );
+    return renderQuestionReview(currentWrongQ, wrongQs.length, 'Questões erradas');
   }
 
   if (mode === 'flashcards') {
     if (currentIndex >= flashcards.length || !currentCard) {
       return (
-        <div className="space-y-4 text-center">
-          <div className="text-4xl">🎉</div>
-          <h2 className="text-xl font-bold">Todos os cards revisados!</h2>
-          <p className="text-xs text-gray-500">Essa revisão contou como estudo do dia.</p>
-          <button onClick={backToMenu} className="btn-primary">Voltar</button>
+        <div className="flashcard-shell text-center">
+          <div className="study-card">
+            <h2 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Todos os cards revisados</h2>
+            <p className="study-subtitle mx-auto mt-2">Essa revisão contou como estudo do dia.</p>
+            <button onClick={backToMenu} className="btn-primary mt-6">Voltar</button>
+          </div>
         </div>
       );
     }
 
     return (
-      <div className="space-y-4 animate-fade-in">
-        <button onClick={backToMenu} className="text-sm text-pm-300 flex items-center gap-1">
+      <div className="flashcard-shell animate-fade-in">
+        <button onClick={backToMenu} className="study-back">
           <ChevronLeft size={16} /> Menu
         </button>
 
-        <div className="text-xs text-gray-500">{currentIndex + 1}/{flashcards.length}</div>
-
-        <div className="progress-bar">
-          <div className="progress-bar-fill bg-gradient-to-r from-pm-500 to-gold-500" style={{ width: `${((currentIndex + 1) / flashcards.length) * 100}%` }} />
+        <div className="mb-3 flex items-center justify-between text-sm text-slate-400">
+          <span>{currentCard.subjectIcon} {currentCard.subjectName}</span>
+          <span>{currentIndex + 1}/{flashcards.length}</span>
         </div>
 
-        <div className="text-xs text-gray-500">{currentCard.subjectIcon} {currentCard.subjectName}</div>
+        <div className="xp-bar-wrap mb-5">
+          <div className="xp-bar-fill" style={{ width: `${((currentIndex + 1) / flashcards.length) * 100}%` }} />
+        </div>
 
-        <div
-          className={`card min-h-[200px] flex flex-col items-center justify-center text-center cursor-pointer transition-all ${showAnswer ? 'border-gold-500/50' : ''}`}
-          onClick={() => setShowAnswer(!showAnswer)}
-        >
+        <div className="flashcard-card" onClick={() => setShowAnswer(!showAnswer)}>
           {showAnswer ? (
             <>
-              <p className="text-[10px] text-gold-400 mb-2">RESPOSTA (toque para ver a pergunta)</p>
-              <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">{currentCard.back}</p>
+              <p className="flashcard-label text-gold-400">Resposta — toque para voltar</p>
+              <p className="flashcard-back">{currentCard.back}</p>
             </>
           ) : (
             <>
-              <p className="text-[10px] text-pm-300 mb-2">PERGUNTA (toque para ver a resposta)</p>
-              <p className="text-lg font-bold text-white">{currentCard.front}</p>
+              <p className="flashcard-label">Pergunta — toque para revelar</p>
+              <p className="flashcard-front">{currentCard.front}</p>
             </>
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
-          <button onClick={handleFlashcardResult} className="card text-center py-3 text-sm text-danger hover:border-danger">
+        <div className="flashcard-actions">
+          <button onClick={handleFlashcardResult} className="btn-ghost py-4 text-base text-danger">
             Preciso rever
           </button>
-          <button onClick={handleFlashcardResult} className="card text-center py-3 text-sm text-success hover:border-success">
-            Já sei! ✓
+          <button onClick={handleFlashcardResult} className="btn-primary py-4 text-base">
+            Já sei
           </button>
         </div>
       </div>
@@ -302,87 +321,20 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
       const pct = sessionTotal > 0 ? Math.round((sessionCorrect / sessionTotal) * 100) : 0;
 
       return (
-        <div className="space-y-4 text-center animate-slide-up">
-          <div className="text-4xl">{pct >= 60 ? '🎉' : '📚'}</div>
-          <h2 className="text-xl font-bold">Revisão rápida concluída!</h2>
-          <p className="text-sm text-gold-400">{sessionCorrect}/{sessionTotal} acertos ({pct}%)</p>
-          <p className="text-xs text-pm-300 flex items-center justify-center gap-1">
-            <Zap size={12} /> +{sessionXp} XP ganhos nesta revisão
-          </p>
-          <button onClick={backToMenu} className="btn-primary">Voltar</button>
+        <div className="result-shell text-center animate-slide-up">
+          <div className="result-card">
+            <h2 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Revisão rápida concluída</h2>
+            <p className="mt-3 text-lg text-slate-300">
+              {sessionCorrect}/{sessionTotal} acertos ({pct}%)
+            </p>
+            <p className="mt-1 text-sm text-pm-300">+{sessionXp} XP ganhos nesta revisão</p>
+            <button onClick={backToMenu} className="btn-primary mt-6">Voltar</button>
+          </div>
         </div>
       );
     }
 
-    return (
-      <div className="space-y-4 animate-fade-in">
-        <button onClick={backToMenu} className="text-sm text-pm-300 flex items-center gap-1">
-          <ChevronLeft size={16} /> Menu
-        </button>
-
-        <div className="text-xs text-gray-500">Revisão Rápida — {currentIndex + 1}/{quickQs.length}</div>
-
-        <div className="card">
-          <p className="text-sm text-gray-200">{currentQuickQ.text}</p>
-        </div>
-
-        <div className="space-y-2">
-          {currentQuickQ.options.map((opt, idx) => {
-            const letter = 'ABCDE'[idx];
-            const isCorrect = idx === currentQuickQ.correct;
-            const isSelected = selected === idx;
-
-            return (
-              <button
-                key={idx}
-                onClick={() => { if (!showAnswer) setSelected(idx); }}
-                className={`w-full text-left card flex items-center gap-3 ${
-                  showAnswer && isCorrect ? 'border-success bg-success/10' :
-                  showAnswer && isSelected && !isCorrect ? 'border-danger bg-danger/10' :
-                  isSelected && !showAnswer ? 'border-gold-500' : ''
-                }`}
-              >
-                <span className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                  showAnswer && isCorrect ? 'bg-success text-white' :
-                  showAnswer && isSelected ? 'bg-danger text-white' :
-                  isSelected ? 'bg-gold-500 text-pm-900' : 'bg-pm-700 text-gray-400'
-                }`}>
-                  {letter}
-                </span>
-                <span className="text-sm text-gray-300">{opt}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {showAnswer && (
-          <div className="card border-l-4 border-pm-500">
-            <p className="text-sm text-gray-400">{currentQuickQ.explanation}</p>
-          </div>
-        )}
-
-        {!showAnswer ? (
-          <button
-            onClick={() => {
-              if (selected !== null) {
-                handleReviewedQuestion(currentQuickQ.id, selected, currentQuickQ.correct);
-              }
-            }}
-            disabled={selected === null}
-            className={`w-full py-3 rounded-xl font-bold ${selected !== null ? 'btn-gold' : 'bg-pm-800 text-gray-600 cursor-not-allowed'}`}
-          >
-            Confirmar
-          </button>
-        ) : (
-          <button
-            onClick={() => { setCurrentIndex(i => i + 1); setSelected(null); setShowAnswer(false); }}
-            className="btn-primary w-full"
-          >
-            Próxima
-          </button>
-        )}
-      </div>
-    );
+    return renderQuestionReview(currentQuickQ, quickQs.length, 'Revisão rápida');
   }
 
   return null;
