@@ -1,6 +1,6 @@
 import { useApp } from '../store';
 import { subjects } from '../data/subjects';
-import { getPrimaryDeadlineInfo, getSubjectProgress, getLevelInfo } from '../utils';
+import { getPrimaryDeadlineInfo, getSubjectProgress, getLevelInfo, getMedalDefinitions } from '../utils';
 import { questions } from '../data/questions';
 import { chooseSmartStudyAction } from '../utils/smartStudy';
 import { buildDailyChecklist } from '../utils/dailyChecklist';
@@ -11,8 +11,6 @@ import {
   Target,
   Zap,
   AlertTriangle,
-  CheckCircle2,
-  Circle,
   BookOpen,
   TrendingUp,
   Trophy,
@@ -20,15 +18,21 @@ import {
   Dumbbell,
   RotateCcw,
   ChevronRight,
-  Bell,
+  ShieldCheck,
+  CheckCircle2,
+  Lock,
+  Award,
+  ClipboardCheck,
 } from 'lucide-react';
 
 export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
-  const { profile, setBadDayMode, markDailyMinimumDone } = useApp();
+  const { profile, setBadDayMode } = useApp();
+
   const deadline = getPrimaryDeadlineInfo();
   const smartAction = chooseSmartStudyAction(profile);
   const dailyChecklist = buildDailyChecklist(profile);
   const levelInfo = getLevelInfo(profile);
+  const medals = getMedalDefinitions();
 
   const completedCount = profile.completedMissions.length;
   const totalAnswered = Object.keys(profile.completedQuestions).length;
@@ -39,7 +43,13 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
   const totalMissions = subjects.reduce((sum, sub) => sum + sub.missions.length, 0);
 
   const subjectStats = subjects.map(sub => {
-    const prefix = sub.id === 'portugues' ? 'pt' : sub.id === 'matematica' ? 'mt' : sub.id === 'gerais' ? 'cg' : sub.id === 'informatica' ? 'inf' : 'ap';
+    const prefix =
+      sub.id === 'portugues' ? 'pt' :
+      sub.id === 'matematica' ? 'mt' :
+      sub.id === 'gerais' ? 'cg' :
+      sub.id === 'informatica' ? 'inf' :
+      'ap';
+
     const answered = Object.values(profile.completedQuestions).filter(q => q.questionId.startsWith(prefix));
     const total = answered.length;
     const correct = answered.filter(q => q.correct).length;
@@ -51,14 +61,27 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
       (total < 5 ? 30 : 0) +
       (total > 0 ? Math.max(0, 75 - pct) : 25) +
       Math.max(0, sub.missions.length - missionProgress) * 3 +
-      (sub.id === 'portugues' ? 20 : sub.id === 'matematica' ? 16 : sub.id === 'gerais' ? 16 : sub.id === 'administracao' ? 12 : 6);
+      (sub.id === 'portugues' ? 20 :
+        sub.id === 'matematica' ? 16 :
+        sub.id === 'gerais' ? 16 :
+        sub.id === 'administracao' ? 12 :
+        6);
 
-    return { ...sub, total, correct, pct, missionProgress, questionCount, priorityScore };
+    const reason =
+      total < 5 ? 'poucos dados de treino' :
+      pct < 60 ? 'acerto baixo para top 100' :
+      missionProgress < sub.missions.length ? 'teoria pendente' :
+      'manter revisão';
+
+    return { ...sub, total, correct, pct, missionProgress, questionCount, priorityScore, reason };
   });
 
   const topPriority = [...subjectStats].sort((a, b) => b.priorityScore - a.priorityScore)[0];
+
   const today = new Date().toISOString().slice(0, 10);
   const studiedToday = profile.lastStudyDate === today;
+  const missionProgress = Math.round((completedCount / Math.max(1, totalMissions)) * 100);
+  const questionProgress = Math.round((totalAnswered / Math.max(1, totalQuestions)) * 100);
 
   const navigateToAction = (useBadDayMode = false) => {
     const action = useBadDayMode
@@ -80,308 +103,235 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
     onNavigate('simulados');
   };
 
-  const rankProgress = Math.max(0, Math.min(100, levelInfo.progress));
-  const circleOffset = 314 - (314 * rankProgress) / 100;
-
   return (
-    <div className="dashboard-readable">
-      <div className="mb-8 hidden items-center justify-between lg:flex">
-        <div>
-          <h1 className="font-orbitron text-xl font-black text-white md:text-2xl">
-            Dashboard <span className="neon-blue">Central</span>
-          </h1>
-          <p className="mt-1 text-sm text-slate-400">
-            Bom trabalho, recruta. Execute o próximo passo com clareza.
-          </p>
-        </div>
+    <div className="dashboard-readable study-wide">
+      <section className="study-card mb-5">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          <div className="min-w-0">
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-bold text-pm-300">
+                Próxima ação
+              </span>
 
-        <div className="flex items-center gap-4">
-          <div className="card px-4 py-3">
-            <div className="section-label mb-2">⏳ Concurso em</div>
-            <div className="flex items-center gap-2">
-              <div className="rounded-lg border border-cyan-400/20 bg-black/40 px-3 py-2 text-center">
-                <div className="font-orbitron text-lg font-black neon-blue">{deadline.daysLeft}</div>
-                <div className="text-xs text-slate-500">dias</div>
-              </div>
-              <span className="text-xl font-black neon-blue">:</span>
-              <div className="rounded-lg border border-cyan-400/20 bg-black/40 px-3 py-2 text-center">
-                <div className="font-orbitron text-lg font-black neon-blue">--</div>
-                <div className="text-xs text-slate-500">hrs</div>
-              </div>
+              <span className={`rounded-full px-3 py-1 text-xs font-bold ${
+                studiedToday
+                  ? 'border border-success/20 bg-success/10 text-success'
+                  : 'border border-gold-500/20 bg-gold-500/10 text-gold-400'
+              }`}>
+                {studiedToday ? 'dia iniciado' : 'aguardando início'}
+              </span>
+            </div>
+
+            <h1 className="font-[Rajdhani,sans-serif] text-4xl font-black leading-tight text-white md:text-5xl">
+              {smartAction.title}
+            </h1>
+
+            <p className="study-subtitle mt-3">
+              {smartAction.summary}
+            </p>
+
+            <div className="mt-4 flex flex-wrap items-center gap-2 text-sm text-slate-400">
+              <span>{smartAction.subjectIcon} {smartAction.subjectLabel ?? 'Plano automático'}</span>
+              <span>•</span>
+              <span>{smartAction.minutes} min</span>
+              <span>•</span>
+              <span className="text-gold-400">+{smartAction.xpReward} XP</span>
             </div>
           </div>
 
-          <div className="card px-4 py-3 text-center">
-            <div className="section-label mb-1">Sequência</div>
-            <div className="font-orbitron text-2xl font-black neon-gold">{profile.streak}</div>
-            <div className="text-xs text-slate-500">dias seguidos</div>
-          </div>
-
-          <button className="card relative flex h-11 w-11 items-center justify-center">
-            <Bell size={19} />
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-danger shadow-[0_0_8px_#ff4757]" />
-          </button>
-        </div>
-      </div>
-
-      <section className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        <div className="card stat-card-blue p-5 text-center">
-          <div className="mb-4 flex flex-col items-center justify-center gap-3">
-            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/25 bg-cyan-400/10 text-xl">
-              XP
-            </div>
-            <span className="badge border border-cyan-400/25 bg-cyan-400/10 text-pm-400">XP</span>
-          </div>
-          <div className="font-orbitron text-2xl font-black md:text-3xl leading-none neon-blue">{profile.xp}</div>
-          <div className="mt-1 text-sm text-slate-400">XP Total</div>
-          <div className="xp-bar-wrap mt-3">
-            <div className="xp-bar-fill" style={{ width: `${levelInfo.progress}%` }} />
-          </div>
-          <div className="mt-1 text-xs text-slate-500">Nível {levelInfo.level}</div>
-        </div>
-
-        <div className="card stat-card-green p-5 text-center">
-          <div className="mb-4 flex flex-col items-center justify-center gap-3">
-            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl border border-success/25 bg-success/10 text-xl">
-              Q
-            </div>
-            <span className="badge border border-success/25 bg-success/10 text-success">{accuracy}%</span>
-          </div>
-          <div className="font-orbitron text-2xl font-black md:text-3xl leading-none neon-green">{totalAnswered}</div>
-          <div className="mt-1 text-sm text-slate-400">Questões Feitas</div>
-          <div className="xp-bar-wrap mt-3">
-            <div className="xp-bar-fill !bg-gradient-to-r !from-success !to-pm-400" style={{ width: `${Math.min(100, (totalAnswered / Math.max(1, totalQuestions)) * 100)}%` }} />
-          </div>
-          <div className="mt-1 text-xs text-slate-500">de {totalQuestions} no banco</div>
-        </div>
-
-        <div className="card stat-card-gold p-5 text-center">
-          <div className="mb-4 flex flex-col items-center justify-center gap-3">
-            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl border border-gold-500/25 bg-gold-500/10 text-xl">
-              S
-            </div>
-            <span className="badge border border-gold-500/25 bg-gold-500/10 text-gold-500">Streak</span>
-          </div>
-          <div className="font-orbitron text-2xl font-black md:text-3xl leading-none neon-gold">{profile.streak}</div>
-          <div className="mt-1 text-sm text-slate-400">Dias de Sequência</div>
-          <div className="mt-3 flex gap-1">
-            {Array.from({ length: 7 }).map((_, i) => (
-              <div
-                key={i}
-                className={`flex h-7 w-7 items-center justify-center rounded-lg text-xs font-black ${
-                  i < Math.min(7, profile.streak)
-                    ? 'bg-gradient-to-br from-gold-500 to-orange-500 text-black shadow-[0_0_8px_rgba(255,215,0,0.45)]'
-                    : 'bg-white/5 text-slate-600'
-                }`}
-              >
-                {i < Math.min(7, profile.streak) ? '✓' : i + 1}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="card stat-card-purple p-5 text-center">
-          <div className="mb-4 flex flex-col items-center justify-center gap-3">
-            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl border border-purple-400/25 bg-purple-400/10 text-xl">
-              M
-            </div>
-            <span className="badge border border-purple-400/25 bg-purple-400/10 text-purple-400">Missões</span>
-          </div>
-          <div className="font-orbitron text-2xl font-black md:text-3xl leading-none neon-purple">{completedCount}</div>
-          <div className="mt-1 text-sm text-slate-400">Missões Completas</div>
-          <div className="xp-bar-wrap mt-3">
-            <div className="xp-bar-fill !bg-gradient-to-r !from-purple-500 !to-pink-500" style={{ width: `${Math.min(100, (completedCount / Math.max(1, totalMissions)) * 100)}%` }} />
-          </div>
-          <div className="mt-1 text-xs text-slate-500">de {totalMissions} missões</div>
-        </div>
-      </section>
-
-      <section className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <div className="card p-6 lg:col-span-2">
-          <div className="mission-priority bg-gradient-to-r from-danger to-orange-500 text-white">
-            Missão
-          </div>
-
-          <div className="mb-5 mt-2 flex items-center gap-3">
-            <div className="pulse-glow flex h-12 w-12 items-center justify-center rounded-xl border border-cyan-400/30 bg-cyan-400/10 text-2xl">
-              ▶
-            </div>
-
-            <div>
-              <div className="font-orbitron text-lg font-black text-white">Missão do Dia</div>
-              <div className="text-sm text-slate-400">{studiedToday ? 'Você já iniciou o dia.' : 'Comece agora com o próximo passo.'}</div>
-            </div>
-
-            <div className="ml-auto text-right">
-              <div className="text-xs text-slate-500">Recompensa</div>
-              <div className="text-lg font-black neon-gold">+{smartAction.xpReward} XP</div>
-            </div>
-          </div>
-
-          <div className="space-y-3">
-            <button onClick={() => navigateToAction(false)} className="check-item w-full text-left">
-              <div className="check-box">
-                <Play size={12} />
-              </div>
-              <div className="flex-1">
-                <span className="text-sm font-black text-white">{smartAction.subjectIcon} {smartAction.title}</span>
-                <div className="mt-0.5 text-xs text-slate-500">{smartAction.summary}</div>
-              </div>
-              <span className="badge border border-cyan-400/20 bg-cyan-400/10 text-pm-400">{smartAction.minutes} min</span>
+          <div className="grid gap-3 sm:grid-cols-2 lg:w-[360px] lg:grid-cols-1">
+            <button
+              onClick={() => navigateToAction(false)}
+              className="btn-gold flex w-full items-center justify-center gap-2 py-4 text-base"
+            >
+              <Play size={18} />
+              Executar agora
             </button>
 
-            {topPriority && (
-              <button onClick={() => onNavigate('subject', { subjectId: topPriority.id })} className="check-item w-full text-left">
-                <div className="check-box">
-                  <AlertTriangle size={12} />
-                </div>
-                <div className="flex-1">
-                  <span className="text-sm font-black text-white">🎯 Prioridade: {topPriority.name}</span>
-                  <div className="mt-0.5 text-xs text-slate-500">
-                    {topPriority.total < 5 ? 'Poucos dados de questões. Calibre com treino.' : `${topPriority.pct}% de acerto`}
-                  </div>
-                </div>
-                <span className="badge border border-danger/20 bg-danger/10 text-danger">Top 100</span>
-              </button>
-            )}
-
-            {dailyChecklist.items.map(item => (
-              <div key={item.id} className={`check-item ${item.done ? 'done' : ''}`}>
-                <div className="check-box">
-                  {item.done && <CheckCircle2 size={12} />}
-                </div>
-                <div className="flex-1">
-                  <span className="text-sm font-black text-white">{item.label}</span>
-                  <div className="mt-0.5 text-xs text-slate-500">{item.hint}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-5 flex flex-col gap-3 border-t border-cyan-900/30 pt-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <div className="mb-1 text-xs text-slate-500">Progresso do mínimo diário</div>
-              <div className="xp-bar-wrap w-full sm:w-[220px]">
-                <div className="xp-bar-fill" style={{ width: `${(dailyChecklist.completedCount / dailyChecklist.totalCount) * 100}%` }} />
-              </div>
-            </div>
-
-            <div className="flex gap-2">
-              <button className="btn-glow !border-danger/40 !bg-danger/10 !text-danger" onClick={() => navigateToAction(true)}>
-                Dia ruim
-              </button>
-              <button className="btn-gold" onClick={() => navigateToAction(false)}>
-                Executar
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="card p-5">
-          <div className="section-label mb-4">Patente & Progresso</div>
-
-          <div className="mb-4 flex justify-center">
-            <div className="relative h-36 w-36">
-              <svg className="circle-progress h-full w-full" viewBox="0 0 120 120">
-                <circle className="circle-track" cx="60" cy="60" r="50" strokeWidth="8" />
-                <circle
-                  className="circle-fill"
-                  cx="60"
-                  cy="60"
-                  r="50"
-                  strokeWidth="8"
-                  stroke="url(#goldGrad)"
-                  strokeDasharray="314"
-                  strokeDashoffset={circleOffset}
-                />
-                <defs>
-                  <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#ffd700" />
-                    <stop offset="100%" stopColor="#ff8c00" />
-                  </linearGradient>
-                </defs>
-              </svg>
-
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-3xl">🪖</div>
-                <div className="mt-1 text-sm font-black neon-gold">{levelInfo.title}</div>
-                <div className="text-xs text-slate-500">Nível {levelInfo.level}</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="rank-badge mb-4">
-            <div className="mb-2 text-xs text-slate-400">
-              Próximo nível: <span className="font-black neon-gold">{levelInfo.level + 1}</span>
-            </div>
-            <div className="xp-bar-wrap !h-2">
-              <div className="xp-bar-fill !bg-gradient-to-r !from-gold-500 !to-orange-500" style={{ width: `${levelInfo.progress}%` }} />
-            </div>
-            <div className="mt-1 flex justify-between text-xs">
-              <span className="text-slate-500">{levelInfo.xpInLevel} XP</span>
-              <span className="neon-gold">{levelInfo.xpForNext} XP</span>
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <div className="section-label mb-2">Medalhas</div>
-            <div className="grid grid-cols-4 gap-2">
-              {['🏆','🔥','⚡','📚','💪','🎯','🌟','🃏'].map((m, i) => {
-                const earned = i < Math.max(1, Math.min(8, profile.medals.length || 2));
-                return (
-                  <div
-                    key={i}
-                    className={`tooltip flex flex-col items-center gap-1 rounded-xl p-2 transition-all ${
-                      earned ? 'border border-gold-500/20 hover:bg-gold-500/10' : 'opacity-30 grayscale'
-                    }`}
-                  >
-                    <span className="text-2xl">{m}</span>
-                    <div className="tooltip-box">{earned ? 'Conquistada' : 'Bloqueada'}</div>
-                  </div>
-                );
-              })}
-            </div>
+            <button
+              onClick={() => navigateToAction(true)}
+              className="btn-ghost flex w-full items-center justify-center gap-2 py-4 text-base"
+            >
+              <AlertTriangle size={18} />
+              Dia ruim — 10 min
+            </button>
           </div>
         </div>
       </section>
 
-      <section className="mb-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <div className="card p-6 lg:col-span-2">
-          <div className="mb-5 flex items-center justify-between">
-            <div className="section-label">Desempenho por Matéria</div>
-            <button className="tab-btn active text-xs" onClick={() => onNavigate('subjects')}>Ver aulas</button>
+      {topPriority && (
+        <section className="study-card mb-5">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="min-w-0">
+              <p className="study-kicker red">
+                <Target size={16} />
+                Prioridade para top 100
+              </p>
+
+              <h2 className="text-2xl font-black text-white">
+                {topPriority.icon} {topPriority.name}
+              </h2>
+
+              <p className="mt-2 text-base leading-relaxed text-slate-400">
+                Motivo: {topPriority.reason}. Foque nisso antes de espalhar energia em outras telas.
+              </p>
+            </div>
+
+            <button
+              onClick={() => onNavigate('subject', { subjectId: topPriority.id })}
+              className="btn-primary shrink-0 py-4 text-base"
+            >
+              Atacar prioridade
+            </button>
+          </div>
+        </section>
+      )}
+
+      <section className="mb-5 grid gap-4 md:grid-cols-3">
+        <div className="metric-card">
+          <Calendar size={22} className="mx-auto mb-3 text-pm-300" />
+          <p className="metric-value">{deadline.daysLeft}</p>
+          <p className="metric-label">dias restantes</p>
+        </div>
+
+        <div className="metric-card">
+          <ClipboardCheck size={22} className="mx-auto mb-3 text-gold-400" />
+          <p className="metric-value text-gold-400">{dailyChecklist.completedCount}/{dailyChecklist.totalCount}</p>
+          <p className="metric-label">checklist diário</p>
+        </div>
+
+        <div className="metric-card">
+          <Flame size={22} className="mx-auto mb-3 text-orange-300" />
+          <p className="metric-value text-orange-300">{profile.streak}</p>
+          <p className="metric-label">dias de sequência</p>
+        </div>
+      </section>
+
+      <section className="mb-5 grid gap-5 lg:grid-cols-[1.1fr_.9fr]">
+        <div className="study-card">
+          <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="study-kicker">
+                <TrendingUp size={16} />
+                Progresso geral
+              </p>
+              <h2 className="text-2xl font-black text-white">Resumo do treino</h2>
+            </div>
+
+            <button onClick={() => onNavigate('profile')} className="btn-ghost text-sm">
+              Ver diagnóstico
+            </button>
           </div>
 
-          <div className="space-y-4">
+          <div className="grid gap-4 md:grid-cols-3">
+            <div className="list-card">
+              <p className="text-sm text-slate-500">Questões</p>
+              <p className="mt-1 text-2xl font-black text-white">{totalAnswered}/{totalQuestions}</p>
+              <div className="xp-bar-wrap mt-3">
+                <div className="xp-bar-fill" style={{ width: `${questionProgress}%` }} />
+              </div>
+            </div>
+
+            <div className="list-card">
+              <p className="text-sm text-slate-500">Acerto</p>
+              <p className={`mt-1 text-2xl font-black ${
+                accuracy >= 70 ? 'text-success' :
+                accuracy >= 50 ? 'text-gold-400' :
+                'text-danger'
+              }`}>
+                {accuracy}%
+              </p>
+              <p className="mt-3 text-sm text-slate-500">{correctCount} acertos registrados</p>
+            </div>
+
+            <div className="list-card">
+              <p className="text-sm text-slate-500">Missões</p>
+              <p className="mt-1 text-2xl font-black text-white">{completedCount}/{totalMissions}</p>
+              <div className="xp-bar-wrap mt-3">
+                <div className="xp-bar-fill" style={{ width: `${missionProgress}%` }} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="study-card">
+          <p className="study-kicker gold">
+            <ShieldCheck size={16} />
+            Patente
+          </p>
+
+          <div className="flex items-center gap-4">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-gold-500/20 bg-gold-500/10 text-3xl">
+              {levelInfo.icon}
+            </div>
+
+            <div className="min-w-0">
+              <h2 className="text-2xl font-black text-white">{levelInfo.title}</h2>
+              <p className="text-sm text-slate-500">Nível {levelInfo.level} • {profile.xp} XP total</p>
+            </div>
+          </div>
+
+          <div className="xp-bar-wrap mt-4">
+            <div className="xp-bar-fill" style={{ width: `${levelInfo.progress}%` }} />
+          </div>
+
+          <p className="mt-2 text-sm text-slate-500">
+            {levelInfo.xpInLevel}/{levelInfo.xpForNext} XP para o próximo nível
+          </p>
+        </div>
+      </section>
+
+      <section className="mb-5 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
+        <div className="study-card">
+          <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="study-kicker">
+                <BookOpen size={16} />
+                Matérias
+              </p>
+              <h2 className="text-2xl font-black text-white">Mapa de desempenho</h2>
+            </div>
+
+            <button onClick={() => onNavigate('subjects')} className="btn-ghost text-sm">
+              Ver aulas
+            </button>
+          </div>
+
+          <div className="grid gap-4">
             {subjectStats.map(s => {
               const questionPct = s.questionCount > 0 ? Math.round((s.total / s.questionCount) * 100) : 0;
+              const theoryPct = Math.round((s.missionProgress / s.missions.length) * 100);
+
               return (
                 <button
                   key={s.id}
                   onClick={() => onNavigate('subject', { subjectId: s.id })}
-                  className="w-full text-left"
+                  className="w-full rounded-2xl border border-white/10 bg-white/[0.025] p-4 text-left transition hover:border-cyan-400/20 hover:bg-white/[0.04]"
                 >
-                  <div className="mb-1 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="text-base">{s.icon}</span>
-                      <span className="text-sm font-black text-white">{s.name}</span>
-                    </div>
-
-                    <div className="flex items-center gap-3 text-xs">
-                      <span className="text-slate-400">{s.total}/{s.questionCount} questões</span>
-                      <span className="font-black" style={{ color: s.color }}>{s.total > 0 ? `${s.pct}%` : 'sem dados'}</span>
+                  <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                    <p className="font-black text-white">{s.icon} {s.name}</p>
+                    <div className="flex flex-wrap items-center gap-2 text-xs">
+                      <span className="text-slate-500">{s.total}/{s.questionCount} questões</span>
+                      <span style={{ color: s.color }} className="font-black">
+                        {s.total > 0 ? `${s.pct}%` : 'sem dados'}
+                      </span>
                     </div>
                   </div>
 
-                  <div className="xp-bar-wrap !h-2">
-                    <div
-                      className="subject-bar xp-bar-fill"
-                      style={{
-                        width: `${Math.max(questionPct, s.missionProgress * 10)}%`,
-                        background: `linear-gradient(90deg, ${s.color}99, ${s.color})`,
-                        boxShadow: `0 0 10px ${s.color}60`,
-                      }}
-                    />
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <div>
+                      <div className="mb-1 text-xs text-slate-500">Teoria {theoryPct}%</div>
+                      <div className="progress-bar">
+                        <div className="progress-bar-fill" style={{ width: `${theoryPct}%`, background: s.color }} />
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="mb-1 text-xs text-slate-500">Questões {questionPct}%</div>
+                      <div className="progress-bar">
+                        <div className="progress-bar-fill" style={{ width: `${questionPct}%`, background: s.color }} />
+                      </div>
+                    </div>
                   </div>
                 </button>
               );
@@ -389,42 +339,57 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="card p-5">
-            <div className="section-label mb-3">Checklist TDAH — Hoje</div>
-            <div className="space-y-1">
-              {dailyChecklist.items.map(item => (
-                <div key={item.id} className={`check-item ${item.done ? 'done' : ''}`}>
-                  <div className="check-box">
-                    {item.done && <CheckCircle2 size={12} />}
+        <div className="grid gap-5">
+          <div className="study-card">
+            <p className="study-kicker gold">
+              <Award size={16} />
+              Medalhas reais
+            </p>
+
+            <div className="grid grid-cols-4 gap-2">
+              {medals.slice(0, 8).map(medal => {
+                const earned = profile.medals.some(m => m.id === medal.id);
+
+                return (
+                  <div
+                    key={medal.id}
+                    className={`tooltip flex flex-col items-center gap-1 rounded-xl border p-2 text-center ${
+                      earned
+                        ? 'border-gold-500/25 bg-gold-500/10'
+                        : 'border-white/10 bg-white/[0.02] opacity-55 grayscale'
+                    }`}
+                  >
+                    <span className="text-2xl">{earned ? medal.icon : <Lock size={20} />}</span>
+                    <div className="tooltip-box">
+                      {earned ? medal.name : `Bloqueada: ${medal.name}`}
+                    </div>
                   </div>
-                  <span className={`text-xs font-bold ${item.done ? 'text-slate-600 line-through' : 'text-slate-300'}`}>
-                    {item.label}
-                  </span>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            {!dailyChecklist.isComplete && (
-              <button className="btn-glow mt-3 w-full text-sm" onClick={markDailyMinimumDone}>
-                Marcar mínimo
-              </button>
-            )}
+            <button onClick={() => onNavigate('profile')} className="btn-ghost mt-4 w-full text-sm">
+              Ver todas no perfil
+            </button>
           </div>
 
-          <div className="card p-5">
-            <div className="section-label mb-3">Atalhos</div>
-            <div className="grid grid-cols-2 gap-2">
-              <button className="btn-glow text-sm" onClick={() => onNavigate('simulados')}>
-                <Trophy size={15} /> Simulado
+          <div className="study-card">
+            <p className="study-kicker">Atalhos</p>
+
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+              <button className="btn-primary justify-center text-sm" onClick={() => onNavigate('studyplan')}>
+                <CheckCircle2 size={15} /> Checklist
               </button>
-              <button className="btn-glow text-sm" onClick={() => onNavigate('review')}>
+              <button className="btn-primary justify-center text-sm" onClick={() => onNavigate('review')}>
                 <RotateCcw size={15} /> Revisão
               </button>
-              <button className="btn-gold text-sm" onClick={() => onNavigate('essay')}>
+              <button className="btn-gold justify-center text-sm" onClick={() => onNavigate('simulados')}>
+                <Trophy size={15} /> Simulado
+              </button>
+              <button className="btn-ghost justify-center text-sm" onClick={() => onNavigate('essay')}>
                 <Pencil size={15} /> Redação
               </button>
-              <button className="btn-glow text-sm" onClick={() => onNavigate('taf')}>
+              <button className="btn-ghost justify-center text-sm" onClick={() => onNavigate('taf')}>
                 <Dumbbell size={15} /> TAF
               </button>
             </div>

@@ -2,7 +2,6 @@ import { ReactNode, useState } from 'react';
 import {
   Home,
   BookOpen,
-  Target,
   RotateCcw,
   User,
   Flame,
@@ -15,7 +14,6 @@ import {
   Trophy,
   CheckSquare,
   Layers3,
-  BarChart3,
 } from 'lucide-react';
 import { useApp } from '../store';
 import { getLevelInfo } from '../utils';
@@ -32,7 +30,6 @@ const navGroups = [
     items: [
       { id: 'dashboard', icon: Home, label: 'Dashboard' },
       { id: 'studyplan', icon: CheckSquare, label: 'Checklist Diário' },
-      { id: 'subjects', icon: Target, label: 'Missões' },
     ],
   },
   {
@@ -49,22 +46,17 @@ const navGroups = [
     items: [
       { id: 'taf', icon: Dumbbell, label: 'TAF — Treino' },
       { id: 'profile', icon: User, label: 'Perfil' },
-      { id: 'profile-stats', icon: BarChart3, label: 'Estatísticas' },
     ],
   },
 ];
 
 export default function Layout({ children, activeTab, onNavigate }: LayoutProps) {
-  const { profile } = useApp();
+  const { profile, setBadDayMode } = useApp();
   const info = getLevelInfo(profile);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleNavigate = (id: string) => {
-    if (id === 'profile-stats') {
-      onNavigate('profile');
-    } else {
-      onNavigate(id);
-    }
+    onNavigate(id);
     setMobileOpen(false);
   };
 
@@ -130,7 +122,7 @@ export default function Layout({ children, activeTab, onNavigate }: LayoutProps)
             </div>
 
             {group.items.map(item => {
-              const active = activeTab === item.id || (item.id === 'profile-stats' && activeTab === 'profile');
+              const active = activeTab === item.id;
               return (
                 <button
                   key={`${group.label}-${item.id}-${item.label}`}
@@ -149,9 +141,12 @@ export default function Layout({ children, activeTab, onNavigate }: LayoutProps)
       <div className="mx-3 mb-4 mt-auto">
         <button
           className="btn-glow w-full !border-danger/40 !bg-danger/10 !text-danger"
-          onClick={() => handleNavigate('dashboard')}
+          onClick={() => {
+            setBadDayMode(true);
+            handleNavigate('dashboard');
+          }}
         >
-          😓 Modo Dia Ruim — 10min
+          Modo dia ruim — 10min
         </button>
       </div>
     </aside>
