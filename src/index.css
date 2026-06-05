@@ -1361,3 +1361,143 @@ body {
   }
 }
 
+
+/* =========================================================
+   STUDY UX 2.2 — Checklist confortável + Dashboard readable
+   ========================================================= */
+
+.dashboard-readable {
+  overflow-wrap: anywhere;
+}
+
+.dashboard-readable .font-orbitron,
+.dashboard-readable .font-\[Rajdhani\,sans-serif\] {
+  line-height: 1.05;
+}
+
+.stat-card-blue,
+.stat-card-green,
+.stat-card-gold,
+.stat-card-purple,
+.stat-card-red {
+  min-width: 0;
+}
+
+.stat-card-blue .font-orbitron,
+.stat-card-green .font-orbitron,
+.stat-card-gold .font-orbitron,
+.stat-card-purple .font-orbitron,
+.stat-card-red .font-orbitron {
+  font-size: clamp(1.55rem, 2.8vw, 2.25rem);
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.stat-card-blue .badge,
+.stat-card-green .badge,
+.stat-card-gold .badge,
+.stat-card-purple .badge,
+.stat-card-red .badge {
+  white-space: normal;
+  text-align: center;
+  justify-content: center;
+}
+
+.dashboard-readable h1,
+.dashboard-readable h2,
+.dashboard-readable h3,
+.dashboard-readable p,
+.dashboard-readable span {
+  min-width: 0;
+}
+
+.daily-shell {
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  padding-bottom: 56px;
+}
+
+.daily-hero {
+  background: linear-gradient(180deg, rgba(16, 26, 43, 0.92), rgba(12, 20, 36, 0.86));
+  border: 1px solid var(--study-border);
+  border-radius: 26px;
+  padding: clamp(22px, 4vw, 38px);
+}
+
+.daily-progress-card {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(140, 205, 245, 0.12);
+  border-radius: 20px;
+  padding: 18px;
+}
+
+.daily-task {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 14px;
+  align-items: flex-start;
+  background: var(--study-surface);
+  border: 1px solid var(--study-border);
+  border-radius: 20px;
+  padding: 18px;
+}
+
+.daily-task-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(140, 205, 245, 0.14);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--study-blue);
+}
+
+.daily-task-done {
+  opacity: 0.72;
+  border-color: rgba(125, 216, 168, 0.24);
+}
+
+.daily-task-done .daily-task-icon {
+  background: rgba(125, 216, 168, 0.12);
+  color: var(--study-green);
+}
+
+.daily-action-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  margin-top: 20px;
+  padding: 14px;
+  border: 1px solid rgba(140, 205, 245, 0.12);
+  background: rgba(8, 13, 22, 0.88);
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  display: grid;
+  gap: 10px;
+}
+
+@media (min-width: 720px) {
+  .daily-action-bar {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard-readable .font-orbitron {
+    font-size: clamp(1.35rem, 8vw, 1.9rem);
+  }
+
+  .daily-task {
+    grid-template-columns: 36px 1fr;
+    padding: 16px;
+  }
+
+  .daily-task-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 13px;
+  }
+}

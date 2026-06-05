@@ -1,144 +1,144 @@
-import { subjects } from '../data/subjects';
-import { EXAM_SUBJECTS } from '../config/examConfig';
+import { CheckCircle2, Circle, ChevronLeft, Timer, Flame, Target, AlertTriangle } from 'lucide-react';
 import { useApp } from '../store';
-import { getSubjectProgress } from '../utils';
-import { ChevronLeft, Calendar } from 'lucide-react';
+import { buildDailyChecklist } from '../utils/dailyChecklist';
 
 export default function StudyPlan({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
-  const { profile } = useApp();
+  const { profile, markDailyMinimumDone, setBadDayMode } = useApp();
+  const checklist = buildDailyChecklist(profile);
 
-  // Priority subjects based on the official objective exam weights.
-  const priorities = EXAM_SUBJECTS;
-
-  const totalMissions = subjects.flatMap(s => s.missions).length;
-  const completedMissions = profile.completedMissions.length;
+  const progress = Math.round((checklist.completedCount / checklist.totalCount) * 100);
 
   return (
-    <div className="space-y-4">
-      <button onClick={() => onNavigate('dashboard')} className="text-sm text-pm-300 flex items-center gap-1">
-        <ChevronLeft size={16} /> Voltar
+    <div className="daily-shell animate-fade-in">
+      <button onClick={() => onNavigate('dashboard')} className="study-back">
+        <ChevronLeft size={16} /> Início
       </button>
-      <h1 className="text-xl font-bold font-[Rajdhani,sans-serif]">📋 Plano de Estudos</h1>
-      <p className="text-sm text-gray-400">
-        Progresso: <span className="text-gold-400 font-bold">{completedMissions}/{totalMissions}</span> missões completas
-      </p>
 
-      {/* Overall progress */}
-      <div className="progress-bar h-3">
-        <div className="progress-bar-fill bg-gradient-to-r from-pm-500 to-gold-500" style={{ width: `${(completedMissions / totalMissions) * 100}%` }} />
-      </div>
+      <section className="daily-hero mb-5">
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-bold text-pm-300">
+            Rotina diária
+          </span>
 
-      {/* Priority guide */}
-      <div className="card border-l-4 border-gold-500">
-        <h3 className="text-xs font-bold text-gold-400 mb-2">⚡ PRIORIDADES (baseado no peso na prova)</h3>
-        <div className="space-y-2">
-          {priorities.map(p => {
-            const sub = subjects.find(s => s.id === p.id)!;
-            const prog = getSubjectProgress(p.id, profile.completedMissions);
-            return (
-              <div key={p.id} className="flex justify-between items-center">
-                <span className="text-sm text-gray-300">{sub.icon} {p.label} ({p.officialQuestions} questões)</span>
-                <span className="text-xs text-gray-500">{prog}/{sub.missions.length}</span>
-              </div>
-            );
-          })}
+          <span className={`rounded-full px-3 py-1 text-xs font-bold ${
+            checklist.isComplete
+              ? 'border border-success/20 bg-success/10 text-success'
+              : 'border border-gold-500/20 bg-gold-500/10 text-gold-400'
+          }`}>
+            {checklist.isComplete ? 'concluído' : 'em andamento'}
+          </span>
         </div>
-      </div>
 
-      {/* Weekly Plan */}
-      <div>
-        <h3 className="text-sm font-bold text-gray-300 mb-3 flex items-center gap-2"><Calendar size={14} /> Plano Semanal Sugerido</h3>
-        <div className="space-y-3">
-          {[
-            { day: 'Segunda', tasks: [
-              { text: 'Português — 1 missão (25 min)', subjectId: 'portugues' },
-              { text: 'Revisão de erros (10 min)', subjectId: null },
-              { text: 'Redação — esboço (15 min)', subjectId: null },
-            ]},
-            { day: 'Terça', tasks: [
-              { text: 'Matemática — 1 missão (25 min)', subjectId: 'matematica' },
-              { text: 'Questões de Português (15 min)', subjectId: 'portugues' },
-              { text: 'TAF — treino leve (20 min)', subjectId: null },
-            ]},
-            { day: 'Quarta', tasks: [
-              { text: 'Conhecimentos Gerais — 1 missão (25 min)', subjectId: 'gerais' },
-              { text: 'Revisão flashcards (10 min)', subjectId: null },
-              { text: 'Questões de Matemática (15 min)', subjectId: 'matematica' },
-            ]},
-            { day: 'Quinta', tasks: [
-              { text: 'Informática — 1 missão (20 min)', subjectId: 'informatica' },
-              { text: 'Administração — 1 missão (20 min)', subjectId: 'administracao' },
-              { text: 'Questões mistas (15 min)', subjectId: null },
-            ]},
-            { day: 'Sexta', tasks: [
-              { text: 'Português — 1 missão (25 min)', subjectId: 'portugues' },
-              { text: 'Redação completa (30 min)', subjectId: null },
-              { text: 'Revisão da semana (15 min)', subjectId: null },
-            ]},
-            { day: 'Sábado', tasks: [
-              { text: '🏆 Simulado Semanal (30 min)', subjectId: null },
-              { text: 'TAF — treino intenso (30 min)', subjectId: null },
-              { text: 'Revisão dos erros do simulado (15 min)', subjectId: null },
-            ]},
-            { day: 'Domingo', tasks: [
-              { text: '🧘 Descanso ativo — revisão leve (10 min)', subjectId: null },
-              { text: 'Flashcards rápidos (10 min)', subjectId: null },
-            ]},
-          ].map((dayPlan, i) => (
-            <div key={i} className="card">
-              <h4 className="text-sm font-bold text-gold-400 mb-2">{dayPlan.day}</h4>
-              <div className="space-y-1">
-                {dayPlan.tasks.map((task, j) => (
-                  <div key={j} className="flex items-center gap-2 text-xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-pm-400 shrink-0" />
-                    <span className="text-gray-400">{task.text}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+        <h1 className="study-title !mb-3">Checklist diário</h1>
 
-      {/* Come back to plan */}
-      <div className="card border-l-4 border-orange-400">
-        <h3 className="text-xs font-bold text-orange-400 mb-2">🔄 PERDEU DIAS DE ESTUDO?</h3>
-        <p className="text-sm text-gray-400 mb-3">
-          Sem problemas! Clique no botão abaixo e o sistema vai escolher a próxima missão para você. Não tente compensar tudo de uma vez — retome o plano.
+        <p className="study-subtitle">
+          Uma rotina simples para não se perder. Faça o mínimo, marque o progresso e siga para o próximo passo sem precisar decidir tudo de novo.
         </p>
-        <button onClick={() => onNavigate('dashboard')} className="btn-gold w-full text-sm">
-          Voltar ao Plano — Escolher Próxima Missão
+
+        <div className="daily-progress-card mt-6">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-bold text-white">{checklist.title}</p>
+              <p className="text-sm text-slate-500">
+                {checklist.completedCount}/{checklist.totalCount} tarefas concluídas
+              </p>
+            </div>
+
+            <span className="font-[Rajdhani,sans-serif] text-3xl font-black text-gold-400">
+              {progress}%
+            </span>
+          </div>
+
+          <div className="xp-bar-wrap">
+            <div className="xp-bar-fill" style={{ width: `${progress}%` }} />
+          </div>
+        </div>
+      </section>
+
+      <section className="grid gap-3">
+        {checklist.items.map((item, index) => (
+          <div key={item.id} className={`daily-task ${item.done ? 'daily-task-done' : ''}`}>
+            <div className="daily-task-icon">
+              {item.done ? <CheckCircle2 size={22} /> : <Circle size={22} />}
+            </div>
+
+            <div>
+              <div className="mb-1 flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-white/[0.04] px-2.5 py-1 text-xs font-bold text-slate-500">
+                  Passo {index + 1}
+                </span>
+
+                {item.done && (
+                  <span className="rounded-full border border-success/20 bg-success/10 px-2.5 py-1 text-xs font-bold text-success">
+                    feito
+                  </span>
+                )}
+              </div>
+
+              <h3 className={`text-lg font-black ${item.done ? 'text-slate-500 line-through' : 'text-white'}`}>
+                {item.label}
+              </h3>
+
+              <p className="mt-1 text-base leading-relaxed text-slate-400">
+                {item.hint}
+              </p>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section className="study-card mt-5">
+        <h3 className="study-kicker gold">
+          <Timer size={16} />
+          Modo simples
+        </h3>
+
+        <div className="study-body">
+          <p>
+            Se o dia estiver pesado, não tente fazer tudo. Faça apenas o mínimo para manter a corrente viva.
+          </p>
+          <p>
+            O objetivo é evitar o ciclo de “depois eu compenso”. Hoje você só precisa manter o contato com a missão.
+          </p>
+        </div>
+      </section>
+
+      <div className="daily-action-bar">
+        <button onClick={markDailyMinimumDone} className="btn-gold w-full py-4 text-base">
+          <CheckCircle2 size={18} />
+          Marcar mínimo feito
+        </button>
+
+        <button
+          onClick={() => {
+            setBadDayMode(true);
+            onNavigate('dashboard');
+          }}
+          className="btn-ghost w-full py-4 text-base"
+        >
+          <AlertTriangle size={18} />
+          Ativar modo dia ruim
         </button>
       </div>
 
-      {/* Daily checklist */}
-      <div className="card">
-        <h3 className="text-xs font-bold text-pm-300 mb-3">✅ CHECKLIST DIÁRIO</h3>
-        <div className="space-y-2">
-          {[
-            'Estudar pelo menos 1 missão',
-            'Responder pelo menos 5 questões',
-            'Revisar erros do dia anterior',
-            'Treinar TAF (se dia de treino)',
-            'Marcar missão como concluída',
-          ].map((item, i) => (
-            <label key={i} className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer">
-              <input type="checkbox" className="w-4 h-4 rounded" />
-              <span>{item}</span>
-            </label>
-          ))}
-        </div>
-      </div>
+      <div className="mt-5 grid gap-3 md:grid-cols-3">
+        <button onClick={() => onNavigate('subjects')} className="study-card text-left">
+          <Target size={22} className="mb-3 text-pm-300" />
+          <p className="font-black text-white">Estudar teoria</p>
+          <p className="mt-1 text-sm text-slate-500">Abrir matérias e missões.</p>
+        </button>
 
-      {/* Pomodoro info */}
-      <div className="card">
-        <h3 className="text-xs font-bold text-pm-300 mb-2">🍅 TÉCNICA POMODORO</h3>
-        <div className="text-xs text-gray-400 space-y-1">
-          <p>• Estude 25 minutos com foco total</p>
-          <p>• Descanse 5 minutos</p>
-          <p>• A cada 4 pomodoros, descanse 15-30 min</p>
-          <p>• Cada pomodoro = 1 missão concluída</p>
-        </div>
+        <button onClick={() => onNavigate('review')} className="study-card text-left">
+          <Flame size={22} className="mb-3 text-gold-400" />
+          <p className="font-black text-white">Revisar</p>
+          <p className="mt-1 text-sm text-slate-500">Flashcards e questões erradas.</p>
+        </button>
+
+        <button onClick={() => onNavigate('simulados')} className="study-card text-left">
+          <Timer size={22} className="mb-3 text-success" />
+          <p className="font-black text-white">Treinar prova</p>
+          <p className="mt-1 text-sm text-slate-500">Simulados e questões.</p>
+        </button>
       </div>
     </div>
   );
