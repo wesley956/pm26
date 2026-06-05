@@ -1,6 +1,7 @@
 import type { ChangeEvent } from 'react';
 import { useApp } from '../store';
 import { subjects } from '../data/subjects';
+import { questions } from '../data/questions';
 import { getLevelInfo, getMedalDefinitions, getSubjectProgress } from '../utils';
 import { Trophy, Target, TrendingUp, AlertTriangle, Download, Upload } from 'lucide-react';
 
@@ -56,6 +57,65 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
     })
     .sort((a, b) => b.priorityScore - a.priorityScore)
     .slice(0, 3);
+
+
+  const questionById = new Map(questions.map(question => [question.id, question]));
+
+  const topicStats = Array.from(
+    Object.values(profile.completedQuestions).reduce((map, answer) => {
+      const question = questionById.get(answer.questionId);
+      if (!question) return map;
+
+      const subject = subjects.find(item => item.id === question.subjectId);
+      const key = `${question.subjectId}::${question.topic}`;
+
+      const current = map.get(key) ?? {
+        key,
+        subjectId: question.subjectId,
+        subjectName: subject?.name ?? 'Matéria',
+        subjectIcon: subject?.icon ?? '🧠',
+        topic: question.topic,
+        total: 0,
+        correct: 0,
+        wrong: 0,
+      };
+
+      current.total += 1;
+
+      if (answer.correct) {
+        current.correct += 1;
+      } else {
+        current.wrong += 1;
+      }
+
+      map.set(key, current);
+      return map;
+    }, new Map<string, {
+      key: string;
+      subjectId: string;
+      subjectName: string;
+      subjectIcon: string;
+      topic: string;
+      total: number;
+      correct: number;
+      wrong: number;
+    }>())
+    .values()
+  ).map(item => ({
+    ...item,
+    pct: item.total > 0 ? Math.round((item.correct / item.total) * 100) : 0,
+    priorityScore: item.wrong * 25 + Math.max(0, 80 - (item.total > 0 ? Math.round((item.correct / item.total) * 100) : 0)) + (item.total < 3 ? 12 : 0),
+  }));
+
+  const weakTopics = topicStats
+    .filter(item => item.total > 0 && (item.wrong > 0 || item.pct < 70))
+    .sort((a, b) => b.priorityScore - a.priorityScore)
+    .slice(0, 6);
+
+  const startTopicTraining = (subjectId: string, topic: string) => {
+    sessionStorage.setItem('pm-sp-topic-filter', JSON.stringify({ subjectId, topic }));
+    onNavigate('questions', { subjectId, topic });
+  };
 
   const diagnosticTitle =
     totalAnswered < 20 ? 'Ainda temos poucos dados' :
@@ -214,6 +274,64 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
             </button>
           ))}
         </div>
+      </section>
+
+      <section className="study-card mb-5">
+        <div className="mb-4 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+          <div>
+            <h3 className="flex items-center gap-2 text-xl font-black text-white">
+              <AlertTriangle size={18} className="text-gold-400" /> Tópicos fracos
+            </h3>
+            <p className="mt-1 text-sm leading-relaxed text-slate-400">
+              Aqui o sistema deixa de falar só a matéria e mostra o assunto exato que está puxando sua nota para baixo.
+            </p>
+          </div>
+
+          <span className="topic-pill">
+            {weakTopics.length} prioridade(s)
+          </span>
+        </div>
+
+        {weakTopics.length > 0 ? (
+          <div className="topic-diagnostic-grid">
+            {weakTopics.map(topic => (
+              <button
+                key={topic.key}
+                onClick={() => startTopicTraining(topic.subjectId, topic.topic)}
+                className="topic-card"
+              >
+                <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                  <p className="font-black text-white">
+                    {topic.subjectIcon} {topic.topic}
+                  </p>
+
+                  <span className={`text-sm font-black ${
+                    topic.pct >= 70 ? 'text-success' :
+                    topic.pct >= 50 ? 'text-gold-400' :
+                    'text-danger'
+                  }`}>
+                    {topic.pct}% de acerto
+                  </span>
+                </div>
+
+                <p className="text-sm leading-relaxed text-slate-500">
+                  {topic.subjectName} • {topic.total} respondida(s) • {topic.wrong} erro(s)
+                </p>
+
+                <p className="mt-2 text-sm font-bold text-pm-300">
+                  Treinar este tópico agora
+                </p>
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="reading-callout">
+            <p className="font-bold text-white">Ainda não há tópico fraco detectado.</p>
+            <p className="mt-1 text-sm leading-relaxed text-slate-400">
+              Responda mais questões. Assim que aparecer padrão de erro, o sistema vai mostrar exatamente o que atacar.
+            </p>
+          </div>
+        )}
       </section>
 
       <section className="study-card mb-5">

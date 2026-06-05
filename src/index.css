@@ -1595,3 +1595,50 @@ body {
     width: auto;
   }
 }
+
+/* =========================================================
+   STUDY UX 3.0 — diagnóstico por tópico fraco
+   ========================================================= */
+
+.topic-diagnostic-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.topic-card {
+  width: 100%;
+  text-align: left;
+  border-radius: 18px;
+  border: 1px solid rgba(140, 205, 245, 0.12);
+  background: rgba(255, 255, 255, 0.025);
+  padding: 15px;
+  transition: border-color .18s ease, background .18s ease;
+}
+
+.topic-card:hover {
+  border-color: rgba(216, 183, 106, 0.28);
+  background: rgba(216, 183, 106, 0.055);
+}
+
+.topic-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(140, 205, 245, 0.14);
+  background: rgba(140, 205, 245, 0.08);
+  color: var(--study-blue);
+  padding: 4px 10px;
+  font-size: .76rem;
+  font-weight: 800;
+}
+
+.topic-training-banner {
+  margin-bottom: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(216, 183, 106, 0.20);
+  background: rgba(216, 183, 106, 0.08);
+  padding: 12px 14px;
+  color: var(--study-muted);
+}
+

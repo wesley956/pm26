@@ -6,12 +6,28 @@ import { ChevronLeft, CheckCircle2, XCircle, ArrowRight, RotateCcw } from 'lucid
 
 interface Props {
   subjectId?: string;
+  topic?: string;
   onNavigate: (tab: string, data?: any) => void;
 }
 
-export default function Questions({ subjectId, onNavigate }: Props) {
+export default function Questions({ subjectId, topic, onNavigate }: Props) {
   const { profile, answerQuestion, addXP } = useApp();
   const [selectedSubject, setSelectedSubject] = useState(subjectId || '');
+  const [selectedTopic, setSelectedTopic] = useState(() => {
+    if (topic) return topic;
+
+    try {
+      const stored = sessionStorage.getItem('pm-sp-topic-filter');
+      if (!stored) return '';
+
+      const parsed = JSON.parse(stored) as { subjectId?: string; topic?: string };
+      if (subjectId && parsed.subjectId !== subjectId) return '';
+
+      return parsed.topic ?? '';
+    } catch {
+      return '';
+    }
+  });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -20,13 +36,20 @@ export default function Questions({ subjectId, onNavigate }: Props) {
   const [sessionXp, setSessionXp] = useState(0);
 
   const filteredQuestions = useMemo(() => {
-    if (selectedSubject) return questions.filter(q => q.subjectId === selectedSubject);
-    return questions;
-  }, [selectedSubject]);
+    let list = selectedSubject
+      ? questions.filter(q => q.subjectId === selectedSubject)
+      : questions;
+
+    if (selectedTopic) {
+      list = list.filter(q => q.topic === selectedTopic);
+    }
+
+    return list;
+  }, [selectedSubject, selectedTopic]);
 
   const shuffledQuestions = useMemo(() => {
     return [...filteredQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
-  }, [filteredQuestions, selectedSubject]);
+  }, [filteredQuestions, selectedSubject, selectedTopic]);
 
   const currentQ = shuffledQuestions[currentIndex];
   const isFinished = currentIndex >= shuffledQuestions.length;
@@ -70,6 +93,8 @@ export default function Questions({ subjectId, onNavigate }: Props) {
     setSessionTotal(0);
     setSessionXp(0);
     setSelectedSubject('');
+    setSelectedTopic('');
+    sessionStorage.removeItem('pm-sp-topic-filter');
     setTimeout(() => setSelectedSubject(subjectId || ''), 0);
   };
 
@@ -137,7 +162,12 @@ export default function Questions({ subjectId, onNavigate }: Props) {
             <button onClick={handleRestart} className="btn-gold w-full">
               <RotateCcw size={16} /> Tentar novamente
             </button>
-            <button onClick={() => { setSelectedSubject(''); setCurrentIndex(0); }} className="btn-primary w-full">
+            <button onClick={() => {
+              setSelectedSubject('');
+              setSelectedTopic('');
+              sessionStorage.removeItem('pm-sp-topic-filter');
+              setCurrentIndex(0);
+            }} className="btn-primary w-full">
               Outra matéria
             </button>
             <button onClick={() => onNavigate('dashboard')} className="btn-ghost w-full">
@@ -158,6 +188,8 @@ export default function Questions({ subjectId, onNavigate }: Props) {
         <button
           onClick={() => {
             setSelectedSubject('');
+            setSelectedTopic('');
+            sessionStorage.removeItem('pm-sp-topic-filter');
             setCurrentIndex(0);
             setSessionCorrect(0);
             setSessionTotal(0);
@@ -180,6 +212,14 @@ export default function Questions({ subjectId, onNavigate }: Props) {
       <div className="mb-4 inline-flex rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-bold text-pm-300">
         {subject?.icon} {subject?.name} — {currentQ.topic}
       </div>
+
+      {selectedTopic && (
+        <div className="topic-training-banner">
+          <p className="text-sm">
+            Treino focado em <strong className="text-gold-400">{selectedTopic}</strong>. Responda com calma e leia a explicação.
+          </p>
+        </div>
+      )}
 
       <div className="quiz-card">
         <p className="quiz-question">{currentQ.text}</p>
