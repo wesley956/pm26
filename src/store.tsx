@@ -23,6 +23,7 @@ interface AppState {
   resetDay: () => void;
   setBadDayMode: (on: boolean) => void;
   markDailyMinimumDone: () => void;
+  updateSpacedReview: (itemId: string, type: 'mission' | 'question' | 'flashcard', remembered: boolean) => void;
   getLevelInfo: () => { level: number; title: string; icon: string; xpInLevel: number; xpForNext: number; progress: number };
 }
 
@@ -60,6 +61,12 @@ function normalizeProfile(profile: Partial<UserProfile>): UserProfile {
 
 function getTodayIso(): string {
   return new Date().toISOString().slice(0, 10);
+}
+
+function getIsoDaysFromNow(days: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toISOString().slice(0, 10);
 }
 
 function loadProfile(): UserProfile {
@@ -293,6 +300,45 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const updateSpacedReview = useCallback((itemId: string, type: 'mission' | 'question' | 'flashcard', remembered: boolean) => {
+    setProfile(p => {
+      const current = p.spacedRepetition?.[itemId];
+      const currentInterval = current?.interval ?? 0;
+      const currentEase = current?.easeFactor ?? 2.5;
+
+      const nextInterval = remembered
+        ? currentInterval <= 0
+          ? 3
+          : currentInterval < 3
+            ? 3
+            : currentInterval < 7
+              ? 7
+              : currentInterval < 15
+                ? 15
+                : Math.min(45, Math.round(currentInterval * 1.6))
+        : 1;
+
+      const nextEase = remembered
+        ? Math.min(2.8, currentEase + 0.1)
+        : Math.max(1.3, currentEase - 0.2);
+
+      return {
+        ...p,
+        lastStudyDate: getTodayIso(),
+        spacedRepetition: {
+          ...(p.spacedRepetition ?? {}),
+          [itemId]: {
+            itemId,
+            type,
+            interval: nextInterval,
+            easeFactor: nextEase,
+            nextReview: getIsoDaysFromNow(nextInterval),
+          },
+        },
+      };
+    });
+  }, []);
+
   useEffect(() => {
     const earnedDefinitions = getEarnedMedalDefinitions(profile);
     const missingDefinitions = earnedDefinitions.filter(def => !profile.medals.some(medal => medal.id === def.id));
@@ -327,7 +373,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [profile, pushRewardToast]);
 
   return (
-    <AppContext.Provider value={{ profile, addXP, completeMission, answerQuestion, addTAFRecord, addEssay, addSimulation, addMedal, updateStreak, resetDay, setBadDayMode, markDailyMinimumDone, getLevelInfo }}>
+    <AppContext.Provider value={{ profile, addXP, completeMission, answerQuestion, addTAFRecord, addEssay, addSimulation, addMedal, updateStreak, resetDay, setBadDayMode, markDailyMinimumDone, updateSpacedReview, getLevelInfo }}>
       {children}
       <RewardToastList toasts={rewardToasts} />
     </AppContext.Provider>

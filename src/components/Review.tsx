@@ -6,7 +6,7 @@ import { useApp } from '../store';
 import { ChevronLeft, RotateCcw, CheckCircle2, XCircle, ArrowRight, Layers, Zap } from 'lucide-react';
 
 export default function Review({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
-  const { profile, answerQuestion, addXP, markDailyMinimumDone } = useApp();
+  const { profile, answerQuestion, addXP, markDailyMinimumDone, updateSpacedReview } = useApp();
   const [mode, setMode] = useState<'menu' | 'wrong' | 'flashcards' | 'quick'>('menu');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
@@ -38,9 +38,18 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
     });
   }, []);
 
+  const todayIso = new Date().toISOString().slice(0, 10);
+
+  const dueFlashcards = useMemo(() => {
+    return flashcards.filter(card => {
+      const review = profile.spacedRepetition?.[card.id];
+      return !review || review.nextReview <= todayIso;
+    });
+  }, [flashcards, profile.spacedRepetition, todayIso]);
+
   const quickQs = useMemo(() => [...questions].sort(() => Math.random() - 0.5).slice(0, 5), []);
 
-  const currentCard = flashcards[currentIndex];
+  const currentCard = dueFlashcards[currentIndex];
   const currentWrongQ = wrongQs[currentIndex];
   const currentQuickQ = quickQs[currentIndex];
 
@@ -83,7 +92,12 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
     setShowAnswer(true);
   };
 
-  const handleFlashcardResult = () => {
+  const handleFlashcardResult = (remembered: boolean) => {
+    if (currentCard) {
+      updateSpacedReview(currentCard.id, 'flashcard', remembered);
+      if (remembered) addXP(5);
+    }
+
     markDailyMinimumDone();
     setCurrentIndex(i => i + 1);
     setShowAnswer(false);
@@ -206,7 +220,7 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
           <button onClick={() => startMode('flashcards')} className="review-choice-card">
             <Layers size={30} className="mb-4 text-pm-300" />
             <h3 className="text-xl font-black text-white">Flashcards</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">{flashcards.length} cards de teoria personalizada.</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">{dueFlashcards.length} cards para revisar hoje • {flashcards.length} no total.</p>
           </button>
 
           <button onClick={() => startMode('quick')} className="review-choice-card">
@@ -263,12 +277,12 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
   }
 
   if (mode === 'flashcards') {
-    if (currentIndex >= flashcards.length || !currentCard) {
+    if (currentIndex >= dueFlashcards.length || !currentCard) {
       return (
         <div className="flashcard-shell text-center">
           <div className="study-card">
-            <h2 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Todos os cards revisados</h2>
-            <p className="study-subtitle mx-auto mt-2">Essa revisão contou como estudo do dia.</p>
+            <h2 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">Nenhum flashcard pendente</h2>
+            <p className="study-subtitle mx-auto mt-2">Você concluiu os flashcards vencidos hoje. Os próximos voltarão na data certa.</p>
             <button onClick={backToMenu} className="btn-primary mt-6">Voltar</button>
           </div>
         </div>
@@ -283,11 +297,11 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
 
         <div className="mb-3 flex items-center justify-between text-sm text-slate-400">
           <span>{currentCard.subjectIcon} {currentCard.subjectName}</span>
-          <span>{currentIndex + 1}/{flashcards.length}</span>
+          <span>{currentIndex + 1}/{dueFlashcards.length}</span>
         </div>
 
         <div className="xp-bar-wrap mb-5">
-          <div className="xp-bar-fill" style={{ width: `${((currentIndex + 1) / flashcards.length) * 100}%` }} />
+          <div className="xp-bar-fill" style={{ width: `${((currentIndex + 1) / Math.max(1, dueFlashcards.length)) * 100}%` }} />
         </div>
 
         <div className="flashcard-card" onClick={() => setShowAnswer(!showAnswer)}>
@@ -305,11 +319,11 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
         </div>
 
         <div className="flashcard-actions">
-          <button onClick={handleFlashcardResult} className="btn-ghost py-4 text-base text-danger">
-            Preciso rever
+          <button onClick={() => handleFlashcardResult(false)} className="btn-ghost py-4 text-base text-danger">
+            Não lembrei
           </button>
-          <button onClick={handleFlashcardResult} className="btn-primary py-4 text-base">
-            Já sei
+          <button onClick={() => handleFlashcardResult(true)} className="btn-primary py-4 text-base">
+            Lembrei
           </button>
         </div>
       </div>
