@@ -125,14 +125,14 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
       </div>
 
       <section className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <div className="card stat-card-blue p-5">
-          <div className="mb-3 flex items-start justify-between">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/25 bg-cyan-400/10 text-xl">
+        <div className="card stat-card-blue p-5 text-center">
+          <div className="mb-4 flex flex-col items-center justify-center gap-2">
+            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-400/25 bg-cyan-400/10 text-xl">
               XP
             </div>
             <span className="badge border border-cyan-400/25 bg-cyan-400/10 text-pm-400">XP</span>
           </div>
-          <div className="font-orbitron text-3xl font-black neon-blue">{profile.xp}</div>
+          <div className="font-orbitron text-3xl font-black leading-none neon-blue">{profile.xp}</div>
           <div className="mt-1 text-sm text-slate-400">XP Total</div>
           <div className="xp-bar-wrap mt-3">
             <div className="xp-bar-fill" style={{ width: `${levelInfo.progress}%` }} />
@@ -140,14 +140,14 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           <div className="mt-1 text-xs text-slate-500">Nível {levelInfo.level}</div>
         </div>
 
-        <div className="card stat-card-green p-5">
-          <div className="mb-3 flex items-start justify-between">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-success/25 bg-success/10 text-xl">
+        <div className="card stat-card-green p-5 text-center">
+          <div className="mb-4 flex flex-col items-center justify-center gap-2">
+            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl border border-success/25 bg-success/10 text-xl">
               Q
             </div>
             <span className="badge border border-success/25 bg-success/10 text-success">{accuracy}%</span>
           </div>
-          <div className="font-orbitron text-3xl font-black neon-green">{totalAnswered}</div>
+          <div className="font-orbitron text-3xl font-black leading-none neon-green">{totalAnswered}</div>
           <div className="mt-1 text-sm text-slate-400">Questões Feitas</div>
           <div className="xp-bar-wrap mt-3">
             <div className="xp-bar-fill !bg-gradient-to-r !from-success !to-pm-400" style={{ width: `${Math.min(100, (totalAnswered / Math.max(1, totalQuestions)) * 100)}%` }} />
@@ -155,14 +155,14 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           <div className="mt-1 text-xs text-slate-500">de {totalQuestions} no banco</div>
         </div>
 
-        <div className="card stat-card-gold p-5">
-          <div className="mb-3 flex items-start justify-between">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-gold-500/25 bg-gold-500/10 text-xl">
+        <div className="card stat-card-gold p-5 text-center">
+          <div className="mb-4 flex flex-col items-center justify-center gap-2">
+            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl border border-gold-500/25 bg-gold-500/10 text-xl">
               S
             </div>
             <span className="badge border border-gold-500/25 bg-gold-500/10 text-gold-500">Streak</span>
           </div>
-          <div className="font-orbitron text-3xl font-black neon-gold">{profile.streak}</div>
+          <div className="font-orbitron text-3xl font-black leading-none neon-gold">{profile.streak}</div>
           <div className="mt-1 text-sm text-slate-400">Dias de Sequência</div>
           <div className="mt-3 flex gap-1">
             {Array.from({ length: 7 }).map((_, i) => (
@@ -180,14 +180,14 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           </div>
         </div>
 
-        <div className="card stat-card-purple p-5">
-          <div className="mb-3 flex items-start justify-between">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-purple-400/25 bg-purple-400/10 text-xl">
+        <div className="card stat-card-purple p-5 text-center">
+          <div className="mb-4 flex flex-col items-center justify-center gap-2">
+            <div className="mx-auto flex h-11 w-11 items-center justify-center rounded-xl border border-purple-400/25 bg-purple-400/10 text-xl">
               M
             </div>
             <span className="badge border border-purple-400/25 bg-purple-400/10 text-purple-400">Missões</span>
           </div>
-          <div className="font-orbitron text-3xl font-black neon-purple">{completedCount}</div>
+          <div className="font-orbitron text-3xl font-black leading-none neon-purple">{completedCount}</div>
           <div className="mt-1 text-sm text-slate-400">Missões Completas</div>
           <div className="xp-bar-wrap mt-3">
             <div className="xp-bar-fill !bg-gradient-to-r !from-purple-500 !to-pink-500" style={{ width: `${Math.min(100, (completedCount / Math.max(1, totalMissions)) * 100)}%` }} />

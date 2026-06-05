@@ -579,3 +579,177 @@ body::after {
 .rank-badge {
   background: rgba(255, 215, 0, 0.07);
 }
+
+/* UI 4.2 — Soft Night Premium
+   Menos neon forte, mais modo noturno confortável e espaçamento limpo. */
+
+:root {
+  --neon-blue: #7dd3fc;
+  --neon-green: #5eead4;
+  --neon-gold: #e9c46a;
+  --neon-red: #fb7185;
+  --neon-purple: #a5b4fc;
+  --bg-dark: #070b16;
+  --bg-card: rgba(12, 20, 36, 0.82);
+  --border-glow: rgba(125, 211, 252, 0.16);
+}
+
+body {
+  background:
+    radial-gradient(ellipse 75% 42% at 18% 0%, rgba(125, 211, 252, 0.055) 0%, transparent 62%),
+    radial-gradient(ellipse 65% 42% at 90% 100%, rgba(165, 180, 252, 0.045) 0%, transparent 62%),
+    linear-gradient(180deg, #070b16 0%, #080f1f 50%, #060914 100%);
+}
+
+body::before,
+body::after {
+  opacity: 0.28;
+}
+
+.main-content {
+  padding-top: 30px;
+}
+
+.card {
+  background: rgba(12, 20, 36, 0.80);
+  border-color: rgba(125, 211, 252, 0.15);
+  border-radius: 18px;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.20);
+}
+
+.card::before {
+  opacity: 0.28;
+}
+
+.card:hover {
+  border-color: rgba(125, 211, 252, 0.24);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.24);
+}
+
+.section-label {
+  color: #93c5fd;
+  opacity: 0.78;
+  letter-spacing: 2px;
+  line-height: 1.2;
+}
+
+.font-orbitron {
+  letter-spacing: 0.015em;
+}
+
+.neon-blue { color: #7dd3fc; }
+.neon-green { color: #5eead4; }
+.neon-gold { color: #e9c46a; }
+.neon-red { color: #fb7185; }
+.neon-purple { color: #a5b4fc; }
+
+.btn-glow,
+.btn-primary,
+.btn-gold,
+.btn-ghost {
+  border-radius: 12px;
+  letter-spacing: 0.02em;
+}
+
+.btn-glow,
+.btn-primary {
+  background: rgba(125, 211, 252, 0.10);
+  border-color: rgba(125, 211, 252, 0.26);
+  color: #bae6fd;
+}
+
+.btn-glow:hover,
+.btn-primary:hover {
+  background: rgba(125, 211, 252, 0.14);
+  border-color: rgba(125, 211, 252, 0.36);
+}
+
+.btn-gold {
+  background: rgba(233, 196, 106, 0.10);
+  border-color: rgba(233, 196, 106, 0.30);
+  color: #e9c46a;
+}
+
+.btn-gold:hover {
+  background: rgba(233, 196, 106, 0.14);
+  border-color: rgba(233, 196, 106, 0.40);
+}
+
+.badge {
+  padding: 3px 10px;
+  font-size: 0.68rem;
+}
+
+.sidebar-shell {
+  background: rgba(8, 14, 28, 0.94);
+  border-right-color: rgba(125, 211, 252, 0.12);
+}
+
+.nav-item {
+  min-height: 42px;
+  color: #7f91aa;
+}
+
+.nav-item:hover,
+.nav-item.active {
+  color: #bae6fd;
+  border-left-color: rgba(125, 211, 252, 0.65);
+}
+
+.nav-item.active {
+  background: rgba(125, 211, 252, 0.075);
+}
+
+.xp-bar-wrap,
+.progress-bar {
+  height: 8px;
+  border-color: rgba(125, 211, 252, 0.14);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.xp-bar-fill,
+.progress-bar-fill {
+  background: linear-gradient(90deg, #7dd3fc, #5eead4);
+}
+
+.check-item {
+  align-items: flex-start;
+  padding: 11px 12px;
+  line-height: 1.35;
+}
+
+.check-box {
+  margin-top: 1px;
+  border-color: rgba(125, 211, 252, 0.32);
+}
+
+.rank-badge {
+  padding: 14px;
+  border-color: rgba(233, 196, 106, 0.22);
+  background: rgba(233, 196, 106, 0.055);
+}
+
+.mission-priority {
+  right: 18px;
+  padding: 5px 16px;
+  border-radius: 0 0 12px 12px;
+  background: rgba(251, 113, 133, 0.18) !important;
+  color: #fecdd3 !important;
+}
+
+@media (min-width: 1025px) {
+  .main-content {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-content {
+    padding-top: 76px;
+  }
+
+  .section-label {
+    letter-spacing: 1.4px;
+  }
+}
