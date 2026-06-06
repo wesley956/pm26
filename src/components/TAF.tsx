@@ -770,64 +770,139 @@ function breathLabel(value: TafRecord['breath']) {
 }
 
 function StickmanDemo({ type }: { type: DemoType }) {
-  const animatedArms = type === 'jump-rope' || type === 'shoulder-press' || type === 'bent-row' || type === 'floor-press';
-  const animatedLegs = type === 'jump-rope' || type === 'goblet-squat' || type === 'romanian-deadlift' || type === 'glute-bridge' || type === 'calf-raise' || type === 'straight-leg';
+  const demoMap: Partial<Record<DemoType, {
+    title: string;
+    goal: string;
+    steps: [string, string, string];
+    alert: string;
+  }>> = {
+    'jump-rope': {
+      title: 'Corda',
+      goal: 'Fôlego, coordenação e resistência.',
+      steps: ['Salto baixo', 'Punhos giram a corda', 'Pouso leve no chão'],
+      alert: 'Se o joelho ficar estranho, reduza ou pare a corda.',
+    },
+    'bent-row': {
+      title: 'Remada curvada',
+      goal: 'Costas fortes e postura.',
+      steps: ['Quadril para trás', 'Coluna reta', 'Puxe a barra à barriga'],
+      alert: 'Não arredonde a lombar e não puxe no tranco.',
+    },
+    'shoulder-press': {
+      title: 'Desenvolvimento',
+      goal: 'Ombros, tríceps e core.',
+      steps: ['Peso no peito', 'Abdômen firme', 'Empurre sem arquear'],
+      alert: 'Se precisar jogar a lombar para trás, o peso está alto.',
+    },
+    'floor-press': {
+      title: 'Supino no chão',
+      goal: 'Peito e tríceps para melhorar flexão.',
+      steps: ['Deite firme', 'Cotovelos controlados', 'Empurre e desça devagar'],
+      alert: 'Não bata o cotovelo no chão.',
+    },
+    'romanian-deadlift': {
+      title: 'Terra romeno',
+      goal: 'Posterior, glúteos e proteção do joelho.',
+      steps: ['Barra perto do corpo', 'Quadril para trás', 'Suba com glúteos'],
+      alert: 'Coluna reta sempre. Não transforme em agachamento.',
+    },
+    'goblet-squat': {
+      title: 'Agachamento curto',
+      goal: 'Perna e core com controle.',
+      steps: ['Peso no peito', 'Desça pouco', 'Joelho alinhado ao pé'],
+      alert: 'Se o joelho reclamar, troque por ponte de glúteo.',
+    },
+    'glute-bridge': {
+      title: 'Ponte de glúteo',
+      goal: 'Glúteos e estabilidade do quadril.',
+      steps: ['Pés firmes', 'Suba o quadril', 'Contraia glúteos no topo'],
+      alert: 'Não faça força só na lombar.',
+    },
+    'plank': {
+      title: 'Prancha',
+      goal: 'Core forte para corrida, corda e flexão.',
+      steps: ['Corpo alinhado', 'Abdômen firme', 'Respire sem relaxar'],
+      alert: 'Se o quadril cair, encerre a série.',
+    },
+    'straight-leg': {
+      title: 'Elevação de perna reta',
+      goal: 'Quadríceps e joelho mais estável.',
+      steps: ['Uma perna dobrada', 'Outra perna reta', 'Suba e desça devagar'],
+      alert: 'Movimento controlado, sem chute.',
+    },
+    'calf-raise': {
+      title: 'Panturrilha',
+      goal: 'Base para corda e tornozelo forte.',
+      steps: ['Pés alinhados', 'Suba na ponta', 'Desça controlando'],
+      alert: 'Não deixe o tornozelo virar para fora.',
+    },
+    'wall-sit': {
+      title: 'Wall sit curto',
+      goal: 'Resistência de quadríceps.',
+      steps: ['Costas na parede', 'Desça pouco', 'Segure sem dor'],
+      alert: 'Não desça fundo se o joelho incomodar.',
+    },
+    'dead-bug': {
+      title: 'Dead bug',
+      goal: 'Core sem forçar lombar.',
+      steps: ['Lombar estável', 'Braço e perna opostos', 'Volte controlando'],
+      alert: 'Se a lombar sair do chão, reduza o movimento.',
+    },
+    'push-up': {
+      title: 'Flexão',
+      goal: 'Peito, tríceps e prova física.',
+      steps: ['Corpo reto', 'Desça controlando', 'Suba empurrando o chão'],
+      alert: 'Não deixe o quadril cair.',
+    },
+    'step-up': {
+      title: 'Step-up baixo',
+      goal: 'Perna e equilíbrio com controle.',
+      steps: ['Degrau baixo', 'Suba alinhado', 'Desça devagar'],
+      alert: 'Só faça com joelho normal.',
+    },
+    generic: {
+      title: 'Guia do exercício',
+      goal: 'Execução limpa e segura.',
+      steps: ['Prepare a postura', 'Faça controlado', 'Pare se sentir dor ruim'],
+      alert: 'Técnica vem antes de carga.',
+    },
+  };
+
+  const demo = demoMap[type] ?? demoMap.generic!;
 
   return (
     <div className="rounded-3xl border border-white/10 bg-slate-950/70 p-4">
-      <svg viewBox="0 0 260 190" className="h-48 w-full">
-        <style>{`
-          .taf-line { stroke: currentColor; stroke-width: 7; stroke-linecap: round; fill: none; }
-          .taf-thin { stroke: currentColor; stroke-width: 4; stroke-linecap: round; fill: none; opacity: .55; }
-          .taf-head { fill: none; stroke: currentColor; stroke-width: 7; }
-          .taf-arm { transform-origin: 130px 72px; animation: ${animatedArms ? 'tafArm 1s ease-in-out infinite alternate' : 'none'}; }
-          .taf-leg { transform-origin: 130px 116px; animation: ${animatedLegs ? 'tafLeg 1s ease-in-out infinite alternate' : 'none'}; }
-          .taf-rope { opacity: ${type === 'jump-rope' ? '.75' : '0'}; animation: tafRope .75s linear infinite; transform-origin: 130px 94px; }
-          .taf-bar { opacity: ${['bent-row','shoulder-press','floor-press','romanian-deadlift','goblet-squat'].includes(type) ? '.85' : '0'}; animation: ${['shoulder-press','bent-row','floor-press','romanian-deadlift','goblet-squat'].includes(type) ? 'tafBar 1s ease-in-out infinite alternate' : 'none'}; }
-          @keyframes tafArm { from { transform: rotate(-6deg); } to { transform: rotate(10deg); } }
-          @keyframes tafLeg { from { transform: rotate(-3deg); } to { transform: rotate(5deg); } }
-          @keyframes tafRope { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-          @keyframes tafBar { from { transform: translateY(8px); } to { transform: translateY(-8px); } }
-        `}</style>
+      <div className="rounded-3xl border border-gold-500/20 bg-gradient-to-br from-gold-500/15 via-white/[0.03] to-pm-500/10 p-4">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[0.22em] text-gold-400">Guia visual rápido</p>
+            <h3 className="mt-1 text-2xl font-black text-white">{demo.title}</h3>
+            <p className="mt-1 text-sm text-slate-300">{demo.goal}</p>
+          </div>
+          <div className="rounded-2xl border border-white/10 bg-black/20 px-3 py-2 text-center">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-slate-500">Técnica</p>
+            <p className="text-lg font-black text-gold-300">3 passos</p>
+          </div>
+        </div>
 
-        <g className="text-gold-300">
-          <ellipse className="taf-thin taf-rope" cx="130" cy="98" rx="82" ry="72" />
-          <circle className="taf-head" cx="130" cy="38" r="17" />
+        <div className="mt-5 grid gap-3 md:grid-cols-3">
+          {demo.steps.map((step, index) => (
+            <div key={step} className="rounded-2xl border border-white/10 bg-slate-950/60 p-4">
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-2xl bg-gold-500 text-lg font-black text-slate-950">
+                {index + 1}
+              </div>
+              <p className="text-sm font-black text-white">{step}</p>
+            </div>
+          ))}
+        </div>
 
-          <g transform={
-            type === 'plank'
-              ? 'translate(0 35) rotate(78 130 92)'
-              : type === 'glute-bridge'
-                ? 'translate(0 38) rotate(82 130 95)'
-                : type === 'dead-bug'
-                  ? 'translate(0 20) rotate(-90 130 95)'
-                  : type === 'bent-row' || type === 'romanian-deadlift'
-                    ? 'translate(0 24) rotate(28 130 85)'
-                    : ''
-          }>
-            <line className="taf-line" x1="130" y1="58" x2="130" y2="108" />
-            <g className="taf-arm">
-              <line className="taf-line" x1="130" y1="72" x2="96" y2="98" />
-              <line className="taf-line" x1="130" y1="72" x2="164" y2="98" />
-            </g>
-            <g className="taf-leg">
-              <line className="taf-line" x1="130" y1="108" x2="104" y2="150" />
-              <line className="taf-line" x1="130" y1="108" x2="156" y2="150" />
-            </g>
-          </g>
+        <div className="mt-4 rounded-2xl border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-100">
+          <strong className="text-red-300">Atenção:</strong> {demo.alert}
+        </div>
+      </div>
 
-          <g className="taf-bar text-pm-200">
-            <line className="taf-line" x1="78" y1={type === 'shoulder-press' ? '36' : '102'} x2="182" y2={type === 'shoulder-press' ? '36' : '102'} />
-            <line className="taf-thin" x1="68" y1={type === 'shoulder-press' ? '36' : '102'} x2="68" y2={type === 'shoulder-press' ? '25' : '91'} />
-            <line className="taf-thin" x1="192" y1={type === 'shoulder-press' ? '36' : '102'} x2="192" y2={type === 'shoulder-press' ? '25' : '91'} />
-          </g>
-
-          <line className="taf-thin" x1="45" y1="166" x2="215" y2="166" />
-        </g>
-      </svg>
-
-      <p className="mt-2 text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
-        Demonstração simples em stickman
+      <p className="mt-3 text-center text-xs font-bold uppercase tracking-[0.2em] text-slate-500">
+        Demonstração limpa em passos — sem animação ruim
       </p>
     </div>
   );
