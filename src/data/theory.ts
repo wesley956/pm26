@@ -356,40 +356,44 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'cg-03',
     subjectId: 'gerais',
-    title: 'República Brasileira — Troca de Sistema e Disputa de Poder',
-    missionBrief: 'Entender a República como mudança de regime e disputa política.',
-    dumbMode: 'República é um sistema em que o chefe de Estado não é rei nem imperador hereditário. No Brasil, a República começou em 1889, quando o Império acabou.',
-    analogy: 'Imagine uma guilda que deixa de obedecer a uma família real e passa a escolher líderes por outro sistema. Isso não significa que tudo ficou justo de imediato. Mudou a regra do poder, mas continuaram disputas.',
-    vunespMode: 'A banca gosta de República Velha, Era Vargas, Ditadura Militar, Redemocratização e Constituição de 1988.',
+    title: 'História do Brasil — República e Disputa de Poder',
+    missionBrief: 'Você vai entender a República brasileira como uma sequência de mudanças políticas, crises, regimes, disputas sociais e tentativas de modernização. O foco é enxergar períodos e características principais.',
+    dumbMode: 'A República começa em 1889, quando a monarquia acaba. A Primeira República teve forte poder das oligarquias estaduais, coronelismo, voto controlado e política do café com leite. Depois veio a Era Vargas, com centralização do poder, leis trabalhistas e autoritarismo no Estado Novo. Mais tarde, o Brasil passou por período democrático, regime militar e redemocratização, até a Constituição de 1988.',
+    analogy: 'Pense na República como uma troca de sistema no jogo. O nome do modo mudou, mas muitos jogadores antigos continuaram poderosos. Ao longo do tempo, novas forças entram: trabalhadores, militares, elites regionais, movimentos sociais, partidos e instituições democráticas.',
+    vunespMode: 'A Vunesp costuma cobrar Proclamação da República, República Velha, coronelismo, voto de cabresto, Era Vargas, Estado Novo, populismo, regime militar, redemocratização e Constituição de 1988. Ela gosta de perguntar características de cada período.',
     traps: [
-      'República não começou em 1822; isso foi Independência.',
-      'Era Vargas começa em 1930.',
-      'Ditadura Militar começa em 1964.',
-      'Constituição Cidadã é de 1988.'
+      'República não significou democracia plena logo no começo.',
+      'Coronelismo está ligado a poder local e controle político.',
+      'Voto de cabresto representa controle do eleitor.',
+      'Era Vargas mistura direitos trabalhistas, centralização e autoritarismo.',
+      'Regime militar não foi período democrático.',
+      'Constituição de 1988 marca redemocratização e ampliação de direitos.'
     ],
-    memoryHook: '1889 abre a República; 1988 consolida a Constituição Cidadã.',
-    finalReminder: 'Se cair República, procure qual período o enunciado está cobrando.',
-    miniMission: 'Associe: 1930 = Vargas, 1964 = regime militar, 1988 = Constituição.',
-    notUnderstood: 'Modo simples: República é outra fase do jogo político brasileiro, depois do Império.'
+    memoryHook: 'República brasileira é disputa entre poder local, Estado forte, democracia e autoritarismo.',
+    finalReminder: 'Na prova, identifique o período histórico antes de responder. Cada fase tem marcas próprias.',
+    miniMission: 'Questão de verificação: cite uma característica da República Velha, uma da Era Vargas e uma da redemocratização.',
+    notUnderstood: 'Modo simples: a República mudou o governo, mas a democracia foi construída aos poucos e com muitos conflitos.'
   },
   {
     missionId: 'cg-04',
     subjectId: 'gerais',
-    title: 'Geografia Física — O Mapa do Território',
-    missionBrief: 'Entender clima, relevo, rios e biomas como o terreno da missão.',
-    dumbMode: 'Geografia física estuda a parte natural do território: relevo, clima, vegetação, rios e biomas. É o mapa do jogo antes dos personagens entrarem.',
-    analogy: 'Em um RPG de sobrevivência, você precisa saber se está em floresta, deserto, montanha ou pântano. No Brasil, os biomas funcionam como esses cenários: Amazônia, Cerrado, Mata Atlântica, Caatinga, Pampa e Pantanal.',
-    vunespMode: 'A Vunesp cobra biomas, clima predominante, rios importantes, problemas ambientais e características gerais do território brasileiro.',
+    title: 'Geografia do Brasil — Território, Relevo, Clima e Hidrografia',
+    missionBrief: 'Você vai revisar a geografia física do Brasil: território, relevo, clima, vegetação, bacias hidrográficas e domínios naturais. A ideia é entender o mapa como um sistema vivo, não como decoreba de nomes.',
+    dumbMode: 'Geografia física estuda as características naturais do território. O Brasil é um país muito grande, com diferentes climas, vegetações, rios e formas de relevo. Relevo envolve planaltos, planícies e depressões. Clima envolve temperatura, chuva e massas de ar. Hidrografia envolve rios e bacias. Vegetação envolve formações como Amazônia, Cerrado, Caatinga, Mata Atlântica, Pantanal e Pampas.',
+    analogy: 'Imagine um mapa de RPG com biomas diferentes. Cada região tem terreno, clima, recursos e riscos. Uma floresta úmida não funciona como uma área semiárida. Um planalto não é igual a uma planície. Entender o território ajuda a entender economia, população, transporte e meio ambiente.',
+    vunespMode: 'A Vunesp costuma cobrar características gerais dos domínios naturais, clima, relevo, bacias hidrográficas, impactos ambientais e relação entre natureza e ocupação humana. A pegadinha é confundir biomas, climas e regiões.',
     traps: [
-      'Maior bioma brasileiro: Amazônia.',
-      'Mata Atlântica é muito devastada e aparece bastante em questões ambientais.',
-      'Pantanal é planície alagável.',
-      'Cerrado é importante para nascentes e agropecuária.'
+      'Amazônia não é igual a Pantanal; são domínios diferentes.',
+      'Caatinga está ligada ao semiárido.',
+      'Cerrado é importante para nascentes e expansão agropecuária.',
+      'Mata Atlântica foi muito devastada pela ocupação histórica.',
+      'Planície não é toda área baixa; envolve processos de sedimentação.',
+      'Clima e vegetação se relacionam, mas não são a mesma coisa.'
     ],
-    memoryHook: 'Bioma é o cenário natural da missão.',
-    finalReminder: 'Se cair bioma, pense no clima, vegetação e localização.',
-    miniMission: 'Liste os 6 biomas brasileiros sem olhar.',
-    notUnderstood: 'Modo simples: geografia física é estudar o mapa natural: rios, clima, vegetação e relevo.'
+    memoryHook: 'Geografia física é o cenário natural da missão.',
+    finalReminder: 'Na prova, ligue relevo, clima, água e vegetação. Um elemento ajuda a explicar o outro.',
+    miniMission: 'Questão de verificação: escolha Amazônia, Cerrado ou Caatinga e diga clima, vegetação e um problema ambiental associado.',
+    notUnderstood: 'Modo simples: geografia física é estudar o terreno, o clima, os rios e a vegetação do Brasil.'
   },
   {
     missionId: 'cg-07',
