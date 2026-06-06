@@ -1751,3 +1751,14 @@ body {
     bottom: 84px;
   }
 }
+
+/* Pomodoro presets extras: 5, 10, 15, 25 e 40 minutos */
+.focus-preset-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 560px) {
+  .focus-preset-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

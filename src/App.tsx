@@ -170,6 +170,13 @@ function AppContent() {
               </button>
 
               <button
+                onClick={() => { setPomodoroTime(10 * 60); setPomodoroRunning(false); }}
+                className={`focus-preset ${pomodoroTime === 10 * 60 ? 'focus-preset-active' : ''}`}
+              >
+                10 min<br />foco rápido
+              </button>
+
+              <button
                 onClick={() => { setPomodoroTime(15 * 60); setPomodoroRunning(false); }}
                 className={`focus-preset ${pomodoroTime === 15 * 60 ? 'focus-preset-active' : ''}`}
               >
@@ -181,6 +188,13 @@ function AppContent() {
                 className={`focus-preset ${pomodoroTime === 25 * 60 ? 'focus-preset-active' : ''}`}
               >
                 25 min<br />foco
+              </button>
+
+              <button
+                onClick={() => { setPomodoroTime(40 * 60); setPomodoroRunning(false); }}
+                className={`focus-preset ${pomodoroTime === 40 * 60 ? 'focus-preset-active' : ''}`}
+              >
+                40 min<br />bloco forte
               </button>
             </div>
           </div>

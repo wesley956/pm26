@@ -53,6 +53,7 @@ const navGroups = [
 export default function Layout({ children, activeTab, onNavigate }: LayoutProps) {
   const { profile, setBadDayMode } = useApp();
   const info = getLevelInfo(profile);
+  const avatarInitial = (profile.name?.trim()?.[0] ?? 'R').toUpperCase();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleNavigate = (id: string) => {
@@ -86,9 +87,7 @@ export default function Layout({ children, activeTab, onNavigate }: LayoutProps)
       <div className="mx-3 mb-2 mt-4 rounded-xl border border-cyan-400/10 bg-cyan-400/[0.04] p-3">
         <div className="flex items-center gap-3">
           <div className="relative">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-400/40 bg-gradient-to-br from-[#1e3a5f] to-[#0a1f3f] text-lg font-black text-white">
-              R
-            </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-400/40 bg-gradient-to-br from-[#1e3a5f] to-[#0a1f3f] text-lg font-black text-white">{avatarInitial}</div>
             <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#020818] bg-success shadow-[0_0_8px_#00ff88]" />
           </div>
 
@@ -155,7 +154,7 @@ export default function Layout({ children, activeTab, onNavigate }: LayoutProps)
   return (
     <div>
       <div className="pointer-events-none fixed inset-0 z-0">
-        {Array.from({ length: 55 }).map((_, i) => (
+        {Array.from({ length: 22 }).map((_, i) => (
           <span
             key={i}
             className="star"
@@ -168,7 +167,7 @@ export default function Layout({ children, activeTab, onNavigate }: LayoutProps)
           />
         ))}
 
-        {Array.from({ length: 16 }).map((_, i) => (
+        {Array.from({ length: 6 }).map((_, i) => (
           <span
             key={`p-${i}`}
             className="particle"
@@ -204,9 +203,7 @@ export default function Layout({ children, activeTab, onNavigate }: LayoutProps)
 
         <div className="sidebar-logo text-sm">PM-SP 2026</div>
 
-        <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-400/40 bg-gradient-to-br from-[#1e3a5f] to-[#0a1f3f] text-sm font-black text-white">
-          R
-        </div>
+        <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-400/40 bg-gradient-to-br from-[#1e3a5f] to-[#0a1f3f] text-sm font-black text-white">{avatarInitial}</div>
       </header>
 
       <main className="main-content relative z-10">
