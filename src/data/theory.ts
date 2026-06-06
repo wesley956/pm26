@@ -398,21 +398,23 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'cg-07',
     subjectId: 'gerais',
-    title: 'Constituição Federal — O Código Supremo do Reino',
-    missionBrief: 'Entender direitos e garantias fundamentais sem linguagem jurídica pesada.',
-    dumbMode: 'A Constituição é a lei mais importante do país. Ela organiza o Estado e protege direitos básicos, como vida, liberdade, igualdade, segurança e propriedade.',
-    analogy: 'Pense na Constituição como o grimório principal de um reino. Nenhuma regra menor pode contrariar esse livro. Se uma ordem menor vai contra o grimório, ela perde força.',
-    vunespMode: 'A banca cobra muito o art. 5º, direitos fundamentais, igualdade, liberdade, habeas corpus, mandado de segurança e art. 144 sobre segurança pública.',
+    title: 'Constituição Federal — Direitos e Garantias Fundamentais',
+    missionBrief: 'Você vai entender direitos e garantias fundamentais como proteção básica da pessoa diante do Estado e da sociedade. Esse tema é central para concurso policial porque define limites, deveres e proteção da dignidade humana.',
+    dumbMode: 'A Constituição Federal é a lei mais importante do país. Direitos fundamentais protegem a vida, liberdade, igualdade, segurança, propriedade, intimidade, crença, expressão, devido processo legal e outros valores essenciais. Garantias são instrumentos que ajudam a proteger esses direitos. Para a atividade policial, isso importa porque autoridade pública deve agir com legalidade, respeito à dignidade e proporcionalidade.',
+    analogy: 'Pense na Constituição como o código supremo do reino. Nem o guerreiro mais forte pode agir fora dele. A missão da polícia não é só combater o crime; é proteger pessoas e cumprir a lei sem violar o código maior.',
+    vunespMode: 'A Vunesp costuma cobrar art. 5º, igualdade, legalidade, liberdade de expressão, inviolabilidade de domicílio, prisão, devido processo legal, contraditório, ampla defesa e direitos ligados à cidadania. A banca gosta de situações práticas envolvendo limites da atuação estatal.',
     traps: [
-      'Habeas corpus protege liberdade de locomoção.',
-      'Mandado de segurança protege direito líquido e certo.',
-      'Todos são iguais perante a lei.',
-      'Segurança pública é dever do Estado e responsabilidade de todos.'
+      'Direito fundamental não é autorização para agir sem limite.',
+      'Domicílio tem proteção constitucional, com exceções previstas.',
+      'Ninguém será obrigado a fazer ou deixar de fazer algo senão em virtude de lei.',
+      'Devido processo legal, contraditório e ampla defesa são garantias importantes.',
+      'Igualdade não significa tratar situações diferentes sempre do mesmo jeito.',
+      'Atuação policial deve respeitar legalidade, necessidade e proporcionalidade.'
     ],
-    memoryHook: 'Constituição é a regra máxima: todo o resto obedece.',
-    finalReminder: 'Se cair direito fundamental, pense em proteção contra abuso e garantia do cidadão.',
-    miniMission: 'Explique em uma frase para que serve o habeas corpus.',
-    notUnderstood: 'Modo simples: a Constituição é o manual principal do Brasil. Ela diz como o Estado funciona e quais direitos não podem ser ignorados.'
+    memoryHook: 'Constituição é o código supremo: até o Estado obedece.',
+    finalReminder: 'Na prova, quando houver ação do Estado contra pessoa, pergunte qual direito ou garantia está em jogo.',
+    miniMission: 'Questão de verificação: explique por que a polícia deve combater crimes sem desrespeitar direitos fundamentais.',
+    notUnderstood: 'Modo simples: direitos fundamentais são proteções básicas que nem o Estado pode ignorar.'
   },
   {
     missionId: 'cg-10',
@@ -919,22 +921,23 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'cg-08',
     subjectId: 'gerais',
-    title: 'Organização do Estado — Quem Manda em Qual Missão',
-    missionBrief: 'Entender União, Estados, DF, Municípios e os três Poderes.',
-    dumbMode: 'O Brasil é uma Federação. Isso significa que União, Estados, Distrito Federal e Municípios têm autonomia dentro das regras da Constituição. Além disso, o poder se divide em Legislativo, Executivo e Judiciário.',
-    analogy: 'Imagine uma aliança de reinos. Existe o comando central, mas cada território tem responsabilidades próprias. Para não virar tirania, as funções são divididas entre criar leis, administrar e julgar.',
-    vunespMode: 'A banca cobra entes federativos, autonomia, três Poderes, funções típicas e organização básica do Estado brasileiro.',
+    title: 'Organização do Estado Brasileiro — Quem Faz Qual Missão',
+    missionBrief: 'Você vai entender como o Estado brasileiro se organiza em entes federativos e Poderes. O objetivo é saber quem são União, Estados, Distrito Federal e Municípios, além das funções básicas de Legislativo, Executivo e Judiciário.',
+    dumbMode: 'O Brasil é uma federação. Isso significa que o poder é dividido entre União, Estados, Distrito Federal e Municípios. Cada um tem competências próprias. Também existe separação de Poderes: Legislativo faz leis e fiscaliza; Executivo administra e executa políticas públicas; Judiciário julga conflitos e aplica a lei aos casos concretos.',
+    analogy: 'Imagine uma grande operação com várias equipes. A União cuida de missões nacionais. Estados cuidam de missões regionais. Municípios cuidam de assuntos locais. O Legislativo escreve as regras da missão, o Executivo executa, e o Judiciário resolve conflitos quando alguém descumpre ou questiona as regras.',
+    vunespMode: 'A Vunesp cobra federação, autonomia dos entes, competências, separação de Poderes, funções típicas e atípicas, União, Estados, Municípios, Distrito Federal e organização político-administrativa. A pegadinha é confundir função de um Poder com outro.',
     traps: [
-      'União, Estados, DF e Municípios são entes federativos.',
-      'Legislativo cria leis e fiscaliza.',
+      'Federação envolve autonomia dos entes, não independência absoluta.',
+      'União, Estados, Distrito Federal e Municípios fazem parte da organização político-administrativa.',
+      'Legislativo legisla e fiscaliza.',
       'Executivo administra e executa políticas públicas.',
       'Judiciário julga conflitos.',
-      'Autonomia não significa soberania absoluta.'
+      'Um Poder pode exercer funções atípicas em situações previstas.'
     ],
-    memoryHook: 'Legislativo faz lei, Executivo executa, Judiciário julga.',
-    finalReminder: 'Se cair organização do Estado, separe ente federativo de Poder da República.',
-    miniMission: 'Classifique: Prefeitura, Governo do Estado, Congresso Nacional, Tribunal de Justiça.',
-    notUnderstood: 'Modo simples: o Brasil divide tarefas entre lugares diferentes e poderes diferentes para ninguém concentrar tudo sozinho.'
+    memoryHook: 'União, Estado e Município dividem o mapa; Poderes dividem a função.',
+    finalReminder: 'Na prova, se a pergunta for sobre quem faz o quê, separe ente federativo de Poder.',
+    miniMission: 'Questão de verificação: diga uma função do Legislativo, uma do Executivo e uma do Judiciário.',
+    notUnderstood: 'Modo simples: o Estado é dividido por território e por função. Cada parte tem uma missão.'
   },
   {
     missionId: 'cg-09',
