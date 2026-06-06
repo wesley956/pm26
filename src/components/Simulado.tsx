@@ -19,7 +19,14 @@ function calculateSimulationXp(correctAnswers: number, type: SimType | null): nu
 }
 
 function shuffleQuestions(list: Question[]): Question[] {
-  return [...list].sort(() => Math.random() - 0.5);
+  const shuffled = [...list];
+
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
 }
 
 function buildSubjectDistributedQuestions(distribution: Readonly<Partial<Record<SubjectId, number>>>): Question[] {
