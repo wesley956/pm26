@@ -186,7 +186,6 @@ function AppContent() {
           </div>
         </div>
       )}
-      )}
     </Layout>
   );
 }
