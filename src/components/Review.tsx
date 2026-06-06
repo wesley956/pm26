@@ -5,6 +5,17 @@ import { theoryLessons } from '../data/theory';
 import { useApp } from '../store';
 import { ChevronLeft, RotateCcw, CheckCircle2, XCircle, ArrowRight, Layers, Zap } from 'lucide-react';
 
+function shuffleItems<T>(list: T[]): T[] {
+  const shuffled = [...list];
+
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}
+
 export default function Review({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
   const { profile, answerQuestion, addXP, markDailyMinimumDone, updateSpacedReview } = useApp();
   const [mode, setMode] = useState<'menu' | 'wrong' | 'flashcards' | 'quick'>('menu');
@@ -47,7 +58,7 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
     });
   }, [flashcards, profile.spacedRepetition, todayIso]);
 
-  const quickQs = useMemo(() => [...questions].sort(() => Math.random() - 0.5).slice(0, 5), []);
+  const quickQs = useMemo(() => shuffleItems(questions).slice(0, 5), []);
 
   const currentCard = dueFlashcards[currentIndex];
   const currentWrongQ = wrongQs[currentIndex];
