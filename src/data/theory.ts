@@ -20,57 +20,64 @@ export const theoryLessons: TheoryLesson[] = [
     missionId: 'pt-01',
     subjectId: 'portugues',
     title: 'Interpretação de Texto — Investigação da Ideia Principal',
-    missionBrief: 'Aprender a encontrar a ideia central sem cair na alternativa bonita.',
-    dumbMode: 'Interpretar texto não é adivinhar o que o autor quis dizer na sua cabeça. É provar, pelo texto, qual alternativa está mais fiel ao que foi escrito. Pense como um investigador: sem prova, não acusa ninguém.',
-    analogy: 'Imagine uma cena em uma mansão de fantasia. Todo mundo acha que o vampiro é culpado porque ele parece suspeito. Mas o investigador só pode acusar quem deixou pista. Na Vunesp é igual: a resposta certa precisa ter pista no texto.',
-    vunespMode: 'A Vunesp costuma colocar uma alternativa bonita, inteligente e até verdadeira no mundo real, mas que não está no texto. Essa alternativa é armadilha. A correta é a que conversa diretamente com a ideia do texto.',
+    missionBrief: 'Nesta aula você vai aprender a ler como investigador: primeiro identifica o assunto, depois encontra a tese ou ideia central, depois elimina alternativas que exageram, inventam ou distorcem. O objetivo não é “sentir” a resposta; é provar a resposta com pistas do próprio texto.',
+    dumbMode: 'Interpretação é responder com base no texto, não com base na sua opinião. Faça assim: 1) leia a pergunta antes do texto para saber o que procurar; 2) leia o texto procurando a ideia principal; 3) sublinhe mentalmente palavras repetidas, conclusões e contrastes; 4) volte para as alternativas e elimine as que dizem mais do que o texto disse. Se a alternativa parece inteligente, mas não dá para provar com uma frase do texto, ela é suspeita.',
+    analogy: 'Pense como um investigador em uma cena de crime. A alternativa errada é aquele suspeito que “parece culpado”, mas não deixou pista. A alternativa certa pode até parecer simples, mas tem prova: uma frase, uma ideia repetida, um conectivo ou uma conclusão do autor. Na prova, você não prende o suspeito mais bonito; você prende quem as evidências apontam.',
+    vunespMode: 'A Vunesp gosta de cobrar compreensão global, inferência permitida e sentido de palavras no contexto. Ela costuma colocar uma alternativa verdadeira no mundo real, mas ausente no texto; uma alternativa exagerada com “sempre”, “nunca”, “todos”; e uma alternativa quase certa que troca uma palavra e muda o sentido. A estratégia é perguntar: “onde o texto autoriza isso?” Se você não consegue apontar a prova, elimine.',
     traps: [
-      'Alternativas com sempre, nunca, todos, apenas e somente costumam exagerar.',
-      'Alternativa bonita, mas sem prova no texto, deve ser eliminada.',
-      'Não responda pelo que você acha do assunto; responda pelo que o texto permite concluir.'
+      'Confundir assunto com ideia principal. Assunto é o tema; ideia principal é o que o autor afirma sobre o tema.',
+      'Marcar alternativa baseada na sua opinião pessoal.',
+      'Aceitar alternativa bonita, mas sem prova no texto.',
+      'Cair em exageros como sempre, nunca, todos, somente, exclusivamente.',
+      'Ignorar conectivos como porém, portanto, embora, pois; eles mudam a direção da ideia.',
+      'Confundir inferência com invenção. Inferência precisa nascer do texto.'
     ],
     memoryHook: 'Texto é cena de crime: resposta certa precisa de evidência.',
-    finalReminder: 'Se cair na prova, pergunte: qual alternativa eu consigo provar com uma frase do texto?',
-    miniMission: 'Leia uma questão de interpretação e risque mentalmente as alternativas que exageram ou inventam informação.',
-    notUnderstood: 'Pensa assim: o texto é o chefe da ocorrência. Você não manda na resposta; você obedece ao que ele mostrou.'
+    finalReminder: 'Na prova, faça a pergunta de ouro: “qual trecho prova essa alternativa?” Se não houver prova, não marque.',
+    miniMission: 'Questão de verificação: pegue uma questão de interpretação e, antes de marcar, escreva mentalmente: assunto do texto, ideia principal e trecho que prova a resposta. Só depois responda.',
+    notUnderstood: 'Modo mais simples: o texto manda. Você obedece. Não escolha a resposta que você acha bonita; escolha a que o texto deixou provar.'
   },
   {
     missionId: 'pt-03',
     subjectId: 'portugues',
     title: 'Coesão e Coerência — O Fio Mágico do Texto',
-    missionBrief: 'Entender como as frases se conectam e como o texto mantém sentido.',
-    dumbMode: 'Coesão é a cola do texto. São palavras que ligam uma parte na outra: pronomes, conectivos e repetições controladas. Coerência é o sentido geral. Um texto coerente não se contradiz.',
-    analogy: 'Pense em uma party de RPG. Cada personagem tem uma função, mas todos precisam seguir a mesma missão. Se o mago vai para o norte, o guerreiro para o sul e ninguém sabe o objetivo, a missão fica sem coerência. Os conectivos são as ordens que mantêm o grupo unido.',
-    vunespMode: 'A banca cobra muito o sentido dos conectivos. Ela pergunta se uma palavra indica oposição, conclusão, causa, explicação, concessão ou adição.',
+    missionBrief: 'Nesta aula você vai entender como um texto fica unido. Coesão é a ligação visível entre partes: pronomes, conectivos, substituições, repetições controladas. Coerência é o sentido global: as ideias não podem se contradizer e precisam caminhar para o mesmo objetivo.',
+    dumbMode: 'Coesão é a cola. Coerência é o sentido. Um texto pode ter palavras bem conectadas e ainda ser incoerente se as ideias brigam entre si. Para resolver questão, observe quem os pronomes retomam, que sentido o conectivo cria e se a frase nova combina com a anterior. Palavras como “mas”, “portanto”, “porque”, “embora” e “além disso” são placas de trânsito: elas mostram se a ideia vira, conclui, explica, concede ou soma.',
+    analogy: 'Imagine uma equipe em missão. Cada membro precisa saber quem está protegendo quem, para onde vai e qual é o objetivo. Os pronomes são como códigos de rádio: “ele”, “isso”, “essa medida” precisam apontar para algo certo. Os conectivos são ordens do comandante: “porém” muda a rota, “portanto” conclui, “porque” explica, “além disso” reforça.',
+    vunespMode: 'A Vunesp cobra muito substituição de termos, valor semântico de conectivos e manutenção de sentido. Ela pode perguntar se trocar “porém” por “portanto” mantém o sentido. Quase sempre a resposta depende da relação lógica entre as ideias: oposição, causa, consequência, explicação, conclusão, condição, concessão ou adição.',
     traps: [
-      'Mas, porém, contudo e entretanto indicam oposição.',
-      'Portanto, logo, assim e por isso indicam conclusão.',
-      'Porque, pois e uma vez que podem indicar causa ou explicação.',
-      'Embora e ainda que indicam concessão: algo contrário, mas que não impede a ideia principal.'
+      'Trocar conectivo só porque fica bonito. É preciso manter o mesmo sentido lógico.',
+      'Confundir causa com consequência. “Porque” explica causa; “portanto” indica conclusão/consequência.',
+      'Confundir oposição com concessão. “Mas” opõe; “embora” admite algo que não impede a ideia principal.',
+      'Errar o referente do pronome. Pergunte: esse “ele/isso/essa” retoma o quê?',
+      'Achar que repetição sempre é erro. Às vezes repetir evita ambiguidade.',
+      'Ignorar contradições internas do texto. Coerência exige compatibilidade entre ideias.'
     ],
-    memoryHook: 'Conectivo é placa de trânsito do texto: ele mostra para onde a ideia vai.',
-    finalReminder: 'Se cair na prova, olhe para a palavra de ligação e pergunte: ela vira, conclui, explica ou soma?',
-    miniMission: 'Pegue 5 conectivos das questões e classifique como oposição, conclusão, causa, concessão ou adição.',
-    notUnderstood: 'Modo simples: coesão é quando uma frase segura na mão da outra. Coerência é quando todas caminham para o mesmo lugar.'
+    memoryHook: 'Conectivo é placa de trânsito: ele mostra para onde a ideia vai.',
+    finalReminder: 'Na prova, não decore lista solta. Leia a frase anterior e a seguinte e pergunte qual relação nasceu entre elas.',
+    miniMission: 'Questão de verificação: classifique estes conectivos: mas, portanto, porque, embora, além disso. Depois crie uma frase curta para cada um.',
+    notUnderstood: 'Modo simples: coesão é uma frase segurando a mão da outra. Coerência é todo mundo caminhando para o mesmo lugar.'
   },
   {
     missionId: 'pt-05',
     subjectId: 'portugues',
     title: 'Concordância — A Hierarquia da Frase',
-    missionBrief: 'Aprender quem manda no verbo e nos nomes dentro da frase.',
-    dumbMode: 'Concordância é fazer as palavras combinarem. Na concordância verbal, o sujeito manda no verbo. Na concordância nominal, o substantivo manda no adjetivo, artigo e pronome.',
-    analogy: 'Pense em uma equipe policial. O comandante dá a ordem e a equipe acompanha. Na frase, o sujeito é o comandante do verbo. Se o sujeito está no plural, normalmente o verbo vai para o plural.',
-    vunespMode: 'A Vunesp gosta de frases com sujeito longe do verbo, verbo haver, verbo fazer indicando tempo e expressões como mais de um, a maioria de e grande parte de.',
+    missionBrief: 'Você vai aprender a descobrir quem manda no verbo e nos nomes. Concordância verbal é a relação entre sujeito e verbo. Concordância nominal é a relação entre substantivo e seus acompanhantes: artigo, adjetivo, numeral e pronome.',
+    dumbMode: 'A regra principal é simples: ache o núcleo. Na concordância verbal, o núcleo do sujeito manda no verbo. Em “os candidatos estudam”, o núcleo é “candidatos”, plural; então o verbo vai para o plural. Na concordância nominal, o substantivo manda nos termos que dependem dele. Em “as provas difíceis”, artigo e adjetivo acompanham “provas”. Antes de decorar exceção, treine achar o núcleo.',
+    analogy: 'Pense numa equipe policial. O comandante dá a ordem e o grupo acompanha. Na frase, o sujeito é o comandante do verbo. Se você confunde o comandante com alguém que só está perto, erra a ordem. Em “a lista de aprovados saiu”, o núcleo é “lista”, não “aprovados”; por isso o verbo fica no singular.',
+    vunespMode: 'A Vunesp gosta de afastar sujeito e verbo, colocar expressão no meio e usar verbos impessoais. Cuidado com “haver” no sentido de existir, “fazer” indicando tempo, sujeito composto, expressões partitivas como “a maioria de”, e núcleos no singular acompanhados de termos no plural.',
     traps: [
+      'Sujeito longe do verbo. Volte e ache o núcleo real.',
+      'Termo no plural perto do verbo enganando você: “a lista de candidatos chegou”.',
       'Haver no sentido de existir fica no singular: houve problemas.',
       'Fazer indicando tempo fica no singular: faz dois anos.',
       'Existir não é impessoal: existem problemas.',
-      'Mais de um normalmente pede singular: mais de um candidato chegou.'
+      'A maioria de pode admitir singular ou plural conforme o foco, mas a banca costuma explorar o núcleo da expressão.'
     ],
     memoryHook: 'Ache o comandante da frase antes de mexer no verbo.',
-    finalReminder: 'Se cair na prova, encontre o sujeito e veja se o verbo obedeceu.',
-    miniMission: 'Em 3 frases, sublinhe o sujeito e circule o verbo antes de responder.',
-    notUnderstood: 'Não tente decorar tudo de uma vez. Primeiro descubra quem é o sujeito. Depois veja se o verbo está singular ou plural junto com ele.'
+    finalReminder: 'Na prova, faça três passos: ache o sujeito, ache o núcleo, confira se o verbo obedeceu.',
+    miniMission: 'Questão de verificação: explique por que “A maioria dos candidatos estudou” e “Existem dúvidas” estão corretas.',
+    notUnderstood: 'Modo simples: primeiro descubra quem manda. Depois veja se o verbo e os acompanhantes obedeceram esse chefe.'
   },
   {
     missionId: 'pt-07',
@@ -500,40 +507,43 @@ export const theoryLessons: TheoryLesson[] = [
     missionId: 'pt-02',
     subjectId: 'portugues',
     title: 'Tipos Textuais — Identificando o Monstro pelo Rastro',
-    missionBrief: 'Diferenciar narração, descrição e dissertação sem decorar conceito seco.',
-    dumbMode: 'Tipo textual é o jeito que o texto funciona. Narração conta acontecimentos. Descrição mostra características. Dissertação defende ideia ou explica um tema.',
-    analogy: 'Imagine uma investigação sobrenatural. Se o texto conta uma perseguição, é narração. Se descreve a criatura, é descrição. Se explica por que ela ameaça a cidade, é dissertação.',
-    vunespMode: 'A Vunesp costuma cobrar a finalidade do texto: narrar, descrever, explicar, informar, convencer ou defender ponto de vista.',
+    missionBrief: 'Você vai aprender a reconhecer o tipo textual pela função dominante. Narração mostra acontecimentos; descrição mostra características; dissertação explica ou defende ideia; injunção orienta o leitor; exposição informa. A Vunesp não quer decoreba: ela quer que você perceba o que o texto está fazendo.',
+    dumbMode: 'Tipo textual é o “modo de funcionamento” do texto. Se o texto conta uma sequência de fatos, com ação, tempo e personagens, é narração. Se ele para a câmera e mostra detalhes de uma pessoa, lugar ou objeto, é descrição. Se ele discute uma ideia, explica um problema ou tenta convencer, é dissertação. Se ele manda fazer algo, dá instrução ou comando, é injunção. Se ele só apresenta informação de forma neutra, é exposição.',
+    analogy: 'Pense em um anime de investigação. Quando a cena mostra o herói correndo, lutando e descobrindo pistas, é narração. Quando descreve a mansão escura, o cheiro, a roupa do suspeito e o clima, é descrição. Quando o personagem explica por que o vilão representa perigo para a cidade, é dissertação. Quando o manual ensina como selar o portal, é injunção.',
+    vunespMode: 'A banca costuma perguntar finalidade, predominância ou característica do texto. Um texto pode misturar tipos: pode ter descrição dentro de uma narração ou exemplo narrativo dentro de uma dissertação. O que importa é o tipo predominante. Pergunte: “o objetivo principal é contar, mostrar, explicar, convencer ou orientar?”',
     traps: [
-      'Narração tem ação, tempo, personagem e acontecimento.',
-      'Descrição tem características e detalhes.',
-      'Dissertação trabalha ideia, argumento e conclusão.',
-      'Texto argumentativo tenta convencer.'
+      'Achar que todo texto com personagem é narração. Pode haver personagem em texto dissertativo como exemplo.',
+      'Confundir descrição com narração. Descrição mostra estado; narração mostra acontecimento.',
+      'Confundir dissertação expositiva com argumentativa. Expositiva explica; argumentativa defende tese.',
+      'Ignorar comandos. Verbos no imperativo podem indicar injunção.',
+      'Marcar tipo textual por uma frase isolada em vez da finalidade predominante.',
+      'Achar que notícia é sempre narração. Muitas notícias misturam exposição, narração e descrição.'
     ],
-    memoryHook: 'Narra ação. Descreve aparência. Disserta ideia.',
-    finalReminder: 'Se cair na prova, pergunte: esse texto conta, mostra ou defende?',
-    miniMission: 'Pegue 3 textos curtos e classifique: narração, descrição ou dissertação.',
-    notUnderstood: 'Modo simples: narração é filme acontecendo; descrição é foto detalhada; dissertação é debate.'
+    memoryHook: 'Narra ação. Descreve aparência. Disserta ideia. Instrui comando.',
+    finalReminder: 'Se cair na prova, descubra o verbo invisível do texto: contar, mostrar, explicar, defender ou orientar.',
+    miniMission: 'Questão de verificação: leia 5 linhas de qualquer texto e diga: há ação? há descrição? há tese? há comando? Depois escolha o tipo predominante.',
+    notUnderstood: 'Modo simples: narração é filme acontecendo; descrição é foto detalhada; dissertação é debate; injunção é manual de instruções.'
   },
   {
     missionId: 'pt-04',
     subjectId: 'portugues',
     title: 'Classes de Palavras — A Guilda da Gramática',
-    missionBrief: 'Entender a função das palavras dentro da frase.',
-    dumbMode: 'Classe de palavra é o papel que uma palavra faz. Substantivo nomeia. Adjetivo caracteriza. Verbo indica ação, estado ou fenômeno. Advérbio modifica verbo, adjetivo ou outro advérbio.',
-    analogy: 'Pense em uma guilda de RPG: o guerreiro ataca, o curandeiro cura, o mago lança feitiço. Na frase, cada palavra também tem uma função.',
-    vunespMode: 'A Vunesp cobra identificação de classes, principalmente substantivo, adjetivo, verbo, advérbio, pronome, preposição e conjunção.',
+    missionBrief: 'Você vai aprender a identificar a classe pela função na frase, não pela palavra isolada. A mesma palavra pode mudar de classe dependendo do uso. Por isso, primeiro olhe o papel que ela exerce: nomeia, caracteriza, indica ação, modifica, liga, substitui ou determina.',
+    dumbMode: 'Classe de palavra é o cargo da palavra dentro da frase. Substantivo nomeia seres, coisas, ideias e sentimentos. Adjetivo caracteriza substantivo. Verbo indica ação, estado ou fenômeno. Advérbio modifica verbo, adjetivo ou outro advérbio. Pronome substitui ou acompanha nome. Artigo determina substantivo. Preposição liga termos. Conjunção liga ideias ou orações. Interjeição expressa emoção.',
+    analogy: 'Pense numa guilda de RPG. O guerreiro ataca, o curandeiro cura, o arqueiro acerta de longe e o mago altera o campo. Na frase é igual: cada palavra tem função. Mas cuidado: um personagem pode trocar de papel. Em “o bonito venceu”, “bonito” virou substantivo. Em “homem bonito”, “bonito” é adjetivo.',
+    vunespMode: 'A Vunesp gosta de perguntar a classe de uma palavra destacada no contexto. Ela pode usar substantivação, locuções, pronomes relativos, advérbios terminados em -mente e palavras que mudam de classe. O segredo é perguntar: “essa palavra está fazendo o quê aqui?”',
     traps: [
-      'A mesma palavra pode mudar de classe conforme o uso.',
-      'Adjetivo caracteriza substantivo.',
-      'Advérbio geralmente modifica verbo.',
-      'Preposição liga termos: de, com, para, em, a.',
-      'Conjunção liga orações ou ideias.'
+      'Analisar palavra isolada. Classe depende do uso na frase.',
+      'Achar que toda palavra antes de substantivo é adjetivo. Pode ser artigo, pronome ou numeral.',
+      'Confundir advérbio com adjetivo. Adjetivo caracteriza substantivo; advérbio modifica verbo/adjetivo/outro advérbio.',
+      'Confundir preposição com conjunção. Preposição liga termos; conjunção liga orações ou ideias.',
+      'Não perceber substantivação: “o estudar exige disciplina” transforma verbo em substantivo.',
+      'Ignorar locuções: “com calma” pode funcionar como advérbio.'
     ],
-    memoryHook: 'Classe é função. Pergunte o que a palavra faz na frase.',
-    finalReminder: 'Se cair na prova, não olhe a palavra isolada; olhe o papel dela na frase.',
-    miniMission: 'Na frase “O candidato estudou muito”, identifique substantivo, verbo e advérbio.',
-    notUnderstood: 'Modo simples: palavra é personagem. Para saber a classe, descubra a função dela na equipe.'
+    memoryHook: 'Classe é função. Pergunte o que a palavra faz na equipe da frase.',
+    finalReminder: 'Na prova, não responda olhando só a palavra destacada. Leia a frase inteira e descubra a função dela.',
+    miniMission: 'Questão de verificação: na frase “O candidato estudou muito para a prova difícil”, identifique artigo, substantivo, verbo, advérbio, preposição e adjetivo.',
+    notUnderstood: 'Modo simples: palavra é personagem. Para saber a classe, veja o trabalho que ela faz naquele momento.'
   },
   {
     missionId: 'pt-06',
