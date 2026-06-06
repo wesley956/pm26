@@ -22,16 +22,42 @@ function shuffleQuestions(list: Question[]): Question[] {
   return [...list].sort(() => Math.random() - 0.5);
 }
 
-function buildOfficialExamQuestions(): Question[] {
-  const distribution = EXAM_CONFIG.objectiveExam.subjects;
+function buildSubjectDistributedQuestions(distribution: Readonly<Partial<Record<SubjectId, number>>>): Question[] {
   const selected: Question[] = [];
 
-  for (const [subjectId, count] of Object.entries(distribution) as Array<[SubjectId, number]>) {
-    const subjectQuestions = questions.filter(question => question.subjectId === subjectId);
+  for (const subject of EXAM_SUBJECTS) {
+    const count = distribution[subject.id] ?? 0;
+    if (count <= 0) continue;
+
+    const subjectQuestions = questions.filter(question => question.subjectId === subject.id);
     selected.push(...shuffleQuestions(subjectQuestions).slice(0, count));
   }
 
   return shuffleQuestions(selected);
+}
+
+function buildMiniSimulationQuestions(): Question[] {
+  return buildSubjectDistributedQuestions({
+    portugues: 1,
+    matematica: 1,
+    gerais: 1,
+    informatica: 1,
+    administracao: 1,
+  });
+}
+
+function buildWeeklySimulationQuestions(): Question[] {
+  return buildSubjectDistributedQuestions({
+    portugues: 5,
+    matematica: 4,
+    gerais: 4,
+    informatica: 1,
+    administracao: 1,
+  });
+}
+
+function buildOfficialExamQuestions(): Question[] {
+  return buildSubjectDistributedQuestions(EXAM_CONFIG.objectiveExam.subjects);
 }
 
 function getSimulationLabel(type: SimType): string {
@@ -54,9 +80,9 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
   const simQuestions = useMemo(() => {
     if (!simType) return [];
     if (simType === 'completo') return buildOfficialExamQuestions();
+    if (simType === 'semanal') return buildWeeklySimulationQuestions();
 
-    const count = simType === 'mini' ? 5 : 15;
-    return shuffleQuestions(questions).slice(0, count);
+    return buildMiniSimulationQuestions();
   }, [simType]);
 
   const currentQ = simQuestions[currentIndex];
@@ -139,13 +165,13 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
           <button onClick={() => startSim('mini')} className="sim-menu-card">
             <Target size={30} className="mb-4 text-pm-300" />
             <h3 className="text-2xl font-black text-white">Mini simulado</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">5 questões • cerca de 10 minutos</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">5 questões • 1 por matéria • cerca de 10 minutos</p>
           </button>
 
           <button onClick={() => startSim('semanal')} className="sim-menu-card">
             <Target size={30} className="mb-4 text-gold-400" />
             <h3 className="text-2xl font-black text-white">Simulado semanal</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">15 questões • cerca de 30 minutos</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">15 questões • proporção oficial • cerca de 30 minutos</p>
           </button>
 
           <button onClick={() => startSim('completo')} className="sim-menu-card">
