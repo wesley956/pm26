@@ -8,7 +8,7 @@ Site gamificado de estudos para o concurso PM-SP Aluno-Soldado 2026.
 - Checklist diário TDAH.
 - Modo dia ruim de 10 minutos.
 - Sistema de XP, nível, patente, medalhas e sequência.
-- Banco com 240 questões.
+- Banco com 265 questões.
 - Revisão de questões erradas.
 - Flashcards.
 - Backup/exportação/importação do progresso.
@@ -20,11 +20,11 @@ Site gamificado de estudos para o concurso PM-SP Aluno-Soldado 2026.
 ## Banco de questões
 
 Português: 100
-Matemática: 35
+Matemática: 60
 Conhecimentos Gerais: 35
 Informática: 35
 Administração Pública: 35
-Total: 240 questões
+Total: 265 questões
 
 ## Como rodar
 
