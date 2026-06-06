@@ -51,12 +51,24 @@ export default function Questions({ subjectId, topic, onNavigate }: Props) {
       ? questions.filter(q => q.subjectId === selectedSubject)
       : questions;
 
-    if (selectedTopic) {
+    if (selectedTopic && selectedTopic !== '__all__') {
       list = list.filter(q => q.topic === selectedTopic);
     }
 
     return list;
   }, [selectedSubject, selectedTopic]);
+
+  const topicOptions = useMemo(() => {
+    if (!selectedSubject) return [];
+
+    return Array.from(
+      new Set(
+        questions
+          .filter(q => q.subjectId === selectedSubject)
+          .map(q => q.topic)
+      )
+    ).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+  }, [selectedSubject]);
 
   const shuffledQuestions = useMemo(() => {
     return shuffleQuestions(filteredQuestions).slice(0, 10);
@@ -149,6 +161,89 @@ export default function Questions({ subjectId, topic, onNavigate }: Props) {
     );
   }
 
+  if (selectedSubject && !subjectId && !selectedTopic) {
+    const selectedSubjectMeta = subjects.find(s => s.id === selectedSubject);
+    const totalSubjectQuestions = questions.filter(q => q.subjectId === selectedSubject).length;
+
+    return (
+      <div className="study-wide">
+        <button
+          onClick={() => {
+            setSelectedSubject('');
+            setSelectedTopic('');
+            sessionStorage.removeItem('pm-sp-topic-filter');
+          }}
+          className="study-back"
+        >
+          <ChevronLeft size={16} /> Escolher matéria
+        </button>
+
+        <div className="mb-6">
+          <p className="section-label mb-2">Treino por tópico</p>
+          <h1 className="font-[Rajdhani,sans-serif] text-4xl font-black text-white">
+            {selectedSubjectMeta?.icon} {selectedSubjectMeta?.name}
+          </h1>
+          <p className="study-subtitle mt-2">
+            Escolha um ponto específico para atacar ou misture todos os tópicos dessa matéria.
+          </p>
+        </div>
+
+        <div className="mb-4">
+          <button
+            onClick={() => {
+              setSelectedTopic('__all__');
+              setCurrentIndex(0);
+              setSelected(null);
+              setShowResult(false);
+              setSessionCorrect(0);
+              setSessionTotal(0);
+              setSessionXp(0);
+            }}
+            className="study-card w-full text-left transition hover:-translate-y-0.5"
+          >
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-black text-white">Misturar todos os tópicos</h3>
+                <p className="mt-1 text-sm text-slate-400">{totalSubjectQuestions} questões disponíveis nessa matéria</p>
+              </div>
+              <span className="rounded-full border border-gold-500/20 bg-gold-500/10 px-3 py-1 text-xs font-bold text-gold-400">
+                recomendado
+              </span>
+            </div>
+          </button>
+        </div>
+
+        <div className="page-grid subject-grid">
+          {topicOptions.map(topicName => {
+            const topicQuestions = questions.filter(q => q.subjectId === selectedSubject && q.topic === topicName);
+            const answered = topicQuestions.filter(q => profile.completedQuestions[q.id]).length;
+
+            return (
+              <button
+                key={topicName}
+                onClick={() => {
+                  setSelectedTopic(topicName);
+                  setCurrentIndex(0);
+                  setSelected(null);
+                  setShowResult(false);
+                  setSessionCorrect(0);
+                  setSessionTotal(0);
+                  setSessionXp(0);
+                }}
+                className="study-card text-left transition hover:-translate-y-0.5"
+              >
+                <h3 className="text-lg font-black text-white">{topicName}</h3>
+                <p className="mt-1 text-sm text-slate-400">
+                  {topicQuestions.length} questões • {answered} respondidas
+                </p>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   if (isFinished || !currentQ) {
     const pct = sessionTotal > 0 ? Math.round((sessionCorrect / sessionTotal) * 100) : 0;
 
@@ -224,7 +319,7 @@ export default function Questions({ subjectId, topic, onNavigate }: Props) {
         {subject?.icon} {subject?.name} — {currentQ.topic}
       </div>
 
-      {selectedTopic && (
+      {selectedTopic && selectedTopic !== '__all__' && (
         <div className="topic-training-banner">
           <p className="text-sm">
             Treino focado em <strong className="text-gold-400">{selectedTopic}</strong>. Responda com calma e leia a explicação.
