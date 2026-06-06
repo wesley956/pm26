@@ -251,27 +251,6 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'mt-03',
     subjectId: 'matematica',
-    title: 'Porcentagem — O Radar dos 100',
-    missionBrief: 'Você vai aprender porcentagem como fração de 100. Esse assunto cai muito porque aparece em desconto, aumento, estatística, acertos, erros, salário, população, consumo e comparação de valores.',
-    dumbMode: 'Porcentagem significa por cento, ou seja, em cada 100. 20% é 20 de cada 100, que também é 20/100 ou 0,20. Para calcular 20% de 300, faça 0,20 x 300 = 60. Aumento percentual soma ao valor inicial. Desconto percentual tira do valor inicial. Se uma questão fala que algo aumentou 10%, o novo valor é 110% do valor antigo.',
-    analogy: 'Pense em uma barra de energia com 100 pontos. Se você tem 75%, está com 75 de 100. Se perdeu 20%, tirou 20 de cada 100. Se ganhou 15%, adicionou 15 de cada 100. A porcentagem transforma qualquer quantidade em uma régua de 100.',
-    vunespMode: 'A Vunesp cobra muito desconto, aumento, comparação percentual, porcentagem de porcentagem e interpretação de gráficos. A pegadinha clássica é confundir valor absoluto com percentual ou aplicar o percentual no valor errado.',
-    traps: [
-      '10% é 10/100, ou 0,10.',
-      'Aumento de 20% transforma o valor em 120% do original.',
-      'Desconto de 20% transforma o valor em 80% do original.',
-      'Porcentagem sempre depende da base usada.',
-      'Dois descontos sucessivos de 10% não equivalem a 20% direto.',
-      'Cuidado com perguntas sobre percentual de aumento versus valor aumentado.'
-    ],
-    memoryHook: 'Porcentagem é transformar tudo em régua de 100.',
-    finalReminder: 'Na prova, identifique a base: porcentagem de quê?',
-    miniMission: 'Questão de verificação: calcule 15% de 200, depois calcule um aumento de 15% sobre 200.',
-    notUnderstood: 'Modo simples: tire o símbolo de porcentagem e divida por 100. Depois multiplique pelo valor.'
-  },
-  {
-    missionId: 'mt-04',
-    subjectId: 'matematica',
     title: 'Razão e Proporção — Comparando Forças',
     missionBrief: 'Você vai entender razão como comparação entre duas grandezas e proporção como igualdade entre razões. Esse conteúdo é base para escala, velocidade média, densidade, mistura, mapas e regra de três.',
     dumbMode: 'Razão é comparação. Se há 2 policiais para 10 viaturas, a razão é 2/10, que pode simplificar para 1/5. Proporção é quando duas razões são equivalentes, como 1/2 = 2/4. Em proporção, o produto dos meios é igual ao produto dos extremos. Isso ajuda a descobrir valores desconhecidos.',
@@ -291,7 +270,7 @@ export const theoryLessons: TheoryLesson[] = [
     notUnderstood: 'Modo simples: razão é comparar uma quantidade com outra. Proporção é dizer que duas comparações são iguais.'
   },
   {
-    missionId: 'mt-05',
+    missionId: 'mt-04',
     subjectId: 'matematica',
     title: 'Regra de Três — A Ponte entre Grandezas',
     missionBrief: 'Você vai aprender a resolver problemas em que duas grandezas se relacionam. A regra de três serve para encontrar um valor desconhecido quando há proporcionalidade direta ou inversa.',
@@ -310,6 +289,27 @@ export const theoryLessons: TheoryLesson[] = [
     finalReminder: 'Na prova, pare antes da conta e pergunte: se uma grandeza aumenta, a outra aumenta ou diminui?',
     miniMission: 'Questão de verificação: 3 policiais fazem uma tarefa em 6 horas. Se forem 6 policiais no mesmo ritmo, o tempo aumenta ou diminui? Por quê?',
     notUnderstood: 'Modo simples: regra de três é descobrir o número que falta comparando duas grandezas.'
+  },
+  {
+    missionId: 'mt-05',
+    subjectId: 'matematica',
+    title: 'Porcentagem — O Radar dos 100',
+    missionBrief: 'Você vai aprender porcentagem como fração de 100. Esse assunto cai muito porque aparece em desconto, aumento, estatística, acertos, erros, salário, população, consumo e comparação de valores.',
+    dumbMode: 'Porcentagem significa por cento, ou seja, em cada 100. 20% é 20 de cada 100, que também é 20/100 ou 0,20. Para calcular 20% de 300, faça 0,20 x 300 = 60. Aumento percentual soma ao valor inicial. Desconto percentual tira do valor inicial. Se uma questão fala que algo aumentou 10%, o novo valor é 110% do valor antigo.',
+    analogy: 'Pense em uma barra de energia com 100 pontos. Se você tem 75%, está com 75 de 100. Se perdeu 20%, tirou 20 de cada 100. Se ganhou 15%, adicionou 15 de cada 100. A porcentagem transforma qualquer quantidade em uma régua de 100.',
+    vunespMode: 'A Vunesp cobra muito desconto, aumento, comparação percentual, porcentagem de porcentagem e interpretação de gráficos. A pegadinha clássica é confundir valor absoluto com percentual ou aplicar o percentual no valor errado.',
+    traps: [
+      '10% é 10/100, ou 0,10.',
+      'Aumento de 20% transforma o valor em 120% do original.',
+      'Desconto de 20% transforma o valor em 80% do original.',
+      'Porcentagem sempre depende da base usada.',
+      'Dois descontos sucessivos de 10% não equivalem a 20% direto.',
+      'Cuidado com perguntas sobre percentual de aumento versus valor aumentado.'
+    ],
+    memoryHook: 'Porcentagem é transformar tudo em régua de 100.',
+    finalReminder: 'Na prova, identifique a base: porcentagem de quê?',
+    miniMission: 'Questão de verificação: calcule 15% de 200, depois calcule um aumento de 15% sobre 200.',
+    notUnderstood: 'Modo simples: tire o símbolo de porcentagem e divida por 100. Depois multiplique pelo valor.'
   },
   {
     missionId: 'mt-06',
@@ -766,23 +766,23 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'mt-07',
     subjectId: 'matematica',
-    title: 'Média Aritmética — O Ponto de Equilíbrio',
-    missionBrief: 'Você vai entender média como distribuição equilibrada entre valores. Ela aparece em notas, salários, idades, tempo, desempenho, estatísticas e interpretação de tabelas.',
-    dumbMode: 'Média aritmética é somar todos os valores e dividir pela quantidade de valores. Se as notas foram 6, 8 e 10, a média é (6 + 8 + 10) / 3 = 8. A média não precisa ser igual a um dos valores; ela representa um ponto de equilíbrio.',
-    analogy: 'Imagine dividir suprimentos entre membros da equipe. Se um tem muito e outro tem pouco, a média mostra quanto cada um teria se tudo fosse distribuído igualmente. Ela não conta toda a história, mas dá uma visão geral.',
-    vunespMode: 'A Vunesp cobra média simples e problemas em que falta um valor. Exemplo: a média de 4 notas deve ser 7, e três notas são conhecidas. Também pode cobrar média em tabelas e gráficos.',
+    title: 'Sistema de Equações — Dois Suspeitos na Mesma Ocorrência',
+    missionBrief: 'Você vai aprender sistema de equações como uma investigação com duas incógnitas. Quando o problema tem duas informações diferentes e dois valores desconhecidos, cada equação vira uma pista para descobrir os dois números.',
+    dumbMode: 'Sistema de equações aparece quando existem duas incógnitas, geralmente x e y, e duas equações ligando essas incógnitas. Para resolver, você pode usar substituição ou adição. Na substituição, isola uma letra em uma equação e coloca na outra. Na adição, soma ou subtrai as equações para eliminar uma letra.',
+    analogy: 'Imagine uma ocorrência com dois suspeitos: X e Y. Uma testemunha diz que juntos eles somam 10. Outra diz que a diferença entre eles é 4. Sozinha, cada pista é incompleta. Juntas, elas revelam quem é quem.',
+    vunespMode: 'A Vunesp pode cobrar sistema em problemas de idade, preço, quantidade de produtos, soma e diferença entre números. O ponto mais importante é transformar o texto em duas equações antes de tentar resolver.',
     traps: [
-      'Média é soma dos valores dividida pela quantidade.',
-      'Não divida pelo valor total; divida pela quantidade de dados.',
-      'Se falta um valor, use a média desejada multiplicada pela quantidade.',
-      'A média pode ser afetada por valor muito alto ou muito baixo.',
-      'Média não é necessariamente o valor que mais aparece.',
-      'Média, moda e mediana são medidas diferentes.'
+      'Duas incógnitas normalmente precisam de duas equações.',
+      'No método da substituição, isole uma incógnita e substitua na outra equação.',
+      'No método da adição, some ou subtraia equações para eliminar uma letra.',
+      'Depois de achar uma incógnita, volte para achar a outra.',
+      'Sempre confira se os dois valores servem nas duas equações.',
+      'Cuidado com problemas de soma e diferença: eles costumam gerar sistemas simples.'
     ],
-    memoryHook: 'Média é repartir tudo igualmente.',
-    finalReminder: 'Na prova, conte quantos valores existem antes de dividir.',
-    miniMission: 'Questão de verificação: calcule a média de 5, 7, 8 e 10. Depois diga qual soma seria necessária para média 8 em 4 valores.',
-    notUnderstood: 'Modo simples: some tudo e divida pela quantidade de números.'
+    memoryHook: 'Sistema é investigação dupla: duas letras precisam de duas pistas.',
+    finalReminder: 'Na prova, monte as duas equações com calma antes de calcular.',
+    miniMission: 'Questão de verificação: resolva mentalmente o sistema x + y = 10 e x - y = 4.',
+    notUnderstood: 'Modo simples: uma equação descobre uma letra. Duas letras precisam de duas equações.'
   },
   {
     missionId: 'mt-08',
@@ -808,23 +808,23 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'mt-09',
     subjectId: 'matematica',
-    title: 'Juros Simples — Dinheiro Crescendo com o Tempo',
-    missionBrief: 'Você vai entender juros simples como acréscimo calculado sempre sobre o capital inicial. Esse assunto aparece em empréstimos, aplicações, multas, prestações e porcentagem.',
-    dumbMode: 'Juros simples seguem a fórmula J = C x i x t. J é juros, C é capital inicial, i é taxa e t é tempo. A taxa precisa estar em forma decimal. Exemplo: 5% vira 0,05. Montante é o total final: M = C + J. Se aplicar R$ 1000 a 2% ao mês por 3 meses, juros = 1000 x 0,02 x 3 = 60.',
-    analogy: 'Pense em uma dívida que recebe uma taxa fixa por mês em cima do valor inicial. É como um inimigo que causa o mesmo dano a cada turno, sempre calculado sobre a vida inicial, não sobre a vida atual.',
-    vunespMode: 'A Vunesp cobra juros simples misturado com porcentagem e tempo. A pegadinha é esquecer de converter a taxa para decimal ou usar unidade de tempo diferente da taxa, como taxa ao mês e tempo em anos.',
+    title: 'Análise Combinatória — Contando Possibilidades de Missão',
+    missionBrief: 'Você vai aprender a contar possibilidades sem listar uma por uma. A análise combinatória ajuda quando a questão pergunta quantos jeitos existem de escolher, organizar, montar ou combinar elementos.',
+    dumbMode: 'Análise combinatória é contagem inteligente. Se você tem 3 camisetas e 4 calças, pode montar 3 x 4 = 12 combinações. Isso é princípio fundamental da contagem: quando há etapas sucessivas, multiplica as possibilidades. A maior pergunta é: a ordem importa ou não importa?',
+    analogy: 'Imagine criar um personagem de RPG: 4 armaduras, 3 armas e 2 amuletos. Para saber quantas combinações existem, você não precisa listar todas. Multiplica: 4 x 3 x 2 = 24 possibilidades.',
+    vunespMode: 'A Vunesp costuma cobrar princípio fundamental da contagem, escolhas simples, combinações de roupas, senhas, caminhos, equipes e organização de elementos. Em prova básica, muitas questões resolvem só com árvore de possibilidades ou multiplicação.',
     traps: [
-      'Juros simples usam J = C x i x t.',
-      'Taxa percentual precisa virar decimal: 3% = 0,03.',
-      'Montante é capital mais juros.',
-      'Tempo e taxa precisam estar na mesma unidade.',
-      'Juros simples não recalculam juros sobre juros.',
-      'Cuidado para não confundir capital inicial com montante.'
+      'Se são etapas sucessivas, multiplique as possibilidades.',
+      'Se a ordem importa, o caso muda.',
+      'Escolher A-B é o mesmo que B-A quando a ordem não importa.',
+      'Senha geralmente depende da ordem.',
+      'Equipe geralmente não depende da ordem.',
+      'Em questão simples, desenhar uma árvore pode evitar erro.'
     ],
-    memoryHook: 'Juros simples: capital vezes taxa vezes tempo.',
-    finalReminder: 'Na prova, antes da fórmula, converta a taxa e confira a unidade do tempo.',
-    miniMission: 'Questão de verificação: calcule os juros simples de R$ 800 a 5% ao mês por 4 meses.',
-    notUnderstood: 'Modo simples: juros simples é uma taxa repetida sobre o valor inicial.'
+    memoryHook: 'Escolhas em sequência? Multiplica.',
+    finalReminder: 'Na prova, pergunte primeiro: a ordem importa?',
+    miniMission: 'Questão de verificação: você tem 3 camisetas e 4 calças. Quantos conjuntos pode montar?',
+    notUnderstood: 'Modo simples: combinatória é contar jeitos diferentes de montar uma coisa.'
   },
   {
     missionId: 'mt-10',
