@@ -95,6 +95,18 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
       return;
     }
 
+    if (action.kind === 'questions') {
+      if (action.subjectId && action.topic) {
+        sessionStorage.setItem('pm-sp-topic-filter', JSON.stringify({
+          subjectId: action.subjectId,
+          topic: action.topic,
+        }));
+      }
+
+      onNavigate('questions', { subjectId: action.subjectId, topic: action.topic });
+      return;
+    }
+
     if (action.kind === 'review') {
       onNavigate('review');
       return;

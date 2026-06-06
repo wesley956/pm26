@@ -72,7 +72,7 @@ function AppContent() {
       case 'mission':
         return <MissionView missionId={pageData.missionId} subjectId={pageData.subjectId} onNavigate={navigate} />;
       case 'questions':
-        return <Questions subjectId={pageData.subjectId} onNavigate={navigate} />;
+        return <Questions subjectId={pageData.subjectId} topic={pageData.topic} onNavigate={navigate} />;
       case 'essay':
         return <Essay onNavigate={navigate} />;
       case 'taf':
