@@ -1642,3 +1642,112 @@ body {
   color: var(--study-muted);
 }
 
+
+/* =========================================================
+   FOCUS UX 1.0 — Pomodoro confortável
+   ========================================================= */
+
+.focus-fab {
+  position: fixed;
+  right: 18px;
+  bottom: 92px;
+  z-index: 40;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  border: 1px solid rgba(216, 183, 106, 0.28);
+  background: rgba(216, 183, 106, 0.10);
+  color: var(--study-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.focus-fab:hover {
+  transform: translateY(-2px);
+  background: rgba(216, 183, 106, 0.16);
+  border-color: rgba(216, 183, 106, 0.42);
+}
+
+.focus-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(3, 7, 18, 0.72);
+  backdrop-filter: blur(10px);
+  padding: 16px;
+}
+
+.focus-modal {
+  width: min(440px, 100%);
+  border-radius: 28px;
+  border: 1px solid var(--study-border);
+  background: rgba(12, 20, 36, 0.94);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42);
+  padding: 24px;
+}
+
+.focus-clock {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(4rem, 16vw, 6.5rem);
+  line-height: 0.95;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--study-text);
+}
+
+.focus-clock-done {
+  color: var(--study-gold);
+}
+
+.focus-control {
+  width: 58px;
+  height: 58px;
+  border-radius: 20px;
+  border: 1px solid rgba(140, 205, 245, 0.18);
+  background: rgba(140, 205, 245, 0.10);
+  color: var(--study-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.focus-control-main {
+  border-color: rgba(216, 183, 106, 0.30);
+  background: rgba(216, 183, 106, 0.12);
+  color: var(--study-gold);
+}
+
+.focus-preset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.focus-preset {
+  border-radius: 14px;
+  border: 1px solid rgba(140, 205, 245, 0.12);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--study-muted);
+  padding: 10px 8px;
+  font-size: .78rem;
+  font-weight: 800;
+}
+
+.focus-preset-active {
+  border-color: rgba(216, 183, 106, 0.30);
+  background: rgba(216, 183, 106, 0.10);
+  color: var(--study-gold);
+}
+
+@media (max-width: 640px) {
+  .focus-fab {
+    right: 14px;
+    bottom: 84px;
+  }
+}

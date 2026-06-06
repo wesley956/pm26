@@ -94,63 +94,98 @@ function AppContent() {
     <Layout activeTab={getActiveTab()} onNavigate={navigate}>
       {renderPage()}
 
-      {/* Pomodoro FAB */}
+      {/* Focus Pomodoro */}
       <button
         onClick={() => setShowPomodoro(!showPomodoro)}
-        className="fixed bottom-20 right-4 z-40 w-12 h-12 rounded-full bg-pm-700 border border-pm-500 flex items-center justify-center text-gold-400 shadow-lg hover:scale-110 transition-transform"
-        title="Pomodoro Timer"
+        className="focus-fab"
+        title="Modo foco"
+        aria-label="Abrir Pomodoro"
       >
-        <Timer size={20} />
+        <Timer size={22} />
       </button>
 
-      {/* Pomodoro Modal */}
       {showPomodoro && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 animate-fade-in" onClick={() => setShowPomodoro(false)}>
-          <div className="bg-pm-800 border border-pm-600 rounded-2xl p-6 mx-4 max-w-sm w-full animate-slide-up" onClick={e => e.stopPropagation()}>
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold font-[Rajdhani,sans-serif] text-gold-400">🍅 Pomodoro</h3>
-              <button onClick={() => setShowPomodoro(false)}><X size={20} className="text-gray-400" /></button>
+        <div className="focus-modal-backdrop animate-fade-in" onClick={() => setShowPomodoro(false)}>
+          <div className="focus-modal animate-slide-up" onClick={e => e.stopPropagation()}>
+            <div className="mb-5 flex items-start justify-between gap-4">
+              <div>
+                <p className="study-kicker gold !mb-1">Modo foco</p>
+                <h3 className="text-2xl font-black text-white">Pomodoro de estudo</h3>
+                <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                  Use para fazer uma aula, uma rodada de questões ou uma revisão sem se perder.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setShowPomodoro(false)}
+                className="rounded-xl border border-white/10 bg-white/[0.03] p-2 text-slate-400 hover:text-white"
+                aria-label="Fechar Pomodoro"
+              >
+                <X size={20} />
+              </button>
             </div>
 
-            <div className="text-center">
-              <p className={`text-6xl font-bold font-mono ${pomodoroTime === 0 ? 'text-gold-400 animate-count-up' : 'text-white'}`}>
-                {pomodoroTime === 0 ? '🎉' : formatTime(pomodoroTime)}
+            <div className="rounded-3xl border border-white/10 bg-white/[0.025] p-6 text-center">
+              <p className={`focus-clock ${pomodoroTime === 0 ? 'focus-clock-done animate-count-up' : ''}`}>
+                {pomodoroTime === 0 ? '✓' : formatTime(pomodoroTime)}
               </p>
-              {pomodoroTime === 0 && <p className="text-sm text-gray-400 mt-2">Pomodoro completo! +25 XP</p>}
+
+              <p className="mt-3 text-sm leading-relaxed text-slate-400">
+                {pomodoroTime === 0
+                  ? 'Foco concluído. Você ganhou +25 XP.'
+                  : pomodoroRunning
+                    ? 'Foco ativo. Só continue até o relógio zerar.'
+                    : 'Escolha o tempo e aperte play quando estiver pronto.'}
+              </p>
             </div>
 
-            <div className="flex justify-center gap-4 mt-6">
+            <div className="mt-6 flex justify-center gap-3">
               <button
                 onClick={() => setPomodoroRunning(!pomodoroRunning)}
-                className="w-14 h-14 rounded-full flex items-center justify-center bg-pm-600 text-white hover:bg-pm-500 transition-colors"
+                className="focus-control focus-control-main"
+                aria-label={pomodoroRunning ? 'Pausar' : 'Iniciar'}
               >
-                {pomodoroRunning ? <Pause size={24} /> : <Play size={24} />}
+                {pomodoroRunning ? <Pause size={25} /> : <Play size={25} />}
               </button>
+
               <button
                 onClick={() => { setPomodoroTime(25 * 60); setPomodoroRunning(false); }}
-                className="w-14 h-14 rounded-full flex items-center justify-center bg-pm-700 text-gray-400 hover:text-white transition-colors"
+                className="focus-control"
+                aria-label="Resetar Pomodoro"
               >
-                <RotateCcw size={24} />
+                <RotateCcw size={23} />
               </button>
             </div>
 
-            <div className="mt-4 text-center text-xs text-gray-500">
-              Sessões hoje: {pomodoroSessions}
+            <div className="mt-5 text-center text-sm text-slate-500">
+              Sessões concluídas nesta abertura: <span className="font-black text-gold-400">{pomodoroSessions}</span>
             </div>
 
-            <div className="mt-3 flex gap-2">
-              <button onClick={() => { setPomodoroTime(5 * 60); setPomodoroRunning(false); }} className="flex-1 text-xs bg-pm-700 text-gray-400 py-2 rounded-lg hover:text-white">
-                5 min (pausa)
+            <div className="focus-preset-grid mt-5">
+              <button
+                onClick={() => { setPomodoroTime(5 * 60); setPomodoroRunning(false); }}
+                className={`focus-preset ${pomodoroTime === 5 * 60 ? 'focus-preset-active' : ''}`}
+              >
+                5 min<br />pausa
               </button>
-              <button onClick={() => { setPomodoroTime(15 * 60); setPomodoroRunning(false); }} className="flex-1 text-xs bg-pm-700 text-gray-400 py-2 rounded-lg hover:text-white">
-                15 min (pausa longa)
+
+              <button
+                onClick={() => { setPomodoroTime(15 * 60); setPomodoroRunning(false); }}
+                className={`focus-preset ${pomodoroTime === 15 * 60 ? 'focus-preset-active' : ''}`}
+              >
+                15 min<br />pausa longa
               </button>
-              <button onClick={() => { setPomodoroTime(25 * 60); setPomodoroRunning(false); }} className="flex-1 text-xs bg-gold-500/20 text-gold-400 py-2 rounded-lg hover:bg-gold-500/30">
-                25 min (foco)
+
+              <button
+                onClick={() => { setPomodoroTime(25 * 60); setPomodoroRunning(false); }}
+                className={`focus-preset ${pomodoroTime === 25 * 60 ? 'focus-preset-active' : ''}`}
+              >
+                25 min<br />foco
               </button>
             </div>
           </div>
         </div>
+      )}
       )}
     </Layout>
   );
