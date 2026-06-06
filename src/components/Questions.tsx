@@ -10,6 +10,17 @@ interface Props {
   onNavigate: (tab: string, data?: any) => void;
 }
 
+function shuffleQuestions<T>(list: T[]): T[] {
+  const shuffled = [...list];
+
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled;
+}
+
 export default function Questions({ subjectId, topic, onNavigate }: Props) {
   const { profile, answerQuestion, addXP } = useApp();
   const [selectedSubject, setSelectedSubject] = useState(subjectId || '');
@@ -48,7 +59,7 @@ export default function Questions({ subjectId, topic, onNavigate }: Props) {
   }, [selectedSubject, selectedTopic]);
 
   const shuffledQuestions = useMemo(() => {
-    return [...filteredQuestions].sort(() => Math.random() - 0.5).slice(0, 10);
+    return shuffleQuestions(filteredQuestions).slice(0, 10);
   }, [filteredQuestions, selectedSubject, selectedTopic]);
 
   const currentQ = shuffledQuestions[currentIndex];
