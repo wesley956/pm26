@@ -31,6 +31,7 @@ function shuffleQuestions(list: Question[]): Question[] {
 
 function buildSubjectDistributedQuestions(distribution: Readonly<Partial<Record<SubjectId, number>>>): Question[] {
   const selected: Question[] = [];
+  const targetTotal = Object.values(distribution).reduce((sum, count) => sum + (count ?? 0), 0);
 
   for (const subject of EXAM_SUBJECTS) {
     const count = distribution[subject.id] ?? 0;
@@ -40,7 +41,16 @@ function buildSubjectDistributedQuestions(distribution: Readonly<Partial<Record<
     selected.push(...shuffleQuestions(subjectQuestions).slice(0, count));
   }
 
-  return shuffleQuestions(selected);
+  if (selected.length < targetTotal) {
+    const selectedIds = new Set(selected.map(question => question.id));
+    const fallbackQuestions = shuffleQuestions(
+      questions.filter(question => !selectedIds.has(question.id))
+    ).slice(0, targetTotal - selected.length);
+
+    selected.push(...fallbackQuestions);
+  }
+
+  return shuffleQuestions(selected).slice(0, targetTotal);
 }
 
 function buildMiniSimulationQuestions(): Question[] {
