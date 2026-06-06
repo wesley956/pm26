@@ -469,7 +469,7 @@ export default function Profile({ onNavigate }: { onNavigate: (tab: string, data
         <button
           onClick={() => {
             if (confirm('Tem certeza? Todo o progresso será perdido!')) {
-              localStorage.clear();
+              localStorage.removeItem('pm-sp-arena');
               window.location.reload();
             }
           }}

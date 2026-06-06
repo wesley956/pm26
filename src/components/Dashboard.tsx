@@ -92,7 +92,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
   const wrongReviewCount = profile.wrongQuestions.length;
   const tafRecords = profile.tafRecords ?? [];
   const hasTafToday = tafRecords.some(record => String(record.date).startsWith(today));
-  const simulations = profile.simulations ?? [];
+  const simulations = profile.simulationResults ?? [];
   const lastSimulation = simulations[simulations.length - 1];
   const lastSimulationPct = lastSimulation
     ? Math.round((lastSimulation.correctAnswers / Math.max(1, lastSimulation.totalQuestions)) * 100)
