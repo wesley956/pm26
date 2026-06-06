@@ -419,21 +419,23 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'cg-10',
     subjectId: 'gerais',
-    title: 'Segurança Pública — A Missão Constitucional da PM',
-    missionBrief: 'Entender o papel da segurança pública e da Polícia Militar.',
-    dumbMode: 'Segurança pública é dever do Estado, direito e responsabilidade de todos. A Polícia Militar atua na polícia ostensiva e na preservação da ordem pública.',
-    analogy: 'Imagine uma cidade em um mundo de fantasia. A guarda da cidade patrulha as ruas, evita conflitos, responde ocorrências e mantém a ordem. Essa é a ideia da atuação ostensiva: presença visível para prevenir e agir rápido.',
-    vunespMode: 'A Vunesp cobra o art. 144 da Constituição, a função da PM, diferença entre polícia ostensiva e polícia judiciária, e a ideia de preservação da ordem pública.',
+    title: 'Segurança Pública e Direitos Humanos — Força com Legalidade',
+    missionBrief: 'Você vai entender segurança pública como dever do Estado, direito e responsabilidade de todos, conectada à preservação da ordem pública, proteção das pessoas e respeito aos direitos humanos. Para concurso policial, esse tema é essencial.',
+    dumbMode: 'Segurança pública não é agir de qualquer jeito contra o crime. Ela deve proteger a sociedade dentro da lei. A Constituição trata segurança pública como dever do Estado, direito e responsabilidade de todos. Polícias têm funções diferentes. A Polícia Militar atua no policiamento ostensivo e preservação da ordem pública. Direitos humanos não são obstáculo à polícia; são limites e princípios para que a força seja legítima.',
+    analogy: 'Pense em um cavaleiro guardião. Ele tem espada, autoridade e missão de proteger o povo. Mas se usa a espada por raiva, vingança ou abuso, deixa de ser guardião e vira ameaça. A força policial precisa existir, mas deve obedecer ao código da lei.',
+    vunespMode: 'A Vunesp pode cobrar art. 144 da Constituição, papel das instituições de segurança, policiamento ostensivo, preservação da ordem pública, cidadania, dignidade humana, uso proporcional da força, legalidade e relação entre segurança pública e direitos humanos.',
     traps: [
-      'Polícia Militar não é polícia judiciária; essa função é da Polícia Civil nos Estados.',
-      'PM faz polícia ostensiva e preservação da ordem pública.',
-      'Segurança pública não é só dever da polícia; também é responsabilidade de todos.',
-      'Ordem pública envolve tranquilidade, segurança e funcionamento normal da vida social.'
+      'Direitos humanos não defendem crime; protegem a dignidade e limitam abusos.',
+      'Segurança pública é dever do Estado, direito e responsabilidade de todos.',
+      'Polícia Militar realiza policiamento ostensivo e preservação da ordem pública.',
+      'Uso da força deve observar legalidade, necessidade e proporcionalidade.',
+      'Autoridade policial não significa autorização para abuso.',
+      'Cidadania e segurança pública podem caminhar juntas.'
     ],
-    memoryHook: 'PM aparece, previne e preserva a ordem.',
-    finalReminder: 'Se cair função da PM, marque polícia ostensiva e preservação da ordem pública.',
-    miniMission: 'Repita: PM = ostensiva + ordem pública.',
-    notUnderstood: 'Modo simples: a PM é a força visível na rua para prevenir problemas e agir quando a ordem pública é ameaçada.'
+    memoryHook: 'Polícia forte é polícia dentro da lei.',
+    finalReminder: 'Na prova, desconfie de alternativas que defendem abuso, vingança ou ação fora da legalidade.',
+    miniMission: 'Questão de verificação: explique por que direitos humanos e segurança pública não são inimigos.',
+    notUnderstood: 'Modo simples: a polícia protege a sociedade, mas precisa agir com lei, técnica e respeito à dignidade.'
   },
   {
     missionId: 'inf-01',
@@ -942,21 +944,23 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'cg-09',
     subjectId: 'gerais',
-    title: 'Meio Ambiente — Sobrevivência do Território',
-    missionBrief: 'Entender sustentabilidade, impactos ambientais e proteção dos recursos naturais.',
-    dumbMode: 'Meio ambiente envolve natureza, recursos naturais e qualidade de vida. Sustentabilidade é usar os recursos hoje sem destruir a possibilidade de uso pelas próximas gerações.',
-    analogy: 'Imagine uma campanha de sobrevivência. Se o grupo cortar toda a floresta, sujar a água e gastar toda a comida, vence um dia e perde a guerra. Sustentabilidade é sobreviver hoje sem condenar amanhã.',
-    vunespMode: 'A banca cobra desmatamento, queimadas, poluição, mudanças climáticas, sustentabilidade, recursos hídricos, biomas e cidadania ambiental.',
+    title: 'Meio Ambiente e Sustentabilidade — Protegendo o Território',
+    missionBrief: 'Você vai entender meio ambiente como tema ligado à sobrevivência, qualidade de vida, economia, saúde pública e responsabilidade do Estado e da sociedade. Sustentabilidade significa usar recursos hoje sem destruir as condições das próximas gerações.',
+    dumbMode: 'Meio ambiente não é só floresta. Envolve água, ar, solo, clima, animais, cidades, lixo, saneamento, energia e forma de produção. Sustentabilidade é equilíbrio: produzir, consumir e desenvolver sem destruir tudo. Na prova, aparecem temas como desmatamento, poluição, mudanças climáticas, resíduos sólidos, queimadas, preservação, recursos hídricos e desenvolvimento sustentável.',
+    analogy: 'Pense no território como uma base de sobrevivência. Se a equipe contamina a água, derruba toda a floresta, desperdiça comida e destrói o abrigo, a missão acaba. Meio ambiente é manter a base funcionando para agora e para depois.',
+    vunespMode: 'A Vunesp costuma cobrar desenvolvimento sustentável, impactos ambientais, desmatamento, mudanças climáticas, poluição, saneamento, resíduos sólidos, recursos hídricos, biomas brasileiros e responsabilidade coletiva. A pegadinha é tratar desenvolvimento e preservação como se fossem sempre inimigos absolutos.',
     traps: [
-      'Sustentabilidade não é parar todo desenvolvimento; é equilibrar economia, sociedade e ambiente.',
-      'Desmatamento afeta clima, biodiversidade e água.',
-      'Poluição urbana envolve ar, rios, lixo e saneamento.',
-      'Educação ambiental e responsabilidade coletiva são temas recorrentes.'
+      'Sustentabilidade não é parar todo desenvolvimento; é buscar equilíbrio.',
+      'Desmatamento pode afetar clima, biodiversidade, solo e rios.',
+      'Saneamento básico tem relação direta com saúde pública.',
+      'Mudanças climáticas envolvem alteração de padrões de temperatura e eventos extremos.',
+      'Reciclagem ajuda, mas não resolve sozinha todos os problemas ambientais.',
+      'Responsabilidade ambiental envolve Estado, empresas e cidadãos.'
     ],
-    memoryHook: 'Sustentabilidade é vencer a missão sem destruir o mapa.',
-    finalReminder: 'Se cair meio ambiente, procure equilíbrio entre desenvolvimento, preservação e responsabilidade social.',
-    miniMission: 'Dê um exemplo de atitude individual e uma política pública que ajudam o meio ambiente.',
-    notUnderstood: 'Modo simples: meio ambiente é o cenário onde a vida acontece. Se destruir o cenário, a missão falha.'
+    memoryHook: 'Sustentabilidade é missão longa: usar sem destruir.',
+    finalReminder: 'Na prova, conecte meio ambiente com saúde, economia, cidade, clima e cidadania.',
+    miniMission: 'Questão de verificação: explique uma relação entre saneamento básico e saúde pública.',
+    notUnderstood: 'Modo simples: meio ambiente é o lugar onde a vida acontece. Se ele quebra, a sociedade sente.'
   },
   {
     missionId: 'inf-03',
