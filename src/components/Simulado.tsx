@@ -83,7 +83,7 @@ function getSimulationLabel(type: SimType): string {
   return 'Completo oficial';
 }
 
-export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => void }) {
+export default function Simulado({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
   const { profile, addSimulation, addXP, answerQuestion, updateStreak } = useApp();
   const [simType, setSimType] = useState<SimType | null>(null);
   const [active, setActive] = useState(false);
@@ -253,6 +253,21 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
       })
       .filter((item): item is NonNullable<typeof item> => Boolean(item) && item.subjectPct < 70)
       .sort((a, b) => a.subjectPct - b.subjectPct);
+    const primaryWeakSubject = weakSubjects[0];
+
+    const openWeakSubjectReview = () => {
+      if (!primaryWeakSubject) return;
+
+      sessionStorage.removeItem('pm-sp-topic-filter');
+      onNavigate('subject', { subjectId: primaryWeakSubject.id });
+    };
+
+    const openWeakSubjectQuestions = () => {
+      if (!primaryWeakSubject) return;
+
+      sessionStorage.removeItem('pm-sp-topic-filter');
+      onNavigate('questions', { subjectId: primaryWeakSubject.id });
+    };
 
     return (
       <div className="result-shell text-center animate-slide-up">
@@ -310,11 +325,11 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
                 ))}
 
                 <div className="mt-2 grid gap-3 sm:grid-cols-2">
-                  <button onClick={() => onNavigate('review')} className="btn-secondary">
-                    Revisar agora
+                  <button onClick={openWeakSubjectReview} className="btn-secondary">
+                    Revisar {primaryWeakSubject?.name ?? 'matéria'}
                   </button>
-                  <button onClick={() => onNavigate('questions')} className="btn-primary">
-                    Treinar questões
+                  <button onClick={openWeakSubjectQuestions} className="btn-primary">
+                    Treinar {primaryWeakSubject?.name ?? 'questões'}
                   </button>
                 </div>
               </div>
