@@ -971,62 +971,65 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'inf-08',
     subjectId: 'informatica',
-    title: 'Sistemas Móveis — Android, iOS e Permissões',
-    missionBrief: 'Revisar conceitos básicos de celular, aplicativos e segurança móvel.',
-    dumbMode: 'Sistema operacional móvel é o sistema que faz o celular funcionar. Android e iOS são os principais. Aplicativos podem pedir permissões como câmera, localização, microfone e arquivos.',
-    analogy: 'Pense no celular como uma base portátil. O sistema operacional é o comandante da base. Cada app é um visitante pedindo acesso a salas específicas.',
-    vunespMode: 'A Vunesp pode cobrar Android, iOS, loja de aplicativos, permissões, atualizações, segurança, backup e armazenamento em nuvem.',
+    title: 'Sistemas Operacionais Móveis — Android, iOS e Permissões',
+    missionBrief: 'Você vai entender o básico de sistemas móveis: Android, iOS, lojas de aplicativos, permissões, atualizações, segurança, armazenamento e sincronização. A banca costuma cobrar conceitos simples com pegadinhas de privacidade.',
+    dumbMode: 'Sistema operacional móvel é o sistema que controla celular ou tablet. Android é usado por várias marcas e tem integração forte com serviços Google. iOS é o sistema dos iPhones e iPads da Apple. Aplicativos são instalados por lojas como Play Store e App Store. Permissões controlam acesso a câmera, microfone, localização, contatos e arquivos. Atualizações corrigem falhas e melhoram segurança.',
+    analogy: 'Pense no celular como uma pequena base de operações no bolso. O sistema operacional é o comandante. Os aplicativos são equipes especializadas. As permissões são autorizações de acesso: uma equipe não deve entrar no arquivo, câmera ou localização sem necessidade.',
+    vunespMode: 'A Vunesp pode cobrar diferença entre Android e iOS, permissões de aplicativos, atualizações, backup em nuvem, sincronização, loja oficial e riscos de instalar apps de fonte desconhecida. A banca gosta de situações envolvendo privacidade e segurança.',
     traps: [
-      'Android é associado ao Google.',
-      'iOS é associado à Apple.',
-      'Permissão de localização permite acessar posição do aparelho.',
-      'Atualizações corrigem falhas e melhoram segurança.',
-      'Instalar app fora de loja confiável aumenta risco.'
+      'Permissão de localização permite rastrear posição do aparelho.',
+      'Permissão de câmera e microfone deve ser concedida com cuidado.',
+      'Atualizações ajudam a corrigir falhas de segurança.',
+      'Instalar aplicativo fora da loja oficial pode aumentar risco.',
+      'Sincronização não é a mesma coisa que backup completo.',
+      'Bloqueio de tela ajuda a proteger dados em caso de perda ou roubo.'
     ],
-    memoryHook: 'App pede permissão; usuário decide se abre a porta.',
-    finalReminder: 'Se cair sistema móvel, pense em app, permissão, atualização e segurança.',
-    miniMission: 'Liste três permissões comuns que um aplicativo pode pedir.',
-    notUnderstood: 'Modo simples: Android e iOS são o Windows do celular.'
+    memoryHook: 'Permissão é chave de acesso: só entregue para quem precisa.',
+    finalReminder: 'Na prova, se um app pede câmera, microfone ou localização sem necessidade, pense em risco de privacidade.',
+    miniMission: 'Questão de verificação: cite três permissões sensíveis em celular e explique por que exigem cuidado.',
+    notUnderstood: 'Modo simples: celular também tem sistema operacional. App precisa pedir permissão para acessar partes importantes do aparelho.'
   },
   {
     missionId: 'inf-09',
     subjectId: 'informatica',
-    title: 'Redes de Computadores — As Rotas da Informação',
-    missionBrief: 'Entender rede, internet, Wi-Fi, IP, DNS, modem e roteador.',
-    dumbMode: 'Rede é a conexão entre dispositivos para trocar dados. Internet é uma rede mundial. IP é endereço do dispositivo. DNS traduz nomes de sites para endereços. Roteador distribui conexão.',
-    analogy: 'Imagine uma cidade. O IP é o endereço da casa. O DNS é o guia que transforma o nome do lugar em endereço. O roteador é o centro que manda cada mensagem para o caminho certo.',
-    vunespMode: 'A banca cobra LAN, WAN, Wi-Fi, IP, DNS, modem, roteador, navegador, internet e segurança em redes sem fio.',
+    title: 'Redes de Computadores — Conexões, IP, DNS e Wi-Fi',
+    missionBrief: 'Você vai entender os conceitos básicos de rede: LAN, WAN, WLAN, internet, IP, DNS, DHCP, roteador, modem, switch, Wi-Fi e protocolos. Redes parecem difíceis, mas a lógica começa com comunicação entre dispositivos.',
+    dumbMode: 'Rede é a conexão entre dispositivos para trocar dados. LAN é rede local, como a rede de uma casa ou empresa. WAN é rede ampla, como redes entre cidades ou países. WLAN é rede local sem fio, como Wi-Fi. IP é o endereço do dispositivo na rede. DNS traduz nomes de sites em endereços IP. DHCP distribui IP automaticamente. Roteador encaminha dados entre redes. Modem faz conexão com o provedor. Switch conecta dispositivos em uma rede local.',
+    analogy: 'Imagine uma cidade. O IP é o endereço da casa. O DNS é a lista telefônica que transforma nome em endereço. O roteador é o cruzamento que decide para onde os dados vão. O switch é a central de um prédio conectando salas. O modem é a ponte com a estrada externa do provedor.',
+    vunespMode: 'A Vunesp cobra conceitos de LAN, WAN, Wi-Fi, IP, DNS, DHCP, roteador, modem, protocolos e segurança sem fio. Também gosta de WPA2, WPA3, senha de rede e diferença entre internet e rede local.',
     traps: [
-      'LAN é rede local.',
-      'WAN é rede de longa distância.',
-      'Wi-Fi é rede sem fio.',
-      'DNS traduz domínio em IP.',
-      'Roteador distribui a conexão entre dispositivos.'
+      'IP é endereço lógico do dispositivo na rede.',
+      'DNS traduz nomes como site.com para endereços IP.',
+      'DHCP distribui endereços IP automaticamente.',
+      'Roteador encaminha dados entre redes.',
+      'Switch conecta dispositivos dentro da rede local.',
+      'WPA2 e WPA3 são padrões de segurança para Wi-Fi.'
     ],
-    memoryHook: 'IP é endereço. DNS é tradutor. Roteador distribui.',
-    finalReminder: 'Se cair rede, identifique se a questão fala de endereço, tradução ou distribuição de conexão.',
-    miniMission: 'Explique em uma frase o que faz o DNS.',
-    notUnderstood: 'Modo simples: rede é um caminho para dispositivos conversarem.'
+    memoryHook: 'IP é endereço; DNS é lista telefônica; roteador escolhe caminho.',
+    finalReminder: 'Na prova, se aparecer tradução de nome de site para IP, é DNS. Se aparecer distribuição automática de IP, é DHCP.',
+    miniMission: 'Questão de verificação: explique a função de IP, DNS, DHCP, roteador, modem e switch.',
+    notUnderstood: 'Modo simples: rede é um grupo de aparelhos conversando. Cada um precisa de endereço e caminho para enviar dados.'
   },
   {
     missionId: 'inf-10',
     subjectId: 'informatica',
-    title: 'Ferramentas Office e Nuvem — Kit de Produtividade',
-    missionBrief: 'Revisar apresentações, armazenamento em nuvem e colaboração.',
-    dumbMode: 'Ferramentas Office ajudam a criar documentos, planilhas e apresentações. Nuvem permite guardar arquivos na internet e acessar de outros dispositivos.',
-    analogy: 'Pense em uma mochila mágica. Em vez de carregar todos os papéis fisicamente, você guarda na nuvem e acessa quando precisa, de outro computador ou celular.',
-    vunespMode: 'A banca cobra PowerPoint/Impress, slides, apresentações, transições, animações, Google Drive, OneDrive, armazenamento em nuvem e colaboração online.',
+    title: 'PowerPoint, Office e Nuvem — Produtividade em Missão',
+    missionBrief: 'Você vai revisar ferramentas de produtividade além do Word e Excel: PowerPoint, apresentações, armazenamento em nuvem, colaboração, compartilhamento e exportação. A banca costuma cobrar recursos práticos e diferenças entre ferramentas.',
+    dumbMode: 'PowerPoint serve para criar apresentações em slides. Um slide pode ter texto, imagem, tabela, gráfico, áudio e vídeo. Transições são efeitos entre slides. Animações são efeitos em objetos dentro do slide. Modo de apresentação exibe os slides para o público. Nuvem é armazenamento em servidores acessados pela internet, como OneDrive, Google Drive e iCloud. Compartilhamento permite outras pessoas visualizar ou editar arquivos.',
+    analogy: 'Pense no PowerPoint como um briefing de operação. Cada slide é uma tela da missão. Transição é a passagem de uma tela para outra. Animação é o movimento de um elemento dentro da tela. A nuvem é o armário remoto da equipe, acessível de outros lugares, desde que haja login e internet.',
+    vunespMode: 'A Vunesp cobra PowerPoint, slides, transições, animações, modo apresentação, exportação para PDF, armazenamento em nuvem, sincronização e colaboração. Também pode perguntar diferença entre compartilhar para visualizar e compartilhar para editar.',
     traps: [
-      'PowerPoint e Impress criam apresentações.',
-      'Slides são páginas da apresentação.',
-      'Transição ocorre entre slides.',
-      'Animação ocorre em elementos dentro do slide.',
-      'Nuvem permite acesso remoto e sincronização.'
+      'Transição ocorre entre slides; animação ocorre em objetos do slide.',
+      'F5 inicia apresentação do começo em muitos ambientes.',
+      'Exportar para PDF preserva visual, mas reduz edição.',
+      'Nuvem depende de conta, acesso e conexão.',
+      'Compartilhar para visualização não é o mesmo que permitir edição.',
+      'Sincronização replica alterações entre dispositivos, mas não substitui estratégia completa de backup.'
     ],
-    memoryHook: 'Documento escreve, planilha calcula, apresentação mostra, nuvem guarda.',
-    finalReminder: 'Se cair apresentação, diferencie transição de animação.',
-    miniMission: 'Diga a diferença entre armazenamento local e armazenamento em nuvem.',
-    notUnderstood: 'Modo simples: Office é kit de trabalho; nuvem é guardar arquivo na internet.'
+    memoryHook: 'Transição muda slide; animação mexe objeto.',
+    finalReminder: 'Na prova, se o efeito é entre slides, pense em transição. Se é dentro do slide, pense em animação.',
+    miniMission: 'Questão de verificação: diferencie slide, transição, animação, apresentação, nuvem e compartilhamento.',
+    notUnderstood: 'Modo simples: PowerPoint monta apresentação. Nuvem guarda arquivo online. Compartilhar decide quem vê ou edita.'
   }
 ];
 
