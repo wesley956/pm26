@@ -12,7 +12,7 @@ export const EXAM_CONFIG = {
   importantDates: {
     applicationStart: '2026-06-15',
     applicationEnd: '2026-08-21',
-    knowledgeExam: null as string | null,
+    knowledgeExam: '2026-09-20' as string | null,
   },
   objectiveExam: {
     totalQuestions: 60,
