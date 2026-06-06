@@ -25,10 +25,17 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
   const [sessionCorrect, setSessionCorrect] = useState(0);
   const [sessionTotal, setSessionTotal] = useState(0);
   const [sessionXp, setSessionXp] = useState(0);
+  const [selectedSubject, setSelectedSubject] = useState('');
+
+  const subjectFilteredQuestions = useMemo(() => {
+    return selectedSubject
+      ? questions.filter(q => q.subjectId === selectedSubject)
+      : questions;
+  }, [selectedSubject]);
 
   const wrongQs = useMemo(() => {
-    return questions.filter(q => profile.wrongQuestions.includes(q.id));
-  }, [profile.wrongQuestions]);
+    return subjectFilteredQuestions.filter(q => profile.wrongQuestions.includes(q.id));
+  }, [profile.wrongQuestions, subjectFilteredQuestions]);
 
   const flashcards = useMemo(() => {
     return theoryLessons.map(lesson => {
@@ -53,12 +60,14 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
 
   const dueFlashcards = useMemo(() => {
     return flashcards.filter(card => {
+      if (selectedSubject && card.subjectId !== selectedSubject) return false;
+
       const review = profile.spacedRepetition?.[card.id];
       return !review || review.nextReview <= todayIso;
     });
-  }, [flashcards, profile.spacedRepetition, todayIso]);
+  }, [flashcards, profile.spacedRepetition, selectedSubject, todayIso]);
 
-  const quickQs = useMemo(() => shuffleItems(questions).slice(0, 5), []);
+  const quickQs = useMemo(() => shuffleItems(subjectFilteredQuestions).slice(0, 5), [subjectFilteredQuestions]);
 
   const currentCard = dueFlashcards[currentIndex];
   const currentWrongQ = wrongQs[currentIndex];
@@ -221,11 +230,48 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
           </p>
         </div>
 
+        <div className="study-card mb-5">
+          <p className="study-kicker">Filtro opcional</p>
+          <h2 className="mt-1 text-xl font-black text-white">Matéria da revisão</h2>
+          <p className="mt-1 text-sm leading-relaxed text-slate-400">
+            Use quando quiser atacar uma matéria específica. Deixe em todas para revisão geral.
+          </p>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            <button
+              onClick={() => { resetSession(); setSelectedSubject(''); }}
+              className={`rounded-full border px-3 py-2 text-sm font-bold transition ${
+                !selectedSubject
+                  ? 'border-gold-500/30 bg-gold-500/10 text-gold-400'
+                  : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/20'
+              }`}
+            >
+              Todas
+            </button>
+
+            {subjects.map(subject => (
+              <button
+                key={subject.id}
+                onClick={() => { resetSession(); setSelectedSubject(subject.id); }}
+                className={`rounded-full border px-3 py-2 text-sm font-bold transition ${
+                  selectedSubject === subject.id
+                    ? 'border-gold-500/30 bg-gold-500/10 text-gold-400'
+                    : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/20'
+                }`}
+              >
+                {subject.icon} {subject.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div className="review-menu-grid">
           <button onClick={() => startMode('wrong')} className="review-choice-card">
             <XCircle size={30} className="mb-4 text-danger" />
             <h3 className="text-xl font-black text-white">Questões erradas</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">{wrongQs.length} questões para revisar com explicação.</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              {wrongQs.length} questões para revisar com explicação{selectedSubject ? ' nessa matéria.' : '.'}
+            </p>
           </button>
 
           <button onClick={() => startMode('flashcards')} className="review-choice-card">
