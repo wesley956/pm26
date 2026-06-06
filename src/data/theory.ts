@@ -335,21 +335,23 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'cg-02',
     subjectId: 'gerais',
-    title: 'História do Brasil — Linha do Tempo da Missão Nacional',
-    missionBrief: 'Entender Colônia e Império como fases de uma campanha histórica.',
-    dumbMode: 'História do Brasil não é decorar um monte de data solta. É entender a sequência dos acontecimentos: primeiro o Brasil foi colônia de Portugal, depois virou independente, depois Império, e só depois República.',
-    analogy: 'Pense como uma saga de fantasia. A Colônia é quando o reino distante manda em tudo. A Independência é a ruptura com o reino antigo. O Império é quando surge uma nova coroa local. A República é quando o sistema muda de novo.',
-    vunespMode: 'A Vunesp costuma cobrar acontecimentos marcantes: chegada dos portugueses, ciclos econômicos, Independência, Abolição, Proclamação da República e Era Vargas.',
+    title: 'História do Brasil — Colônia e Império',
+    missionBrief: 'Você vai revisar a formação histórica do Brasil desde a colonização portuguesa até o Império. O foco é entender economia colonial, escravidão, sociedade, independência, Primeiro Reinado, Período Regencial e Segundo Reinado.',
+    dumbMode: 'No Brasil Colônia, Portugal explorava a terra para gerar riqueza. Primeiro veio o pau-brasil, depois a cana-de-açúcar, mineração e outras atividades. A escravidão sustentou grande parte da economia colonial, primeiro com indígenas e depois principalmente com africanos escravizados. A Independência em 1822 não criou uma democracia popular imediata; manteve muita estrutura social antiga. No Império, o Brasil teve monarquia, conflitos internos, centralização política e debates sobre escravidão.',
+    analogy: 'Imagine um reino distante controlando uma colônia como se fosse uma fonte de recursos. A colônia produz, envia riqueza e obedece ordens. Com o tempo, surgem conflitos, elites locais ganham força e a colônia busca autonomia. Mas trocar o comando não significa mudar toda a estrutura social de uma vez.',
+    vunespMode: 'A Vunesp costuma cobrar economia colonial, pacto colonial, escravidão, mineração, movimentos nativistas e emancipacionistas, Independência, Constituição de 1824, Poder Moderador, Regências, Segundo Reinado, abolição e crise do Império.',
     traps: [
-      'Independência do Brasil: 1822.',
-      'Abolição da escravidão: 1888.',
-      'Proclamação da República: 1889.',
-      'Não confunda Brasil Império com República Velha.'
+      'Independência não significou igualdade social imediata.',
+      'A escravidão foi estrutura central da formação econômica e social.',
+      'Pacto colonial envolvia exploração econômica em favor da metrópole.',
+      'Movimentos nativistas não são sempre separatistas.',
+      'Constituição de 1824 criou o Poder Moderador.',
+      'Abolição foi processo gradual e tardio, concluído formalmente em 1888.'
     ],
-    memoryHook: '1500 Colônia, 1822 Independência, 1888 Abolição, 1889 República.',
-    finalReminder: 'Se cair História, organize primeiro a fase: Colônia, Império ou República.',
-    miniMission: 'Repita a linha: 1500, 1822, 1888, 1889 e diga o que aconteceu em cada ano.',
-    notUnderstood: 'Modo simples: pense em fases de jogo. O Brasil não nasceu República. Ele passou por fases até chegar no modelo atual.'
+    memoryHook: 'Colônia explora; Império mantém ordem centralizada e conflitos sociais.',
+    finalReminder: 'Na prova, relacione economia, escravidão e poder político. Esses três fios explicam muita coisa.',
+    miniMission: 'Questão de verificação: explique em poucas linhas por que a Independência não resolveu automaticamente as desigualdades do Brasil.',
+    notUnderstood: 'Modo simples: o Brasil nasceu explorado, escravista e desigual. A História cobra como isso foi mudando aos poucos.'
   },
   {
     missionId: 'cg-03',
@@ -851,20 +853,22 @@ export const theoryLessons: TheoryLesson[] = [
     missionId: 'cg-01',
     subjectId: 'gerais',
     title: 'Atualidades — Patrulha do Mundo Real',
-    missionBrief: 'Aprender atualidades sem virar refém de notícia infinita.',
-    dumbMode: 'Atualidades não é decorar todas as notícias. É entender temas importantes que afetam sociedade, política, economia, tecnologia, meio ambiente e segurança pública.',
-    analogy: 'Pense como um investigador acompanhando pistas do mundo real. Você não precisa saber cada fofoca da cidade; precisa saber os eventos que mudam o cenário da missão.',
-    vunespMode: 'A Vunesp costuma cobrar temas relevantes, não notícia aleatória: conflitos, eleições, meio ambiente, tecnologia, saúde pública, economia, cidadania e direitos humanos.',
+    missionBrief: 'Você vai aprender a estudar atualidades do jeito certo: entendendo temas, causas, consequências e relações com cidadania, política, economia, tecnologia, meio ambiente e segurança pública. Atualidades não é decorar manchete solta; é entender o contexto.',
+    dumbMode: 'Atualidades são fatos importantes do Brasil e do mundo que podem cair na prova. Mas a banca não costuma perguntar fofoca ou notícia isolada. Ela quer saber se você entende o tema: crise climática, tecnologia, conflitos, economia, saúde pública, segurança, democracia, direitos humanos, energia, educação e sociedade. O segredo é perguntar: o que aconteceu, por que aconteceu, quem foi afetado e qual consequência isso gera.',
+    analogy: 'Pense como um investigador vendo várias pistas em um mural. Uma notícia isolada é só uma pista. A prova quer que você conecte os fios: causa, consequência, impacto social e relação com o Estado. Quem só decora manchete vira recruta perdido; quem entende contexto vira analista.',
+    vunespMode: 'A Vunesp costuma cobrar atualidades de forma contextualizada, ligando fatos recentes a temas sociais, econômicos, ambientais, científicos, políticos e culturais. A pegadinha é marcar uma alternativa emocional, exagerada ou baseada em opinião, em vez de uma leitura objetiva do tema.',
     traps: [
-      'Não estude atualidades por boato ou rede social sem fonte.',
-      'Cuidado com alternativa sensacionalista.',
-      'Atualidades geralmente exigem contexto, não só data.',
-      'Tema recorrente vale mais do que notícia isolada.'
+      'Não estude atualidades só por manchete; entenda contexto.',
+      'Cuidado com alternativa opinativa ou sensacionalista.',
+      'Fatos recentes podem ser cobrados por causas e consequências.',
+      'Meio ambiente, tecnologia e conflitos internacionais costumam aparecer.',
+      'Atualidades pode dialogar com Constituição, cidadania e direitos humanos.',
+      'Fonte ruim gera estudo ruim; priorize fonte confiável e resumo objetivo.'
     ],
-    memoryHook: 'Atualidades é entender o cenário da missão, não decorar manchete solta.',
-    finalReminder: 'Se cair atualidade, procure a alternativa mais equilibrada e ligada a fatos verificáveis.',
-    miniMission: 'Escolha uma notícia importante da semana e responda: quem, o quê, onde, quando, por quê e consequência.',
-    notUnderstood: 'Modo simples: atualidades é saber o que está acontecendo no mundo e por que isso importa.'
+    memoryHook: 'Atualidade é fato + contexto + consequência.',
+    finalReminder: 'Na prova, pergunte: qual é o tema maior por trás dessa notícia?',
+    miniMission: 'Questão de verificação: escolha uma notícia da semana e responda: fato, causa, consequência e tema de prova.',
+    notUnderstood: 'Modo simples: não decore notícia. Entenda o que aconteceu e por que isso importa para a sociedade.'
   },
   {
     missionId: 'cg-05',
