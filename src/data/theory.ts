@@ -877,41 +877,44 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'cg-05',
     subjectId: 'gerais',
-    title: 'Geografia Humana e Econômica — O Movimento da População',
-    missionBrief: 'Entender população, urbanização, economia e desigualdades regionais.',
-    dumbMode: 'Geografia humana estuda pessoas, cidades, trabalho, economia, migração e desigualdade. Geografia econômica olha como produção, comércio, indústria, agropecuária e serviços se organizam no espaço.',
-    analogy: 'Imagine um mapa de RPG com cidades, rotas comerciais, minas, fazendas e regiões pobres ou ricas. Geografia humana e econômica é entender como as pessoas vivem e produzem nesse mapa.',
-    vunespMode: 'A banca cobra urbanização, concentração populacional, regiões econômicas, industrialização, agropecuária, serviços, migração e desigualdade regional.',
+    title: 'Geografia Humana e Econômica — População, Cidades e Produção',
+    missionBrief: 'Você vai entender como a população brasileira se distribui, como as cidades cresceram e como as atividades econômicas ocupam o território. Essa aula liga população, urbanização, indústria, agropecuária, transporte e desigualdade regional.',
+    dumbMode: 'Geografia humana estuda pessoas e sociedade no espaço. Geografia econômica estuda produção, trabalho, circulação de mercadorias e uso do território. O Brasil tem população concentrada em áreas urbanas e no litoral, embora o interior tenha ganhado força com agropecuária, mineração e infraestrutura. Urbanização rápida gerou problemas como moradia precária, trânsito, desigualdade, saneamento insuficiente e violência urbana.',
+    analogy: 'Pense no Brasil como um grande mapa de estratégia. Algumas áreas concentram população, indústria e serviços. Outras concentram produção agrícola, recursos naturais ou baixa densidade demográfica. Para entender o jogo, você precisa ver onde estão as pessoas, onde está a produção e como tudo se conecta por transporte e tecnologia.',
+    vunespMode: 'A Vunesp cobra urbanização, industrialização, êxodo rural, desigualdade regional, rede urbana, agropecuária, transporte, matriz econômica e impactos sociais. Também pode relacionar geografia econômica com meio ambiente e problemas urbanos.',
     traps: [
-      'O Brasil é majoritariamente urbano.',
-      'A Região Sudeste concentra população, indústria, serviços e riqueza.',
-      'Agropecuária moderna não significa ausência de tecnologia.',
-      'Desigualdade regional é tema recorrente.',
-      'Urbanização rápida pode gerar problemas como moradia precária e transporte ruim.'
+      'Urbanização não significa ausência de problemas; pode gerar periferização e desigualdade.',
+      'Êxodo rural é deslocamento do campo para a cidade.',
+      'Industrialização se concentrou historicamente no Sudeste.',
+      'Agronegócio tem peso econômico, mas também gera debates ambientais e sociais.',
+      'População absoluta é total de habitantes; densidade demográfica é habitantes por área.',
+      'Crescimento urbano rápido pode pressionar moradia, transporte, saúde e segurança.'
     ],
-    memoryHook: 'Geografia humana olha pessoas; econômica olha produção e riqueza.',
-    finalReminder: 'Se cair economia brasileira, lembre do peso do Sudeste, dos serviços e da agropecuária moderna.',
-    miniMission: 'Explique por que grandes cidades atraem pessoas, mas também criam problemas urbanos.',
-    notUnderstood: 'Modo simples: é estudar onde as pessoas vivem, trabalham, produzem e por que algumas regiões são mais ricas que outras.'
+    memoryHook: 'Geografia humana mostra onde o povo vive; econômica mostra como o território produz.',
+    finalReminder: 'Na prova, conecte população, cidade, trabalho, transporte e desigualdade.',
+    miniMission: 'Questão de verificação: explique uma consequência positiva e uma negativa da urbanização acelerada.',
+    notUnderstood: 'Modo simples: é estudar onde as pessoas vivem, como trabalham e como isso muda o espaço.'
   },
   {
     missionId: 'cg-06',
     subjectId: 'gerais',
     title: 'Geografia de São Paulo — O Centro Forte do Mapa',
-    missionBrief: 'Entender por que São Paulo é tão importante no Brasil.',
-    dumbMode: 'São Paulo é um dos estados mais importantes do país por causa da população, indústria, serviços, tecnologia, agropecuária moderna, universidades, rodovias e mercado consumidor.',
-    analogy: 'Pense em São Paulo como a capital comercial de um grande reino. Mesmo não sendo a capital política do país, concentra rotas, comércio, produção, conhecimento e muita gente.',
-    vunespMode: 'A banca pode cobrar economia paulista, urbanização, Região Metropolitana de São Paulo, interior industrial e agrícola, rios, relevo e importância logística.',
+    missionBrief: 'Você vai revisar a importância de São Paulo no território brasileiro: urbanização, economia, indústria, serviços, logística, interiorização do desenvolvimento, problemas metropolitanos e diversidade regional.',
+    dumbMode: 'São Paulo é um dos estados mais importantes do Brasil em população, economia, indústria, serviços, tecnologia, agropecuária e infraestrutura. A capital e a região metropolitana concentram muitos serviços, empregos e problemas urbanos. O interior também é forte, com agronegócio, indústria, universidades, tecnologia e cidades médias importantes. Para prova, não pense só na capital: pense no estado como rede econômica e urbana.',
+    analogy: 'Imagine São Paulo como uma central de comando com várias bases conectadas. A capital é uma base gigante, mas o interior tem postos fortes, rotas, produção e centros estratégicos. O estado funciona como uma rede de cidades, estradas, produção, serviços e população.',
+    vunespMode: 'A Vunesp pode cobrar urbanização paulista, Região Metropolitana de São Paulo, interiorização industrial, agropecuária moderna, logística, problemas ambientais, desigualdade socioespacial, mobilidade urbana e relação entre capital, interior e litoral.',
     traps: [
-      'São Paulo não é só indústria; também tem serviços fortes e agropecuária moderna.',
-      'A capital concentra muitos serviços, mas o interior também é muito importante.',
-      'O estado possui forte rede de rodovias.',
-      'Problemas urbanos como trânsito, desigualdade e moradia também podem aparecer.'
+      'São Paulo não é só a capital; o interior tem grande peso econômico.',
+      'A Região Metropolitana concentra população, serviços e problemas urbanos.',
+      'Industrialização paulista se relaciona com infraestrutura, mercado consumidor e mão de obra.',
+      'O interior tem agropecuária moderna, indústria e cidades médias fortes.',
+      'Urbanização intensa pode gerar trânsito, poluição, moradia precária e desigualdade.',
+      'Litoral, capital e interior têm funções econômicas e problemas diferentes.'
     ],
-    memoryHook: 'São Paulo é força econômica: indústria, serviços, tecnologia e agro moderno.',
-    finalReminder: 'Se cair SP, pense em diversidade econômica e concentração populacional.',
-    miniMission: 'Liste três motivos que tornam São Paulo importante para a economia brasileira.',
-    notUnderstood: 'Modo simples: São Paulo é um dos motores do Brasil, porque produz, vende, transporta, pesquisa e concentra muita gente.'
+    memoryHook: 'São Paulo é rede: capital forte, interior produtivo e logística conectando tudo.',
+    finalReminder: 'Na prova, diferencie capital, região metropolitana, interior e litoral.',
+    miniMission: 'Questão de verificação: cite uma característica da capital paulista, uma do interior e uma do litoral.',
+    notUnderstood: 'Modo simples: São Paulo é importante porque concentra muita gente, economia, transporte, indústria, serviços e produção.'
   },
   {
     missionId: 'cg-08',
