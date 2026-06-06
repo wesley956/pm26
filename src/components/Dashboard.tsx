@@ -2,6 +2,7 @@ import { useApp } from '../store';
 import { subjects } from '../data/subjects';
 import { getPrimaryDeadlineInfo, getSubjectProgress, getLevelInfo, getMedalDefinitions } from '../utils';
 import { questions } from '../data/questions';
+import { theoryLessons } from '../data/theory';
 import { chooseSmartStudyAction } from '../utils/smartStudy';
 import { buildDailyChecklist } from '../utils/dailyChecklist';
 import {
@@ -82,6 +83,27 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
   const studiedToday = profile.lastStudyDate === today;
   const missionProgress = Math.round((completedCount / Math.max(1, totalMissions)) * 100);
   const questionProgress = Math.round((totalAnswered / Math.max(1, totalQuestions)) * 100);
+
+  const dueReviewCount = theoryLessons.filter(lesson => {
+    const review = profile.spacedRepetition?.[lesson.missionId];
+    return !review || review.nextReview <= today;
+  }).length;
+
+  const wrongReviewCount = profile.wrongQuestions.length;
+  const tafRecords = profile.tafRecords ?? [];
+  const hasTafToday = tafRecords.some(record => String(record.date).startsWith(today));
+  const simulations = profile.simulations ?? [];
+  const lastSimulation = simulations[simulations.length - 1];
+  const lastSimulationPct = lastSimulation
+    ? Math.round((lastSimulation.correctAnswers / Math.max(1, lastSimulation.totalQuestions)) * 100)
+    : null;
+
+  const recommendedSimulation =
+    totalAnswered < 20
+      ? 'Mini simulado'
+      : lastSimulationPct !== null && lastSimulationPct < 70
+        ? 'Simulado semanal'
+        : 'Manter rotina';
 
   const navigateToAction = (useBadDayMode = false) => {
     const action = useBadDayMode
@@ -217,6 +239,50 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           <p className="metric-value text-orange-300">{profile.streak}</p>
           <p className="metric-label">dias de sequência</p>
         </div>
+      </section>
+
+      <section className="mb-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        <button onClick={() => navigateToAction(false)} className="study-card text-left transition hover:-translate-y-0.5">
+          <p className="study-kicker gold">
+            <Target size={16} />
+            Missão de hoje
+          </p>
+          <h3 className="mt-2 text-lg font-black text-white">{smartAction.title}</h3>
+          <p className="mt-1 text-sm leading-relaxed text-slate-400">{smartAction.minutes} min • +{smartAction.xpReward} XP</p>
+        </button>
+
+        <button onClick={() => onNavigate('review')} className="study-card text-left transition hover:-translate-y-0.5">
+          <p className="study-kicker">
+            <RotateCcw size={16} />
+            Revisão pendente
+          </p>
+          <h3 className="mt-2 text-lg font-black text-white">{dueReviewCount + wrongReviewCount} itens</h3>
+          <p className="mt-1 text-sm leading-relaxed text-slate-400">
+            {dueReviewCount} flashcards • {wrongReviewCount} questões erradas
+          </p>
+        </button>
+
+        <button onClick={() => onNavigate('simulados')} className="study-card text-left transition hover:-translate-y-0.5">
+          <p className="study-kicker gold">
+            <Trophy size={16} />
+            Simulado recomendado
+          </p>
+          <h3 className="mt-2 text-lg font-black text-white">{recommendedSimulation}</h3>
+          <p className="mt-1 text-sm leading-relaxed text-slate-400">
+            {lastSimulationPct === null ? 'Sem simulado registrado ainda.' : `Último resultado: ${lastSimulationPct}%`}
+          </p>
+        </button>
+
+        <button onClick={() => onNavigate('taf')} className="study-card text-left transition hover:-translate-y-0.5">
+          <p className="study-kicker">
+            <Dumbbell size={16} />
+            TAF de hoje
+          </p>
+          <h3 className="mt-2 text-lg font-black text-white">{hasTafToday ? 'Registrado' : 'Pendente'}</h3>
+          <p className="mt-1 text-sm leading-relaxed text-slate-400">
+            {hasTafToday ? 'Treino físico já marcado hoje.' : 'Registre pelo menos um exercício.'}
+          </p>
+        </button>
       </section>
 
       <section className="mb-5 grid gap-5 lg:grid-cols-[1.1fr_.9fr]">
