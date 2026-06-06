@@ -241,7 +241,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
         </div>
       </section>
 
-      <section className="mb-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="mb-5 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
         <button onClick={() => navigateToAction(false)} className="study-card text-left transition hover:-translate-y-0.5">
           <p className="study-kicker gold">
             <Target size={16} />
@@ -286,6 +286,17 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           <h3 className="mt-2 text-lg font-black text-white">{hasTafToday ? 'Registrado' : 'Pendente'}</h3>
           <p className="mt-1 text-sm leading-relaxed text-slate-400">
             {hasTafToday ? 'Treino físico já marcado hoje.' : 'Registre pelo menos um exercício.'}
+          </p>
+        </button>
+
+        <button onClick={() => onNavigate('profile')} className="study-card text-left transition hover:-translate-y-0.5">
+          <p className="study-kicker gold">
+            <ClipboardCheck size={16} />
+            Backup
+          </p>
+          <h3 className="mt-2 text-lg font-black text-white">Proteger progresso</h3>
+          <p className="mt-1 text-sm leading-relaxed text-slate-400">
+            Exporte seu avanço antes de trocar de celular ou limpar dados.
           </p>
         </button>
       </section>
