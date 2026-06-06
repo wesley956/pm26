@@ -187,40 +187,44 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'ap-07',
     subjectId: 'administracao',
-    title: 'Administração Direta e Indireta — O Reino e suas Casas',
-    missionBrief: 'Diferenciar órgãos da Administração direta e entidades da indireta.',
-    dumbMode: 'Administração direta é o próprio Estado agindo por seus órgãos: União, Estados, DF, Municípios, ministérios e secretarias. Administração indireta são entidades criadas para executar atividades específicas: autarquias, fundações públicas, empresas públicas e sociedades de economia mista.',
-    analogy: 'Imagine o reino central e suas casas especializadas. O castelo principal é a Administração direta. As guildas criadas para tarefas específicas são a Administração indireta.',
-    vunespMode: 'A Vunesp gosta de perguntar quem tem personalidade jurídica própria. Órgãos da direta não têm; entidades da indireta têm.',
+    title: 'Organização Administrativa — O Mapa do Estado',
+    missionBrief: 'Você vai aprender como a Administração Pública se organiza para executar suas funções. A diferença principal é entre Administração direta, composta por órgãos dos entes federativos, e Administração indireta, composta por entidades com personalidade jurídica própria.',
+    dumbMode: 'Administração direta é o próprio ente político agindo por seus órgãos: União, Estados, Distrito Federal e Municípios, com ministérios, secretarias e departamentos. Órgão não tem personalidade jurídica própria; ele é uma parte do ente. Administração indireta é formada por entidades criadas para executar atividades específicas: autarquias, fundações públicas, empresas públicas e sociedades de economia mista.',
+    analogy: 'Imagine um reino grande. O castelo central tem salas e departamentos: esses são os órgãos da Administração direta. Mas o reino também cria instituições próprias para cuidar de tarefas específicas, como banco, escola, correio ou instituto técnico: essas são entidades da Administração indireta.',
+    vunespMode: 'A banca gosta de cobrar órgão versus entidade, personalidade jurídica, descentralização e desconcentração. Desconcentração cria órgãos dentro da mesma pessoa jurídica. Descentralização cria ou transfere atividade para outra pessoa jurídica. Autarquias geralmente executam atividade típica de Estado. Empresas públicas e sociedades de economia mista têm personalidade de direito privado.',
     traps: [
-      'Ministério e secretaria são órgãos, não entidades.',
-      'Autarquia tem personalidade jurídica própria.',
-      'Empresa pública e sociedade de economia mista são da Administração indireta.',
-      'Administração indireta não significa fora do Estado; significa entidade descentralizada.'
+      'Órgão não tem personalidade jurídica própria.',
+      'Entidade da Administração indireta tem personalidade jurídica própria.',
+      'Desconcentração distribui competências dentro da mesma pessoa jurídica.',
+      'Descentralização envolve outra pessoa jurídica.',
+      'Autarquia é pessoa jurídica de direito público.',
+      'Empresa pública e sociedade de economia mista são pessoas jurídicas de direito privado.'
     ],
-    memoryHook: 'Direta é órgão do corpo. Indireta é entidade com vida própria.',
-    finalReminder: 'Se cair personalidade jurídica própria, pense em entidade da Administração indireta.',
-    miniMission: 'Classifique: Secretaria de Segurança, INSS, Correios, Prefeitura.',
-    notUnderstood: 'Modo simples: direta é o próprio governo por dentro; indireta são entidades criadas pelo governo para missões específicas.'
+    memoryHook: 'Órgão é peça do corpo; entidade é pessoa própria.',
+    finalReminder: 'Na prova, pergunte: isso é parte de um ente ou tem personalidade própria? Isso separa órgão de entidade.',
+    miniMission: 'Questão de verificação: explique a diferença entre desconcentração e descentralização.',
+    notUnderstood: 'Modo simples: direta é o Estado agindo por seus departamentos. Indireta são entidades criadas para missões específicas.'
   },
   {
     missionId: 'ap-10',
     subjectId: 'administracao',
-    title: 'Eficiência e Políticas Públicas — Resultado para o Povo',
-    missionBrief: 'Entender que Administração Pública precisa entregar resultado real para a sociedade.',
-    dumbMode: 'Eficiência significa fazer bem feito, com qualidade, rapidez, economia e resultado. Política pública é uma ação do Estado para resolver um problema coletivo.',
-    analogy: 'Em uma missão de sobrevivência, não basta gastar todos os recursos do grupo. É preciso usar bem comida, tempo e energia para salvar todos. Na Administração, eficiência é usar bem o dinheiro e a estrutura pública para entregar resultado.',
-    vunespMode: 'A banca cobra eficiência ligada a produtividade, qualidade do serviço, economicidade e bom atendimento ao cidadão.',
+    title: 'Políticas Públicas e Cidadania — Do Problema à Ação do Estado',
+    missionBrief: 'Você vai entender políticas públicas como ações organizadas do Estado para enfrentar problemas coletivos. A ideia é reconhecer etapas: problema entra na agenda, governo formula solução, executa, monitora e avalia resultados.',
+    dumbMode: 'Política pública é o Estado tentando resolver um problema da sociedade. Pode ser segurança, saúde, educação, moradia, trânsito, meio ambiente ou assistência social. Ela não nasce do nada: primeiro o problema é reconhecido; depois vira prioridade; então o governo planeja, executa e avalia. Cidadania é a participação da população nesse processo, cobrando, fiscalizando e colaborando.',
+    analogy: 'Pense em uma cidade atacada por monstros. Primeiro alguém percebe o problema. Depois o conselho decide que isso é prioridade. Em seguida cria um plano, treina guardas, distribui recursos e mede se os ataques diminuíram. Isso é política pública: transformar problema coletivo em ação organizada.',
+    vunespMode: 'A Vunesp gosta de cobrar conceito de política pública, participação social, cidadania, controle social, conselhos, audiências públicas e avaliação de resultados. Também pode explorar a ideia de que política pública não é promessa solta; precisa de planejamento, execução e monitoramento.',
     traps: [
-      'Eficiência não é fazer de qualquer jeito.',
-      'Gastar menos e entregar pior não é eficiência.',
-      'Política pública precisa ter problema, ação, público-alvo e resultado esperado.',
-      'Cidadania envolve participação e controle social.'
+      'Política pública não é só discurso; precisa virar ação planejada.',
+      'Cidadania envolve direitos e deveres.',
+      'Participação social fortalece controle e legitimidade.',
+      'Conselhos e audiências são formas de participação.',
+      'Avaliação verifica se a política funcionou.',
+      'Segurança pública também pode ser analisada como política pública.'
     ],
-    memoryHook: 'Eficiência é resultado público com recurso bem usado.',
-    finalReminder: 'Se cair qualidade, rapidez, economia e resultado, pense em eficiência.',
-    miniMission: 'Pense em um serviço público ruim e diga qual parte da eficiência foi quebrada.',
-    notUnderstood: 'Modo simples: eficiência é o Estado parar de enrolar e entregar serviço bom para o povo.'
+    memoryHook: 'Política pública é problema coletivo virando plano de ação.',
+    finalReminder: 'Na prova, procure o ciclo: agenda, formulação, implementação, monitoramento e avaliação.',
+    miniMission: 'Questão de verificação: escolha um problema da sua cidade e diga qual política pública poderia enfrentá-lo.',
+    notUnderstood: 'Modo simples: política pública é o Estado saindo do discurso e criando ação para resolver problema real da população.'
   },
 
   {
@@ -661,59 +665,65 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'ap-06',
     subjectId: 'administracao',
-    title: 'Controle da Administração — Quem Vigia o Vigia?',
-    missionBrief: 'Entender controle interno, externo, judicial e popular.',
-    dumbMode: 'Controle da Administração é fiscalização. Serve para impedir abuso, erro, desperdício e corrupção. Pode ser feito pelo próprio órgão, por outro Poder, pelo Judiciário ou pelo cidadão.',
-    analogy: 'Em uma organização de investigação, ninguém pode agir sem supervisão. Até o líder precisa prestar contas. Controle é o sistema que impede que a missão vire bagunça.',
-    vunespMode: 'A banca cobra controle interno, externo, legislativo, Tribunal de Contas, controle judicial e participação popular.',
+    title: 'Controle da Administração Pública — Quem Vigia o Vigia?',
+    missionBrief: 'Você vai entender que a Administração Pública não age sem fiscalização. Controle é o conjunto de mecanismos usados para verificar legalidade, legitimidade, eficiência e uso correto do dinheiro público. A pergunta central é: quem controla, o que controla e por qual meio?',
+    dumbMode: 'Controle da Administração é fiscalização. Controle interno acontece dentro do próprio órgão ou Poder. Controle externo é feito por outro Poder, normalmente com auxílio dos Tribunais de Contas. Controle judicial é feito pelo Poder Judiciário quando há lesão ou ameaça a direito. Controle popular acontece quando o cidadão fiscaliza, denuncia, acompanha gastos e usa instrumentos como ação popular.',
+    analogy: 'Pense em uma fortaleza. Não basta ter guardas no portão; também precisa de inspetor interno, conselho externo, juiz do reino e cidadãos atentos. Se cada um vigia uma parte, fica mais difícil alguém usar o poder público de forma errada.',
+    vunespMode: 'A Vunesp costuma cobrar a diferença entre controle interno, externo, judicial e popular. Também explora a ideia de que o Judiciário controla legalidade, mas não substitui o mérito administrativo legítimo. Tribunal de Contas auxilia o Legislativo no controle externo, mas não é subordinado comum como uma secretaria.',
     traps: [
-      'Controle interno é feito dentro do próprio Poder ou órgão.',
-      'Controle externo é feito pelo Legislativo com auxílio dos Tribunais de Contas.',
-      'Controle judicial verifica legalidade, não substitui mérito administrativo em regra.',
-      'Cidadão pode provocar controle por denúncias e ações próprias.'
+      'Controle interno é feito dentro da própria estrutura administrativa.',
+      'Controle externo envolve fiscalização por outro Poder, com apoio dos Tribunais de Contas.',
+      'Controle judicial analisa legalidade, não conveniência administrativa legítima.',
+      'Controle popular permite participação e fiscalização pelo cidadão.',
+      'Anulação corrige ilegalidade; revogação trata conveniência e oportunidade.',
+      'Fiscalizar não é perseguir agente público; é proteger interesse público.'
     ],
-    memoryHook: 'Controle é fiscalização para manter a Administração dentro da lei.',
-    finalReminder: 'Se cair controle externo, lembre: Legislativo + Tribunal de Contas.',
-    miniMission: 'Classifique: corregedoria, Tribunal de Contas, Judiciário e cidadão.',
-    notUnderstood: 'Modo simples: controle é alguém conferindo se o poder público está agindo certo.'
+    memoryHook: 'Controle é o sistema de vigilância do interesse público.',
+    finalReminder: 'Na prova, identifique quem está fiscalizando: o próprio órgão, outro Poder, o Judiciário ou o cidadão.',
+    miniMission: 'Questão de verificação: dê um exemplo de controle interno, externo, judicial e popular.',
+    notUnderstood: 'Modo simples: controle é conferir se o poder público está obedecendo à lei, usando bem o dinheiro e servindo ao povo.'
   },
   {
     missionId: 'ap-08',
     subjectId: 'administracao',
-    title: 'Responsabilidade Fiscal — O Tesouro não é Infinito',
-    missionBrief: 'Entender a lógica da Lei de Responsabilidade Fiscal.',
-    dumbMode: 'Responsabilidade fiscal é gastar dinheiro público com planejamento, controle e transparência. O governo não pode agir como se o dinheiro fosse infinito.',
-    analogy: 'Imagine um grupo em sobrevivência com comida limitada. Se o líder gasta tudo no primeiro dia, todos sofrem depois. A LRF existe para evitar esse tipo de irresponsabilidade com recursos públicos.',
-    vunespMode: 'A banca cobra planejamento, equilíbrio das contas, transparência, limites de despesa, metas fiscais e responsabilidade na gestão.',
+    title: 'Responsabilidade Fiscal — O Freio do Gasto Público',
+    missionBrief: 'Você vai entender a responsabilidade fiscal como conjunto de regras para evitar que o governo gaste de forma irresponsável. A lógica é planejar, controlar despesas, dar transparência e manter equilíbrio das contas públicas.',
+    dumbMode: 'Responsabilidade fiscal é administrar dinheiro público com limite. O governante não pode prometer, gastar e empurrar a conta sem planejamento. Ele precisa respeitar metas fiscais, controlar despesa com pessoal, observar limites de endividamento, justificar renúncia de receita e dar transparência às contas. A ideia é impedir aventura financeira com dinheiro público.',
+    analogy: 'Pense em uma base militar com suprimentos limitados. Se o comandante gasta toda a munição, combustível e comida em uma semana sem planejamento, a tropa fica vulnerável. A responsabilidade fiscal é o plano de abastecimento: gastar com controle para a missão continuar.',
+    vunespMode: 'A Vunesp costuma cobrar finalidade da Lei de Responsabilidade Fiscal, planejamento, transparência, limites, metas fiscais, renúncia de receita e controle de gastos com pessoal. A banca gosta de situações em que o administrador cria despesa sem estimar impacto ou tenta esconder informação fiscal.',
     traps: [
-      'LRF não é só cortar gastos; é controlar e planejar.',
-      'Transparência é parte essencial da responsabilidade fiscal.',
-      'Geração de despesa precisa respeitar regras.',
-      'Renúncia de receita também exige cuidado.'
+      'Responsabilidade fiscal não é simplesmente cortar gastos; é gastar com planejamento e limite.',
+      'Transparência fiscal permite controle social.',
+      'Renúncia de receita exige cuidado e justificativa legal.',
+      'Despesa continuada precisa ser planejada.',
+      'Gasto com pessoal tem limites e mecanismos de controle.',
+      'Equilíbrio fiscal protege a continuidade dos serviços públicos.'
     ],
-    memoryHook: 'Dinheiro público tem missão, limite e prestação de contas.',
-    finalReminder: 'Se cair LRF, pense em planejamento, controle, transparência e equilíbrio.',
-    miniMission: 'Explique por que gastar sem planejamento prejudica a população.',
-    notUnderstood: 'Modo simples: LRF é o freio para o governo não gastar de qualquer jeito.'
+    memoryHook: 'Dinheiro público tem freio, painel e prestação de contas.',
+    finalReminder: 'Na prova, procure palavras como planejamento, transparência, equilíbrio, limite, meta e controle.',
+    miniMission: 'Questão de verificação: explique por que criar despesa permanente sem planejamento ameaça o interesse público.',
+    notUnderstood: 'Modo simples: responsabilidade fiscal é não gastar dinheiro público como se fosse infinito.'
   },
   {
     missionId: 'ap-09',
     subjectId: 'administracao',
-    title: 'Improbidade Administrativa — Quando o Agente Vira Vilão',
-    missionBrief: 'Entender atos de improbidade sem juridiquês.',
-    dumbMode: 'Improbidade é conduta desonesta ou ilegal grave praticada por agente público ou por quem se beneficia dela. Pode envolver enriquecimento ilícito, prejuízo ao erário ou violação de princípios.',
-    analogy: 'Em uma guilda, o guardião que usa o cargo para roubar tesouro, favorecer aliados ou prejudicar o povo deixa de ser guardião e vira vilão. Isso é a lógica da improbidade.',
-    vunespMode: 'A banca cobra os tipos de atos de improbidade e exemplos práticos de enriquecimento ilícito, dano ao erário e violação de princípios.',
+    title: 'Improbidade Administrativa — Corrupção, Dano e Desonestidade',
+    missionBrief: 'Você vai entender improbidade administrativa como conduta desonesta grave contra a Administração Pública. O foco é reconhecer atos de enriquecimento ilícito, prejuízo ao erário e violação de princípios, além das consequências possíveis.',
+    dumbMode: 'Improbidade é quando alguém usa a função pública de forma desonesta ou gravemente errada. Pode acontecer quando o agente enriquece ilicitamente, causa prejuízo ao dinheiro público ou viola princípios da Administração. Não é qualquer erro simples; a ideia central é conduta grave ligada à desonestidade, má-fé ou violação relevante do dever público.',
+    analogy: 'Imagine um guarda que recebeu a chave do cofre do reino. Se ele pega moedas para si, favorece um aliado, destrói recursos ou usa a autoridade para interesse próprio, ele traiu a missão. Improbidade é essa traição da confiança pública.',
+    vunespMode: 'A banca costuma cobrar categorias de improbidade, sanções e diferença entre irregularidade simples e ato ímprobo. Também explora enriquecimento ilícito, dano ao erário, violação de princípios e participação de terceiros que induzem, concorrem ou se beneficiam do ato.',
     traps: [
-      'Enriquecimento ilícito envolve vantagem indevida.',
-      'Prejuízo ao erário envolve dano ao dinheiro público.',
-      'Violação de princípios atinge deveres como honestidade, legalidade e imparcialidade.',
-      'Nem todo erro administrativo é improbidade; precisa gravidade e enquadramento legal.'
+      'Improbidade não é todo erro administrativo; exige gravidade e elemento subjetivo adequado.',
+      'Enriquecimento ilícito envolve vantagem patrimonial indevida.',
+      'Prejuízo ao erário envolve dano aos cofres públicos.',
+      'Violação de princípios atinge deveres como honestidade, imparcialidade e legalidade.',
+      'Particular também pode responder se participa ou se beneficia do ato.',
+      'Sanções podem incluir ressarcimento, multa, perda da função e suspensão de direitos políticos, conforme o caso.'
     ],
-    memoryHook: 'Improbidade é traição ao interesse público.',
-    finalReminder: 'Se cair improbidade, identifique: ganhou vantagem, causou prejuízo ou violou princípio?',
-    miniMission: 'Crie um exemplo para cada tipo: enriquecimento, prejuízo e princípio.',
-    notUnderstood: 'Modo simples: improbidade é quando alguém usa a função pública de forma desonesta ou gravemente errada.'
+    memoryHook: 'Improbidade é traição grave da confiança pública.',
+    finalReminder: 'Na prova, identifique se houve enriquecimento, dano ao erário ou violação grave de princípio.',
+    miniMission: 'Questão de verificação: crie um exemplo de enriquecimento ilícito, um de prejuízo ao erário e um de violação de princípio.',
+    notUnderstood: 'Modo simples: improbidade é quando alguém usa o poder público de forma desonesta e causa dano, vantagem indevida ou quebra grave de dever.'
   },
   {
     missionId: 'mt-01',
