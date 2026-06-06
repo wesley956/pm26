@@ -1,7 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="42" fill="#08130d"/>
-  <rect x="18" y="18" width="156" height="156" rx="34" fill="#0f2a1a" stroke="#d6a94f" stroke-width="6"/>
-  <path d="M96 36l44 18v34c0 32-18 53-44 68-26-15-44-36-44-68V54l44-18z" fill="#173f28" stroke="#d6a94f" stroke-width="6"/>
-  <text x="96" y="92" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="800" fill="#ffffff">PM</text>
-  <text x="96" y="124" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="800" fill="#d6a94f">26</text>
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" rx="42" fill="#020617"/>
+  <path d="M96 18L154 40V86C154 123 130 154 96 174C62 154 38 123 38 86V40L96 18Z" fill="#0F172A" stroke="#F8C84E" stroke-width="8"/>
+  <path d="M96 47L106 76H137L112 94L122 124L96 106L70 124L80 94L55 76H86L96 47Z" fill="#F8C84E"/>
+  <text x="96" y="154" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="900" fill="#E2E8F0">PM</text>
 </svg>

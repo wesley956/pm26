@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.pmsp.arena',
-  appName: 'PM-SP Arena',
+  appName: 'PM-Future',
   webDir: 'dist',
   bundledWebRuntime: false,
   server: {
