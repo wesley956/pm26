@@ -83,39 +83,43 @@ export const theoryLessons: TheoryLesson[] = [
     missionId: 'pt-07',
     subjectId: 'portugues',
     title: 'Crase — O Portal Duplo do A',
-    missionBrief: 'Entender quando dois As se juntam e viram crase.',
-    dumbMode: 'Crase é a fusão de dois As: a preposição A mais o artigo A. Se não existem dois As, não existe crase.',
-    analogy: 'Pense em um portal mágico que só abre com duas chaves. Uma chave é a preposição exigida pelo verbo ou nome. A outra chave é o artigo feminino antes da palavra. Se tiver as duas, o portal abre: à.',
-    vunespMode: 'A banca cobra muito proibições: antes de verbo, palavra masculina, pronome pessoal e muitas cidades sem artigo.',
+    missionBrief: 'Você vai entender crase como encontro de dois elementos: a preposição a mais o artigo feminino a. Se não houver esses dois elementos, não há crase. Em vez de decorar mil regras, aprenda os testes rápidos.',
+    dumbMode: 'Crase não é acento colocado por beleza. Ela marca a fusão de dois As. O primeiro A vem porque o verbo ou nome exige preposição. O segundo A vem porque a palavra seguinte aceita artigo feminino. Exemplo: vou a + a escola = vou à escola. Se a palavra seguinte é verbo, masculina ou pronome pessoal, normalmente não existe artigo feminino; então não tem crase.',
+    analogy: 'Imagine um portal mágico que só abre com duas chaves. Uma chave é a preposição exigida pela palavra anterior. A outra chave é o artigo feminino da palavra seguinte. Se você tem as duas, o portal abre e aparece à. Se falta uma chave, o portal não abre.',
+    vunespMode: 'A Vunesp cobra proibições, obrigatoriedades e testes. Ela gosta de frases com nomes de lugar, locuções femininas, palavras masculinas e pronomes. Também cobra diferença entre a, à e há. O melhor caminho é testar: quem exige a antes? A palavra seguinte aceita a?',
     traps: [
-      'Antes de verbo não tem crase: começou a chover.',
-      'Antes de palavra masculina não tem crase: fui a pé.',
-      'Antes de pronome pessoal não tem crase: entreguei a ela.',
-      'Com nomes de cidade, use o teste: volto de Curitiba, vou a Curitiba; volto da Bahia, vou à Bahia.'
+      'Antes de verbo não há crase: começou a estudar.',
+      'Antes de palavra masculina não há crase: foi a pé.',
+      'Antes de pronome pessoal não há crase: entreguei a ela.',
+      'Com cidade, use o teste: volto de Curitiba, vou a Curitiba; volto da Bahia, vou à Bahia.',
+      'Locuções femininas costumam receber crase: à noite, às vezes, à medida que.',
+      'Há indica tempo passado ou existência; a pode indicar tempo futuro ou distância.'
     ],
     memoryHook: 'Crase só existe quando duas chaves A abrem o mesmo portal.',
-    finalReminder: 'Se cair na prova, teste: quem exige A? A palavra seguinte aceita artigo A?',
-    miniMission: 'Pegue 5 frases com A e pergunte: existe preposição? existe artigo feminino?',
-    notUnderstood: 'Modo burro total: se depois do A vem verbo, homem, ele, ela, você ou palavra masculina, desconfie muito da crase.'
+    finalReminder: 'Na prova, faça dois testes: a palavra anterior pede preposição a? A próxima palavra aceita artigo feminino a?',
+    miniMission: 'Questão de verificação: explique por que há crase em fui à escola e não há crase em comecei a estudar.',
+    notUnderstood: 'Modo simples: se depois do A vem verbo, palavra masculina ou pronome pessoal, desconfie muito da crase.'
   },
   {
     missionId: 'pt-08',
     subjectId: 'portugues',
     title: 'Pontuação — O Ritmo da Operação',
-    missionBrief: 'Usar vírgula para organizar sentido, não para respirar aleatoriamente.',
-    dumbMode: 'Vírgula não é pausa para respirar. Vírgula serve para separar funções dentro da frase. Ela isola vocativo, aposto, explicações e termos deslocados.',
-    analogy: 'Imagine uma equipe entrando em uma ocorrência. Se cada policial recebe a ordem errada, vira caos. A pontuação organiza quem faz o quê dentro da frase.',
-    vunespMode: 'A Vunesp cobra principalmente vocativo, aposto, oração explicativa e diferença entre restrição e explicação.',
+    missionBrief: 'Você vai aprender que pontuação não é respiração; é organização sintática e de sentido. A vírgula separa funções, isola termos e evita ambiguidade. O objetivo é entender o papel da pausa dentro da frase.',
+    dumbMode: 'A regra que mais salva questão é: não separe sujeito e verbo com vírgula. Depois, aprenda as funções principais: vírgula isola vocativo, aposto, termo deslocado, oração explicativa e itens de enumeração. Dois-pontos anunciam explicação, enumeração ou fala. Ponto e vírgula separa partes maiores quando a vírgula já está sendo usada.',
+    analogy: 'Pense em uma equipe entrando em ocorrência. Se você separa comandante da ordem, a operação quebra. Na frase é igual: sujeito e verbo precisam ficar juntos. A pontuação organiza quem chama, quem explica, quem enumera e quem entra como informação extra.',
+    vunespMode: 'A Vunesp cobra principalmente vírgula entre sujeito e verbo, vocativo, aposto, oração explicativa versus restritiva, adjunto adverbial deslocado e enumeração. Ela também pergunta se a retirada ou inclusão da vírgula muda o sentido.',
     traps: [
-      'Não se separa sujeito e verbo com vírgula.',
-      'Vocativo é chamamento: Candidato, mantenha a calma.',
-      'Aposto explica um termo: João, o supervisor, chegou.',
-      'Oração explicativa vem com vírgula; restritiva normalmente não.'
+      'Nunca separe sujeito e verbo por vírgula sem motivo sintático forte.',
+      'Vocativo é chamamento e vem isolado: Candidato, mantenha a calma.',
+      'Aposto explicativo vem isolado: João, o supervisor, chegou.',
+      'Oração explicativa vem com vírgula; restritiva normalmente não.',
+      'Termo deslocado no início pode pedir vírgula: À noite, os candidatos estudaram.',
+      'Vírgula pode mudar sentido: não, espere; não espere.'
     ],
     memoryHook: 'Vírgula organiza função, não respiração.',
-    finalReminder: 'Se cair na prova, veja se a vírgula separou sujeito do verbo. Se separou, provavelmente está errada.',
-    miniMission: 'Procure uma frase com vírgula e diga qual função ela está cumprindo.',
-    notUnderstood: 'Comece só com uma regra: nunca coloque vírgula entre sujeito e verbo. Isso já salva muita questão.'
+    finalReminder: 'Na prova, pergunte: essa vírgula está isolando explicação, chamamento, deslocamento ou enumeração? Se separou sujeito e verbo, cuidado.',
+    miniMission: 'Questão de verificação: crie uma frase com vocativo, uma com aposto e uma com termo deslocado no início.',
+    notUnderstood: 'Comece com uma regra de sobrevivência: sujeito e verbo não se separam. Só isso já elimina muita alternativa errada.'
   },
   {
     missionId: 'ap-01',
@@ -549,61 +553,64 @@ export const theoryLessons: TheoryLesson[] = [
     missionId: 'pt-06',
     subjectId: 'portugues',
     title: 'Regência — Quem Exige Preposição?',
-    missionBrief: 'Entender por que alguns verbos pedem preposição e outros não.',
-    dumbMode: 'Regência é a relação de dependência entre palavras. Alguns verbos ou nomes exigem uma preposição específica. Quem gosta, gosta de algo. Quem obedece, obedece a alguém ou a algo.',
-    analogy: 'Imagine uma magia que só funciona com ingrediente certo. O verbo é a magia; a preposição é o ingrediente obrigatório. Se usar o ingrediente errado, a frase falha.',
-    vunespMode: 'A banca cobra verbos clássicos: assistir, aspirar, visar, obedecer, preferir, lembrar, esquecer, chegar e ir.',
+    missionBrief: 'Você vai aprender a enxergar quando uma palavra exige complemento com preposição. Regência é a relação de dependência entre um termo principal e seu complemento. Em prova, o segredo é perguntar: esse verbo ou nome pede preposição? Se pede, qual?',
+    dumbMode: 'Regência é quando uma palavra manda na outra. Alguns verbos aceitam complemento direto, sem preposição. Outros exigem preposição. Quem assiste no sentido de ver, assiste a algo. Quem obedece, obedece a alguém. Quem prefere, prefere uma coisa a outra. O erro comum é usar a preposição do jeito que falamos no dia a dia, mas a prova cobra a forma padrão.',
+    analogy: 'Pense em uma magia de RPG. Cada magia precisa de um ingrediente certo. O verbo é a magia; a preposição é o ingrediente. Se você usa a preposição errada, a magia falha. Assistir no sentido de ver exige a. Obedecer exige a. Preferir exige estrutura com a, não com do que.',
+    vunespMode: 'A Vunesp gosta de verbos clássicos: assistir, aspirar, visar, obedecer, preferir, lembrar, esquecer, chegar, ir, informar e implicar. Ela também cobra diferença de sentido: aspirar o ar é respirar; aspirar ao cargo é desejar. Assistir o paciente é ajudar; assistir ao filme é ver.',
     traps: [
       'Assistir no sentido de ver pede a: assisti ao filme.',
       'Aspirar no sentido de desejar pede a: aspiro ao cargo.',
       'Visar no sentido de desejar pede a: viso ao cargo.',
-      'Obedecer pede a: obedeceu ao edital.',
-      'Preferir pede estrutura: preferiu X a Y.'
+      'Obedecer e desobedecer pedem a: obedeceu ao edital.',
+      'Preferir pede estrutura preferir X a Y, e não preferir X do que Y.',
+      'Chegar e ir, na norma padrão, pedem a: cheguei ao local, fui à escola.'
     ],
     memoryHook: 'Regência é o verbo pedindo senha para completar sentido.',
-    finalReminder: 'Se cair na prova, pergunte: esse verbo exige preposição?',
-    miniMission: 'Monte frases com assistir, obedecer, visar e preferir.',
-    notUnderstood: 'Modo simples: alguns verbos são exigentes. Eles não aceitam qualquer complemento; pedem preposição certa.'
+    finalReminder: 'Na prova, pergunte: o verbo mudou de sentido? Ele exige preposição? Qual preposição mantém a norma padrão?',
+    miniMission: 'Questão de verificação: escreva uma frase correta com assistir, obedecer, aspirar, visar e preferir.',
+    notUnderstood: 'Modo simples: alguns verbos são exigentes. Eles não aceitam qualquer companhia; pedem uma preposição certa.'
   },
   {
     missionId: 'pt-09',
     subjectId: 'portugues',
     title: 'Figuras de Linguagem — Magias do Sentido',
-    missionBrief: 'Reconhecer metáfora, metonímia, hipérbole, ironia e eufemismo.',
-    dumbMode: 'Figura de linguagem é quando a frase usa sentido especial, diferente do literal. Ela serve para dar força, beleza, exagero, crítica ou suavização.',
-    analogy: 'Em fantasia, dizer “ele é um dragão em combate” não significa que ele virou dragão. Significa que luta com força. Isso é metáfora.',
-    vunespMode: 'A Vunesp costuma dar uma frase curta e pedir a figura de linguagem predominante.',
+    missionBrief: 'Você vai aprender a reconhecer quando a linguagem sai do sentido literal para criar efeito. Figuras de linguagem servem para comparar, exagerar, suavizar, ironizar, substituir ou dar expressividade.',
+    dumbMode: 'Figura de linguagem é quando a frase não quer ser lida ao pé da letra. Metáfora compara sem usar como. Comparação usa como. Hipérbole exagera. Eufemismo suaviza algo pesado. Ironia diz o contrário para criticar. Metonímia troca uma palavra por outra relacionada. Personificação dá ação humana a algo não humano.',
+    analogy: 'Em fantasia, dizer que o guerreiro é um dragão não significa que ele criou asas. Significa que ele é forte ou assustador em combate: isso é metáfora. Dizer que esperou mil anos é exagero: hipérbole. Dizer que alguém partiu desta para melhor suaviza a morte: eufemismo.',
+    vunespMode: 'A Vunesp costuma apresentar uma frase curta e pedir a figura predominante. Ela também pode cobrar efeito de sentido. A armadilha é confundir metáfora com comparação, ironia com mentira e metonímia com metáfora. Foque no mecanismo usado pela frase.',
     traps: [
-      'Metáfora é comparação sem “como”.',
-      'Hipérbole é exagero.',
-      'Ironia diz o contrário do que quer dizer.',
-      'Eufemismo suaviza algo pesado.',
-      'Metonímia troca um termo por outro relacionado.'
+      'Metáfora é comparação implícita, sem como.',
+      'Comparação explícita usa como, tal qual, feito.',
+      'Hipérbole é exagero intencional.',
+      'Ironia diz o contrário do que quer significar, geralmente com crítica.',
+      'Eufemismo suaviza expressão dura.',
+      'Metonímia troca um termo por outro relacionado: li Machado de Assis, isto é, li a obra dele.'
     ],
     memoryHook: 'Metáfora compara. Hipérbole exagera. Ironia inverte. Eufemismo suaviza.',
-    finalReminder: 'Se cair na prova, descubra se a frase exagera, compara, suaviza ou ironiza.',
-    miniMission: 'Crie uma frase com metáfora e outra com hipérbole.',
-    notUnderstood: 'Modo simples: figura de linguagem é quando a frase ganha efeito especial, não literal.'
+    finalReminder: 'Na prova, pergunte: a frase compara, exagera, suaviza, ironiza, humaniza ou troca um termo por outro relacionado?',
+    miniMission: 'Questão de verificação: crie uma metáfora, uma hipérbole, uma ironia e um eufemismo.',
+    notUnderstood: 'Modo simples: figura de linguagem é quando a frase ganha efeito especial e não deve ser lida só no sentido literal.'
   },
   {
     missionId: 'pt-10',
     subjectId: 'portugues',
     title: 'Ortografia e Acentuação — Inspeção Final da Escrita',
-    missionBrief: 'Revisar escrita correta e regras básicas de acentuação.',
-    dumbMode: 'Ortografia é escrever certo. Acentuação é saber quando uma palavra recebe acento. Você não precisa decorar o dicionário inteiro; precisa dominar padrões que caem muito.',
-    analogy: 'Pense em uma inspeção militar. Antes de sair para missão, cada detalhe do uniforme é conferido. Na escrita, acento e ortografia são essa inspeção final.',
-    vunespMode: 'A banca cobra palavras parecidas, grafias comuns em concurso e regras de oxítonas, paroxítonas e proparoxítonas.',
+    missionBrief: 'Você vai revisar padrões de escrita correta e acentuação que mais aparecem em prova. Não é para decorar o dicionário inteiro; é para dominar regras de sílaba tônica, oxítonas, paroxítonas, proparoxítonas e grafias frequentes.',
+    dumbMode: 'Acentuação começa descobrindo a sílaba mais forte. Se a sílaba forte é a última, a palavra é oxítona. Se é a penúltima, é paroxítona. Se é a antepenúltima, é proparoxítona. Todas as proparoxítonas são acentuadas. Oxítonas terminadas em a, e, o, em e ens são acentuadas. Paroxítonas têm regras mais variadas, mas muitas caem por contraste com as oxítonas.',
+    analogy: 'Pense numa inspeção antes da missão. O uniforme pode estar quase certo, mas um detalhe errado entrega falta de atenção. Na escrita, acento e ortografia são esses detalhes. Para a prova, você precisa olhar a palavra como um perito: onde está a força? Qual regra se aplica? A grafia parece comum, mas está correta?',
+    vunespMode: 'A Vunesp cobra palavras parecidas, acento diferencial, hiato, proparoxítonas, paroxítonas comuns e grafias que muita gente erra. Também explora palavras sem acento que parecem acentuadas, como item e itens, e palavras com grafia traiçoeira, como exceção, privilégio e disciplina.',
     traps: [
-      'Todas as proparoxítonas são acentuadas.',
-      'Oxítonas terminadas em a, e, o, em e ens são acentuadas.',
-      'Paroxítonas têm regras mais variadas.',
+      'Todas as proparoxítonas são acentuadas: médico, lâmpada, público.',
+      'Oxítonas terminadas em a, e, o, em e ens são acentuadas: café, avó, também, parabéns.',
       'Item e itens não têm acento.',
-      'Privilégio, exceção e disciplina são grafias comuns em prova.'
+      'Hiatos podem receber acento: saúde, saída, juízes.',
+      'Não confunda comprimento com cumprimento.',
+      'Grafias comuns em prova: exceção, privilégio, disciplina, assessoria, excesso.'
     ],
-    memoryHook: 'Proparoxítona? Acentua sempre.',
-    finalReminder: 'Se cair acentuação, classifique a sílaba tônica antes de responder.',
-    miniMission: 'Classifique: café, fácil, médico, itens, caráter.',
-    notUnderstood: 'Modo simples: descubra qual sílaba é mais forte. Depois aplique a regra.'
+    memoryHook: 'Primeiro ache a sílaba forte; depois aplique a regra.',
+    finalReminder: 'Na prova, não chute acento por aparência. Classifique a palavra: oxítona, paroxítona ou proparoxítona.',
+    miniMission: 'Questão de verificação: classifique e explique a acentuação de café, fácil, médico, saúde e itens.',
+    notUnderstood: 'Modo simples: descubra qual pedaço da palavra fala mais forte. A regra de acento vem depois disso.'
   },
   {
     missionId: 'ap-04',
