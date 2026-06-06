@@ -67,6 +67,12 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
     });
   }, [flashcards, profile.spacedRepetition, selectedSubject, todayIso]);
 
+  const totalFlashcardsInScope = useMemo(() => {
+    return selectedSubject
+      ? flashcards.filter(card => card.subjectId === selectedSubject).length
+      : flashcards.length;
+  }, [flashcards, selectedSubject]);
+
   const quickQs = useMemo(() => shuffleItems(subjectFilteredQuestions).slice(0, 5), [subjectFilteredQuestions]);
 
   const currentCard = dueFlashcards[currentIndex];
@@ -277,7 +283,9 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
           <button onClick={() => startMode('flashcards')} className="review-choice-card">
             <Layers size={30} className="mb-4 text-pm-300" />
             <h3 className="text-xl font-black text-white">Flashcards</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">{dueFlashcards.length} cards para revisar hoje • {flashcards.length} no total.</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              {dueFlashcards.length} cartões para revisar hoje • {totalFlashcardsInScope} no total{selectedSubject ? ' nessa matéria.' : '.'}
+            </p>
           </button>
 
           <button onClick={() => startMode('quick')} className="review-choice-card">
