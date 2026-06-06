@@ -504,22 +504,23 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'inf-06',
     subjectId: 'informatica',
-    title: 'Segurança da Informação — Defesa Contra Armadilhas Digitais',
-    missionBrief: 'Revisar golpes, malware, senha forte, backup e proteção de dados.',
-    dumbMode: 'Segurança da informação é proteger dados contra perda, roubo, alteração ou acesso indevido. Isso envolve senha forte, backup, antivírus, cuidado com links falsos e proteção de dados pessoais.',
-    analogy: 'Pense como uma base militar. Senha forte é portão reforçado. Backup é rota de fuga. Antivírus é sentinela. Phishing é inimigo disfarçado tentando entrar.',
-    vunespMode: 'A banca cobra muito phishing, malware, vírus, backup, senha forte, autenticação em dois fatores e LGPD.',
+    title: 'Segurança da Informação — Blindagem dos Dados',
+    missionBrief: 'Você vai entender os pilares da segurança da informação: confidencialidade, integridade, disponibilidade, autenticação, backup, antivírus, firewall, criptografia e golpes digitais. Essa aula é essencial porque a banca mistura conceito técnico com situações do dia a dia.',
+    dumbMode: 'Segurança da informação é proteger dados contra acesso indevido, alteração, perda ou roubo. Confidencialidade significa que só pessoas autorizadas acessam. Integridade significa que o dado não foi alterado indevidamente. Disponibilidade significa que o dado ou sistema está acessível quando necessário. Backup é cópia de segurança. Antivírus detecta ameaças. Firewall filtra conexões. Criptografia embaralha dados para proteger a leitura.',
+    analogy: 'Pense em uma delegacia com arquivo sigiloso. Confidencialidade é só o policial autorizado abrir o arquivo. Integridade é garantir que ninguém adulterou o boletim. Disponibilidade é o arquivo estar acessível quando a equipe precisa. Backup é uma cópia guardada em outro cofre. Firewall é o guarda da porta. Criptografia é escrever a mensagem em código.',
+    vunespMode: 'A Vunesp cobra muito phishing, malware, vírus, ransomware, backup, senha forte, autenticação em dois fatores, firewall e criptografia. Ela também gosta de confundir antivírus com firewall, backup com sincronização e HTTPS com garantia absoluta de segurança.',
     traps: [
-      'Phishing tenta enganar o usuário para roubar dados.',
-      'Malware é software malicioso.',
-      'Backup é cópia de segurança.',
-      'Senha forte mistura letras, números e símbolos.',
-      'LGPD protege dados pessoais.'
+      'Phishing é golpe para roubar dados usando página, e-mail ou mensagem falsa.',
+      'Malware é software malicioso; vírus é um tipo de malware.',
+      'Ransomware sequestra dados e exige resgate.',
+      'Backup não é a mesma coisa que sincronização automática.',
+      'Senha forte deve combinar tamanho, variedade e imprevisibilidade.',
+      'Autenticação em dois fatores adiciona uma camada além da senha.'
     ],
-    memoryHook: 'Phishing engana. Malware infecta. Backup salva.',
-    finalReminder: 'Se cair golpe digital, procure engenharia social, link falso ou roubo de dados.',
-    miniMission: 'Diga a diferença entre phishing, malware e backup.',
-    notUnderstood: 'Modo simples: segurança digital é não deixar seus dados caírem na mão errada.'
+    memoryHook: 'Segurança é CID: confidencialidade, integridade e disponibilidade.',
+    finalReminder: 'Na prova, se aparecer roubo de senha ou link falso, pense em phishing. Se aparecer sequestro de arquivo, pense em ransomware.',
+    miniMission: 'Questão de verificação: explique a diferença entre phishing, malware, ransomware, backup e firewall.',
+    notUnderstood: 'Modo simples: segurança digital é proteger seus dados para ninguém roubar, alterar, apagar ou bloquear.'
   },
   {
     missionId: 'pt-02',
@@ -949,22 +950,23 @@ export const theoryLessons: TheoryLesson[] = [
   {
     missionId: 'inf-07',
     subjectId: 'informatica',
-    title: 'E-mail — Comunicação Oficial sem Vacilo',
-    missionBrief: 'Entender campos, anexos, cópia, cópia oculta e segurança no e-mail.',
-    dumbMode: 'E-mail é mensagem eletrônica. O campo Para recebe o destinatário principal. CC manda cópia visível. CCO manda cópia oculta. Anexo é arquivo enviado junto.',
-    analogy: 'Imagine enviar um relatório de ocorrência. Para é quem precisa receber. CC são pessoas que precisam acompanhar. CCO é quem recebe sem os outros verem. Anexo é o documento preso ao relatório.',
-    vunespMode: 'A banca cobra Para, CC, CCO, anexos, spam, phishing, resposta, responder a todos e cuidados com links suspeitos.',
+    title: 'E-mail e Comunicação Digital — Mensagem sem Cair em Armadilha',
+    missionBrief: 'Você vai aprender os campos do e-mail, anexos, spam, phishing, resposta, encaminhamento, assinatura e boas práticas de comunicação digital. E-mail parece simples, mas cai bastante em prova por causa de golpes e campos CC/CCO.',
+    dumbMode: 'E-mail é correio eletrônico. O campo Para recebe o destinatário principal. CC envia cópia visível para outras pessoas. CCO envia cópia oculta: os outros destinatários não veem quem está em CCO. Anexo é arquivo enviado junto. Responder responde ao remetente. Responder a todos manda para todos os envolvidos. Encaminhar envia a mensagem para outra pessoa. Spam é mensagem indesejada. Phishing é golpe tentando roubar dados.',
+    analogy: 'Pense no e-mail como uma ordem de serviço. Para é quem precisa agir. CC são pessoas que precisam saber. CCO é alguém observando sem aparecer para os demais. Anexo é o documento preso à ocorrência. Responder a todos é falar no rádio para todo mundo ouvir; se usar sem cuidado, vira bagunça.',
+    vunespMode: 'A Vunesp gosta de cobrar diferença entre CC e CCO, anexos, spam, phishing, resposta versus responder a todos e cuidados com links. Também pode aparecer assinatura digital, que ajuda a verificar autenticidade e integridade de documentos ou mensagens.',
     traps: [
-      'CC é cópia visível.',
-      'CCO é cópia oculta.',
-      'Anexo não fica dentro do texto; vai junto com a mensagem.',
-      'Responder a todos envia para todos os envolvidos.',
-      'E-mail falso pode ser phishing.'
+      'CC é cópia visível; CCO é cópia oculta.',
+      'Responder a todos pode expor informação a quem não precisa recebê-la.',
+      'Anexo pode carregar malware.',
+      'Spam é mensagem indesejada; phishing é tentativa de golpe.',
+      'Remetente parecido com empresa real pode ser falso.',
+      'Assinatura digital não é só assinatura desenhada; envolve autenticidade e integridade.'
     ],
-    memoryHook: 'Para recebe. CC aparece. CCO esconde. Anexo acompanha.',
-    finalReminder: 'Se cair e-mail, procure diferença entre CC e CCO.',
-    miniMission: 'Diga quando você usaria CC e quando usaria CCO.',
-    notUnderstood: 'Modo simples: e-mail é carta digital com destinatário, cópia e arquivo anexado.'
+    memoryHook: 'Para age, CC vê, CCO vê escondido.',
+    finalReminder: 'Na prova, se o destinatário precisa ficar oculto, a resposta é CCO.',
+    miniMission: 'Questão de verificação: explique a diferença entre Para, CC, CCO, responder, responder a todos e encaminhar.',
+    notUnderstood: 'Modo simples: e-mail é carta digital. CCO é mandar cópia sem os outros verem.'
   },
   {
     missionId: 'inf-08',
