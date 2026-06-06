@@ -159,7 +159,6 @@ export const LEVELS = [
   { level: 12, title: 'Major', xpRequired: 10000, icon: '🏅' },
 ];
 
-export const ALL_MEDALS: Medal[] = [];
 
 export const getDefaultProfile = (): UserProfile => ({
   name: 'Recruta',
