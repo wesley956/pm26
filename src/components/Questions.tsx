@@ -115,10 +115,6 @@ export default function Questions({ subjectId, topic, onNavigate }: Props) {
     setSessionCorrect(0);
     setSessionTotal(0);
     setSessionXp(0);
-    setSelectedSubject('');
-    setSelectedTopic('');
-    sessionStorage.removeItem('pm-sp-topic-filter');
-    setTimeout(() => setSelectedSubject(subjectId || ''), 0);
   };
 
   if (!selectedSubject && !subjectId) {
