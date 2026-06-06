@@ -291,7 +291,9 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
           <button onClick={() => startMode('quick')} className="review-choice-card">
             <RotateCcw size={30} className="mb-4 text-gold-400" />
             <h3 className="text-xl font-black text-white">Revisão rápida</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-400">5 questões aleatórias para manter o cérebro aquecido.</p>
+            <p className="mt-2 text-sm leading-relaxed text-slate-400">
+              5 questões {selectedSubject ? 'da matéria escolhida' : 'aleatórias'} para manter o cérebro aquecido.
+            </p>
           </button>
         </div>
 
