@@ -238,6 +238,21 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
     const totalQ = simQuestions.length;
     const pct = Math.round((totalCorrect / totalQ) * 100);
     const xpEarned = calculateSimulationXp(totalCorrect, simType);
+    const weakSubjects = subjects
+      .map(sub => {
+        const result = results[sub.id];
+        if (!result) return null;
+
+        const subjectPct = Math.round((result.correct / result.total) * 100);
+
+        return {
+          ...sub,
+          result,
+          subjectPct,
+        };
+      })
+      .filter((item): item is NonNullable<typeof item> => Boolean(item) && item.subjectPct < 70)
+      .sort((a, b) => a.subjectPct - b.subjectPct);
 
     return (
       <div className="result-shell text-center animate-slide-up">
@@ -271,17 +286,46 @@ export default function Simulado({ onNavigate }: { onNavigate: (tab: string) => 
           </div>
 
           <div className="study-card mt-6 text-left">
-            <h3 className="study-kicker gold">Recomendações</h3>
-            <div className="study-body">
-              {subjects.map(sub => {
-                const r = results[sub.id];
-                if (!r || r.correct / r.total >= 0.7) return null;
-                return <p key={sub.id}>Reforce <strong>{sub.name}</strong>: acerto abaixo de 70%.</p>;
-              })}
-              {Object.values(results).every(r => r.correct / r.total >= 0.7) && (
-                <p>Você está indo bem. Mantenha o ritmo com revisões regulares.</p>
-              )}
-            </div>
+            <h3 className="study-kicker gold">Próxima ação recomendada</h3>
+
+            {weakSubjects.length > 0 ? (
+              <div className="grid gap-3">
+                {weakSubjects.map(sub => (
+                  <div key={sub.id} className="rounded-2xl border border-danger/20 bg-danger/5 p-4">
+                    <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                      <div>
+                        <p className="font-black text-white">
+                          {sub.icon} Reforçar {sub.name}
+                        </p>
+                        <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                          Você fez {sub.result.correct}/{sub.result.total} nessa matéria ({sub.subjectPct}%). Priorize revisão curta e questões focadas.
+                        </p>
+                      </div>
+
+                      <span className="w-fit rounded-full border border-danger/25 bg-danger/10 px-3 py-1 text-xs font-bold text-danger">
+                        prioridade
+                      </span>
+                    </div>
+                  </div>
+                ))}
+
+                <div className="mt-2 grid gap-3 sm:grid-cols-2">
+                  <button onClick={() => onNavigate('review')} className="btn-secondary">
+                    Revisar agora
+                  </button>
+                  <button onClick={() => onNavigate('questions')} className="btn-primary">
+                    Treinar questões
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="rounded-2xl border border-success/20 bg-success/5 p-4">
+                <p className="font-black text-white">Bom desempenho geral</p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-400">
+                  Todas as matérias ficaram com pelo menos 70%. Mantenha o ritmo com revisões regulares e simulados semanais.
+                </p>
+              </div>
+            )}
           </div>
 
           <button onClick={() => { setActive(false); setSimType(null); }} className="btn-primary mt-6 w-full">
