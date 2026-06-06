@@ -16,7 +16,7 @@ function shuffleItems<T>(list: T[]): T[] {
   return shuffled;
 }
 
-export default function Review({ onNavigate }: { onNavigate: (tab: string, data?: any) => void }) {
+export default function Review({ initialSubjectId = '', onNavigate }: { initialSubjectId?: string; onNavigate: (tab: string, data?: any) => void }) {
   const { profile, answerQuestion, addXP, markDailyMinimumDone, updateSpacedReview } = useApp();
   const [mode, setMode] = useState<'menu' | 'wrong' | 'flashcards' | 'quick'>('menu');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -25,7 +25,7 @@ export default function Review({ onNavigate }: { onNavigate: (tab: string, data?
   const [sessionCorrect, setSessionCorrect] = useState(0);
   const [sessionTotal, setSessionTotal] = useState(0);
   const [sessionXp, setSessionXp] = useState(0);
-  const [selectedSubject, setSelectedSubject] = useState('');
+  const [selectedSubject, setSelectedSubject] = useState(initialSubjectId);
 
   const subjectFilteredQuestions = useMemo(() => {
     return selectedSubject

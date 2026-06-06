@@ -251,7 +251,7 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           <p className="mt-1 text-sm leading-relaxed text-slate-400">{smartAction.minutes} min • +{smartAction.xpReward} XP</p>
         </button>
 
-        <button onClick={() => onNavigate('review')} className="study-card text-left transition hover:-translate-y-0.5">
+        <button onClick={() => onNavigate('review', { subjectId: topPriority?.id })} className="study-card text-left transition hover:-translate-y-0.5">
           <p className="study-kicker">
             <RotateCcw size={16} />
             Revisão pendente
@@ -260,6 +260,11 @@ export default function Dashboard({ onNavigate }: { onNavigate: (tab: string, da
           <p className="mt-1 text-sm leading-relaxed text-slate-400">
             {dueReviewCount} flashcards • {wrongReviewCount} questões erradas
           </p>
+          {topPriority && (
+            <p className="mt-2 text-xs font-bold text-gold-400">
+              Abre focado em {topPriority.name}
+            </p>
+          )}
         </button>
 
         <button onClick={() => onNavigate('simulados')} className="study-card text-left transition hover:-translate-y-0.5">

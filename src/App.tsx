@@ -78,7 +78,7 @@ function AppContent() {
       case 'taf':
         return <TAF onNavigate={navigate} />;
       case 'review':
-        return <Review onNavigate={navigate} />;
+        return <Review initialSubjectId={pageData.subjectId} onNavigate={navigate} />;
       case 'simulados':
         return <Simulado onNavigate={navigate} />;
       case 'profile':
